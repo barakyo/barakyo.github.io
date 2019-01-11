@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="generator" content="Hugo 0.53" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="barakyo">
+<title>
+  Writing Test Cases for Laravel - barakyo
+</title>
+</head>
+<body>
+
+<header>
+  <div class="container clearfix">
+    <a class="path" href="https://barakyo.github.io">barakyo</a>
+    <div class="right">
+      
+        
+        <a class="path" href="/categories/">Categories</a>
+      
+        |
+        <a class="path" href="/categories/development/">Development</a>
+      
+        |
+        <a class="path" href="/categories/personal/">Personal</a>
+      
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+
+<main role="main" class="article">
+  
+<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2013-11-10">November 10, 2013</time></span>
+
+
+    <span class="key">in</span>
+    <span class="val">
+
+        <a href="/categories/Development">Development</a>
+
+    </span>
+
+
+    <br>
+    <span class="key">tags:</span>
+    <span class="val">
+
+        <a href="/tags/PHP">PHP</a>
+
+        <a href="/tags/TDD">TDD</a>
+
+    </span>
+
+  </div>
+  <h1 class="headline" itemprop="headline">Writing Test Cases for Laravel</h1>
+  <section class="body" itemprop="articleBody">
+    
+
+<p>Besides writing test cases just because &ldquo;everyone else is&rdquo;, we should be writing test cases since they&rsquo;ll help create a stronger trust in our code that our functions are doing what they should be doing.</p>
+
+<h3 id="requirements">Requirements</h3>
+
+<ul>
+<li>PHP</li>
+<li>PHPUnit (you will most likely need a global install)</li>
+<li>Test Cases (DUH)</li>
+</ul>
+
+<h3 id="helpers">Helpers</h3>
+
+<p>Helpers are a set of classes that we create to take care of common mundane tasks. For example, the User Helper for testing provides functions for returning a user with a specified role or easily create a new user with the specified role if one does not exist or the user requests one.</p>
+
+<p>Since we can define helpers for a number of things, we want to ensure that the helpers for our test case don&rsquo;t conflict with helpers that we use in other applications, for this we&rsquo;ll create our test helpers in the sub-namespace <code>Testing</code> within the <code>Helpers</code> name space.</p>
+
+<p>PHP Namespaces are defined as the first line after the <code>&lt;?php</code> opening. It <strong>MUST</strong> be the first line after the opening, or else PHP will throw an error.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#75715e">&lt;?php</span>
+
+<span style="color:#66d9ef">namespace</span> <span style="color:#a6e22e">Helpers\Testing</span>;
+</code></pre></div>
+
+<p>After defining the namespace, you will most likely want to include common exceptions that will be thrown when accessing models.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">use Illuminate\Database\Eloquent\ModelNotFoundException;</code></pre></div>
+From there, you&rsquo;re ready and free to define your helper class as you please.</p>
+
+<p><strong>PLEASE COMMENT FUNCTIONS</strong></p>
+
+<h3 id="test-cases">Test Cases</h3>
+
+<p>To write test cases you must extend from the Laravel&rsquo;s base <code>TestCase</code> class. When writing test cases please follow certain conventions:</p>
+
+<ul>
+<li>The name of the file and the class for the test case should follow the naming convention ControllerFunctionTest
+
+<ul>
+<li>Ex: Writing test cases for the Index function for the User Controller: UserControllerIndexTest.php
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#75715e">&lt;?php</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserControllerIndexTest</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">TestCase</span> {
+
+}
+</code></pre></div></li>
+</ul></li>
+<li>All functions that are test musted start with the word <strong>test</strong> (PHPUnit convention) or else PHPUnit will not find your function</li>
+<li>Functions should specify what role they&rsquo;re testing as, ex: <code>testIndexAsAdmin()</code></li>
+</ul>
+
+<h3 id="tips-for-writing-test-cases">Tips for Writing Test Cases</h3>
+
+<h4 id="calling-routes">Calling Routes</h4>
+
+<p>We want to guarantee our that not only our functions are correct, but that our routes/API are calling the correct functions. If you can, please test routes rather than functions. You can call routes using the <code>$this-&gt;call()</code> function. More information for calling routes can be found in <a href="http://laravel.com/docs/testing#calling-routes-from-tests">Laravel&rsquo;s Documentation</a>.</p>
+
+<h4 id="acting-as-a-user">Acting as a User</h4>
+
+<p>To act as a user, you can use the <code>$this-&gt;be()</code> function, which can also be found in <a href="http://laravel.com/docs/testing#helper-methods">Laravel&rsquo;s Documentation</a></p>
+
+<h4 id="specifying-exceptons">Specifying Exceptons</h4>
+
+<p>An exception being throw can be a success if a user should not have access to certain functionality. Since our API immediately throws a InsufficientPermissionsException when a user doesn&rsquo;t have the right permissions, we can easily have our test cases catch this and mark them as a passed test. To specify that an exception should be thrown, you can define it in the PHPDocs comments like so:
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#75715e">&lt;?php</span>
+    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserControllerIndexTest</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">TestCase</span> {
+    	<span style="color:#e6db74">/**
+</span><span style="color:#e6db74">         * Tests user index function as student, passes on thrown exception
+</span><span style="color:#e6db74">         * @expectedException InsufficientPermissionsException
+</span><span style="color:#e6db74">        */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">testIndexAsStudent</span>() {
+            $user <span style="color:#f92672">=</span> $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">userHelper</span><span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">getStudentUser</span>();
+            $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">be</span>($user);
+            $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">call</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">base_route</span>);
+        }
+    }
+</code></pre></div></p>
+
+<h4 id="writing-functions">Writing Functions</h4>
+
+<p><strong>Note:</strong> Only one test per function, so you cannot have a function return users with all roles and test them as one test case. Hence the need for the naming convention of what you&rsquo;re testing as what role.</p>
+
+<p>Test cases can become repetitive, to ease the amount of typing you can write a function (<em>GASP!</em>) which we can call in our <del>all</del> most  of our tests.</p>
+
+<h3 id="references">References</h3>
+
+<ul>
+<li><a href="http://laravel.com/docs/testing">Laravel Documentation on Testing</a></li>
+<li><a href="http://phpunit.de/manual/current/en/index.html">PHPUnit Documentation</a></li>
+</ul>
+
+  </section>
+</article>
+
+</main>
+
+</div>
+
+<footer>
+  <div class="container">
+    <span class="copyright">&copy; 2015 barakyo - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
+

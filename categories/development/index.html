@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="generator" content="Hugo 0.53" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="barakyo">
+<title>
+  Development - barakyo
+</title>
+</head>
+<body>
+
+<header>
+  <div class="container clearfix">
+    <a class="path" href="https://barakyo.github.io">barakyo</a>
+    <div class="right">
+      
+        
+        <a class="path" href="/categories/">Categories</a>
+      
+        |
+        <a class="path" href="/categories/development/">Development</a>
+      
+        |
+        <a class="path" href="/categories/personal/">Personal</a>
+      
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+<main role="main" class="article-list">
+  <h1 class="list-title">Development</h1>
+  
+    <article class="list-item" itemscope itemtype="http://schema.org/Blog">
+  <h2 class="headline" itemprop="headline"><a href="/post/2015-09-17-elisper-lisp-in-elixir/">Elisper: Lisp In Elixir</a></h2>
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2015-09-17">September 17, 2015</time></span>
+
+  </div>
+  <section class="summary">
+    I recently read a really interesting and great blog post titled Lisp in your Language by Dan Prince. The article walked through an implementation of a subset of Lisp. After reading the post, I thought it was a great project to not only have a deeper understanding of Lisp but also of the language that the implementation is in. In fact, I was so inspired by the post, I decided that maybe I&rsquo;d give it a shot to write it in Elixir.  <a href="/post/2015-09-17-elisper-lisp-in-elixir/">Read More...</a>
+  </section>
+</article>
+
+  
+    <article class="list-item" itemscope itemtype="http://schema.org/Blog">
+  <h2 class="headline" itemprop="headline"><a href="/post/2014-04-06-play-framework-parsing-json/">Play! Framework -- Parsing JSON</a></h2>
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2014-04-06">April 06, 2014</time></span>
+
+  </div>
+  <section class="summary">
+    tl;dr I suggest using ObjectMapper found in the com.fasterxml.jackson.databind.ObjectMapper
+ObjectMapper mapper = new ObjectMapper(); try { JsonNode root = request().body().asJson(); JsonNode jsonPhoneNumbers = root.get(&#34;phoneNumbers&#34;); for(JsonNode phoneNumberString : jsonPhoneNumbers) { String phoneNumber = phoneNumberString.asText(); } catch (NullPointerException npe) { // No valid phone numbers were provided  } Using ObjectMapper For parsing arrays in JSON requests, I suggest using the ObjectMapper. Assuming you have a request that looks like:
+{ &#34;phoneNumbers&#34;: [ &#34;555-555-5555&#34;, &#34;555-555-5556&#34;, &#34;555-555-5557&#34; ] } We can easily access the phone number values by using ObjectMapper class.  <a href="/post/2014-04-06-play-framework-parsing-json/">Read More...</a>
+  </section>
+</article>
+
+  
+    <article class="list-item" itemscope itemtype="http://schema.org/Blog">
+  <h2 class="headline" itemprop="headline"><a href="/post/2014-04-06-play-framework-returning-json-response/">Play! Framework -- Returning JSON Responses</a></h2>
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2014-04-06">April 06, 2014</time></span>
+
+  </div>
+  <section class="summary">
+    I&rsquo;ve recently started a project at working using the Play Framework and while its a great framework, I was having a lot of trouble with some of the simplest tasks. I wouldn&rsquo;t blame Play for my problems, returning to Java after a long hiatus, being spoiled by dynamicly typed languages, and lack of documentation really made such tasks like returning a JSON response difficult.
+I figured that I may not be the only in this position, judging by the questions in the IRC channel and lack of responses, I figured it may be a good idea to jot down some of my notes, not only for myself, my coworkers, but for all my fellow Play framework noobs.  <a href="/post/2014-04-06-play-framework-returning-json-response/">Read More...</a>
+  </section>
+</article>
+
+  
+    <article class="list-item" itemscope itemtype="http://schema.org/Blog">
+  <h2 class="headline" itemprop="headline"><a href="/post/2013-12-08-counter-resets-and-database-magic/">Counter Resets and Database Magic</a></h2>
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2013-12-08">December 08, 2013</time></span>
+
+  </div>
+  <section class="summary">
+    Recently, the need for a standard numbering convention came up for one of our projects at work. The client requested to be able to access protocols by a unique ID. Originally I thought it&rsquo;d be a no brainer, I&rsquo;d explain to them that the each protocol is already uniquely identifiable within the database, and they can just refer to protocols by their unique ID in the database. Unfortunately, they didn&rsquo;t seem too fond of the unique ID numbering scheme and proposed that the application follow a certain convention, which they created.  <a href="/post/2013-12-08-counter-resets-and-database-magic/">Read More...</a>
+  </section>
+</article>
+
+  
+    <article class="list-item" itemscope itemtype="http://schema.org/Blog">
+  <h2 class="headline" itemprop="headline"><a href="/post/2013-11-17-flatten_dictionary_challenge/">Flatten Dictionary Challenge</a></h2>
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2013-11-17">November 17, 2013</time></span>
+
+  </div>
+  <section class="summary">
+    While browsing /r/javascript Thursday night, I came across a post regrading a mildly interesting interview question which had to do with flattening a Javascript object to a URI.
+Two things immediately jumped into my mind:
+ I have to show one of my coworkers. This would make a &ldquo;midly interesting&rdquo; Python challenge!  Friday morning, the first thing I did when I got into work was write the challenge on our white board and my solution in Python.  <a href="/post/2013-11-17-flatten_dictionary_challenge/">Read More...</a>
+  </section>
+</article>
+
+  
+    <article class="list-item" itemscope itemtype="http://schema.org/Blog">
+  <h2 class="headline" itemprop="headline"><a href="/post/2013-11-24-more-tdd-and-recursion-practice/">More TDD and Recursion Practice</a></h2>
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2013-11-14">November 14, 2013</time></span>
+
+  </div>
+  <section class="summary">
+    It seems that Javascript challenges are more frequent at work. Thursday afternoon when we got back from lunch, my coworker was testing himself in the You Can&rsquo;t Javascript Under Pressure challenges. As great coworkers, we (by that I mean, me) decided to help out and put more pressure on our fellow coworker, without even being asked to! One of the challenges that came up during the test was a function ArraySum() which accepts a list (array) of values and you must total all the integers within the array.  <a href="/post/2013-11-24-more-tdd-and-recursion-practice/">Read More...</a>
+  </section>
+</article>
+
+  
+    <article class="list-item" itemscope itemtype="http://schema.org/Blog">
+  <h2 class="headline" itemprop="headline"><a href="/post/2013-11-10-writing-test-cases-for-laravel/">Writing Test Cases for Laravel</a></h2>
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2013-11-10">November 10, 2013</time></span>
+
+  </div>
+  <section class="summary">
+    Besides writing test cases just because &ldquo;everyone else is&rdquo;, we should be writing test cases since they&rsquo;ll help create a stronger trust in our code that our functions are doing what they should be doing.
+Requirements  PHP PHPUnit (you will most likely need a global install) Test Cases (DUH)  Helpers Helpers are a set of classes that we create to take care of common mundane tasks. For example, the User Helper for testing provides functions for returning a user with a specified role or easily create a new user with the specified role if one does not exist or the user requests one.  <a href="/post/2013-11-10-writing-test-cases-for-laravel/">Read More...</a>
+  </section>
+</article>
+
+  
+    <article class="list-item" itemscope itemtype="http://schema.org/Blog">
+  <h2 class="headline" itemprop="headline"><a href="/post/2013-05-29-python-excel-xlrd-and-xlwt/">Python Excel XLRD and XLWT</a></h2>
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2013-05-29">May 29, 2013</time></span>
+
+  </div>
+  <section class="summary">
+    The other week we received a request for a small script from a department on campus. The department needed to evaluate data from a Microsoft Excel worksheet which they wrote a macro for. Their problem, though, was to aggregate all their data into one sheet. This aggregation process was not only the most tedious but was also their longest task taking nearly 2 weeks to complete. My coworkers and I were shocked that they&rsquo;ve continued this process for so long without looking to automate it somehow, so we took on the challenge to ease the pain in their lives.  <a href="/post/2013-05-29-python-excel-xlrd-and-xlwt/">Read More...</a>
+  </section>
+</article>
+
+  
+</main>
+</div>
+
+<footer>
+  <div class="container">
+    <span class="copyright">&copy; 2015 barakyo - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
+

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="generator" content="Hugo 0.53" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="barakyo">
+<title>
+  Flatten Dictionary Challenge - barakyo
+</title>
+</head>
+<body>
+
+<header>
+  <div class="container clearfix">
+    <a class="path" href="https://barakyo.github.io">barakyo</a>
+    <div class="right">
+      
+        
+        <a class="path" href="/categories/">Categories</a>
+      
+        |
+        <a class="path" href="/categories/development/">Development</a>
+      
+        |
+        <a class="path" href="/categories/personal/">Personal</a>
+      
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+
+<main role="main" class="article">
+  
+<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2013-11-17">November 17, 2013</time></span>
+
+
+    <span class="key">in</span>
+    <span class="val">
+
+        <a href="/categories/Development">Development</a>
+
+    </span>
+
+
+    <br>
+    <span class="key">tags:</span>
+    <span class="val">
+
+        <a href="/tags/Python">Python</a>
+
+        <a href="/tags/TDD">TDD</a>
+
+    </span>
+
+  </div>
+  <h1 class="headline" itemprop="headline">Flatten Dictionary Challenge</h1>
+  <section class="body" itemprop="articleBody">
+    <p>While browsing <a href="http://www.reddit.com/r/javascript">/r/javascript</a> Thursday night, I came across a post regrading a <a href="http://www.reddit.com/r/javascript/comments/1qn7bo/mildly_interesting_question_i_got_while/">mildly interesting interview question</a> which had to do with flattening a Javascript object to a URI.</p>
+
+<p>Two things immediately jumped into my mind:</p>
+
+<ol>
+<li>I have to show one of my coworkers.</li>
+<li>This would make a &ldquo;midly interesting&rdquo; Python challenge!</li>
+</ol>
+
+<p>Friday morning, the first thing I did when I got into work was write the challenge on our white board and my solution in Python. Funny enough, once I came back from lunch, my coworker was writing his Javascript solution next to my Python one. It turns out that he saw the challenge Thursday night and even posted his solution to the thread.</p>
+
+<p>I figured, I&rsquo;d code up my solution and give it a shot. Both for recursive practice and writing test cases. So to start with some test driven development (TDD), I began by writing a simple test case.</p>
+
+<p>First we&rsquo;ll define a class for our test cases:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> unittest
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FlattenTests</span>(unittest<span style="color:#f92672">.</span>TestCase):</code></pre></div></p>
+
+<p>From there, we&rsquo;ll add a simple <code>setUp</code> method which creates a dictionary to use for testing:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> unittest
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FlattenTests</span>(unittest<span style="color:#f92672">.</span>TestCase):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">setUp</span>(self):
+        self<span style="color:#f92672">.</span>example <span style="color:#f92672">=</span> {
+                <span style="color:#e6db74">&#34;foo&#34;</span>: {
+                    <span style="color:#e6db74">&#34;bar&#34;</span>: {
+                        <span style="color:#e6db74">&#34;team&#34;</span>: True,
+                        <span style="color:#e6db74">&#34;company&#34;</span>: [<span style="color:#e6db74">&#34;Bill&#34;</span>, <span style="color:#e6db74">&#34;Ted&#34;</span>]
+                        }
+                    }
+                }</code></pre></div></p>
+
+<p>Now lets define a test case!
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> unittest
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FlattenTests</span>(unittest<span style="color:#f92672">.</span>TestCase):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">setUp</span>(self):
+        self<span style="color:#f92672">.</span>example <span style="color:#f92672">=</span> {
+                <span style="color:#e6db74">&#34;foo&#34;</span>: {
+                    <span style="color:#e6db74">&#34;bar&#34;</span>: {
+                        <span style="color:#e6db74">&#34;team&#34;</span>: True,
+                        <span style="color:#e6db74">&#34;company&#34;</span>: [<span style="color:#e6db74">&#34;Bill&#34;</span>, <span style="color:#e6db74">&#34;Ted&#34;</span>]
+                        }
+                    }
+                }
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_for_dict</span>(self):
+        d <span style="color:#f92672">=</span> flatten(self<span style="color:#f92672">.</span>example, <span style="color:#e6db74">&#34;&#34;</span>)
+        self<span style="color:#f92672">.</span>assertTrue(type(d) <span style="color:#f92672">is</span> dict)
+
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    unittest<span style="color:#f92672">.</span>main()</code></pre></div></p>
+
+<p>The test case we&rsquo;ve defined, <code>test_for_dict</code>, just determines if the return type of the <code>flatten</code> method (which we haven&rsquo;t written yet) is of type dictionary. Lets run our test case and see what we get!</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ERROR: test_for_dict <span style="color:#f92672">(</span>__main__.FlattenTests<span style="color:#f92672">)</span>
+----------------------------------------------------------------------
+Traceback <span style="color:#f92672">(</span>most recent call last<span style="color:#f92672">)</span>:
+File <span style="color:#e6db74">&#34;tests.py&#34;</span>, line <span style="color:#ae81ff">16</span>, in test_for_dict
+d <span style="color:#f92672">=</span> flatten<span style="color:#f92672">(</span>self.example, <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">)</span>
+NameError: global name <span style="color:#e6db74">&#39;flatten&#39;</span> is not defined
+----------------------------------------------------------------------</code></pre></div>
+
+<p>Ahh what was that!? According to my understanding of TDD, this is a good thing! We can start writing code now. Lets define a new file <code>flatten.py</code> and create a flatten function that accepts a dictionary and string. Remember, according to TDD, we must right the most minimal amount of code that will pass our test.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">flatten</span>(d_flat, key_string):
+    <span style="color:#66d9ef">pass</span></code></pre></div>
+
+<p>Well that was simple enough, lets run our test.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">======================================================================</span>
+FAIL: test_for_dict <span style="color:#f92672">(</span>__main__.FlattenTests<span style="color:#f92672">)</span>
+----------------------------------------------------------------------
+Traceback <span style="color:#f92672">(</span>most recent call last<span style="color:#f92672">)</span>:
+File <span style="color:#e6db74">&#34;tests.py&#34;</span>, line <span style="color:#ae81ff">17</span>, in test_for_dict
+self.assertTrue<span style="color:#f92672">(</span>type<span style="color:#f92672">(</span>d<span style="color:#f92672">)</span> is dict<span style="color:#f92672">)</span>
+AssertionError: False is not true
+----------------------------------------------------------------------</code></pre></div></p>
+
+<p>Hmm, seems like we didn&rsquo;t write enough code! Lets go back and update our <code>flatten</code> function.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">flatten</span>(d_flat, key_string):
+   <span style="color:#66d9ef">return</span> {} </code></pre></div></p>
+
+<p>Now that we&rsquo;ve updated our code, lets run our test again.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">caster:flatten/ $ python tests.py
+.
+----------------------------------------------------------------------
+Ran <span style="color:#ae81ff">1</span> test in <span style="color:#ae81ff">0</span>.000s
+
+OK</code></pre></div>
+
+<p>Looks good to me! Now that one of our tests has passed, we can now write another (more interesting) test! I&rsquo;m not very creative at writing these incremental tests, so lets just get to it.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> unittest
+<span style="color:#f92672">from</span> flatten <span style="color:#f92672">import</span> flatten
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FlattenTests</span>(unittest<span style="color:#f92672">.</span>TestCase):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">setUp</span>(self):
+        self<span style="color:#f92672">.</span>example <span style="color:#f92672">=</span> {
+                <span style="color:#e6db74">&#34;foo&#34;</span>: {
+                    <span style="color:#e6db74">&#34;bar&#34;</span>: {
+                        <span style="color:#e6db74">&#34;team&#34;</span>: True,
+                        <span style="color:#e6db74">&#34;company&#34;</span>: [<span style="color:#e6db74">&#34;Bill&#34;</span>, <span style="color:#e6db74">&#34;Ted&#34;</span>]
+                        }
+                    }
+                }
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_for_dict</span>(self):
+        d <span style="color:#f92672">=</span> flatten(self<span style="color:#f92672">.</span>example, <span style="color:#e6db74">&#34;&#34;</span>)
+        self<span style="color:#f92672">.</span>assertTrue(type(d) <span style="color:#f92672">is</span> dict)
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_case_one</span>(self):
+        d <span style="color:#f92672">=</span> flatten(self<span style="color:#f92672">.</span>example, <span style="color:#e6db74">&#34;&#34;</span>)
+        self<span style="color:#f92672">.</span>assertTrue(d[<span style="color:#e6db74">&#34;foo/bar/team&#34;</span>])
+        self<span style="color:#f92672">.</span>assertTrue(d[<span style="color:#e6db74">&#34;foo/bar/company&#34;</span>] <span style="color:#f92672">==</span> [<span style="color:#e6db74">&#34;Bill&#34;</span>, <span style="color:#e6db74">&#34;Ted&#34;</span>]) 
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    <span style="color:#f92672">import</span> unittest</code></pre></div></p>
+
+<p>We&rsquo;ve defined a new test case, <code>test_case_one</code>, (like I said, I&rsquo;m not very creative), that&rsquo;ll run our <code>flatten</code> function and determine if we&rsquo;ve received the correct output. Lets try running our test case now (and cross our fingers) to see if it fails.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">caster:flatten/ $ python tests.py
+E.
+<span style="color:#f92672">======================================================================</span>
+ERROR: test_case_one <span style="color:#f92672">(</span>__main__.FlattenTests<span style="color:#f92672">)</span>
+----------------------------------------------------------------------
+Traceback <span style="color:#f92672">(</span>most recent call last<span style="color:#f92672">)</span>:
+File <span style="color:#e6db74">&#34;tests.py&#34;</span>, line <span style="color:#ae81ff">21</span>, in test_case_one
+self.assertTrue<span style="color:#f92672">(</span>d<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;foo/bar/team&#34;</span><span style="color:#f92672">])</span>
+KeyError: <span style="color:#e6db74">&#39;foo/bar/team&#39;</span>
+
+----------------------------------------------------------------------
+Ran <span style="color:#ae81ff">2</span> tests in <span style="color:#ae81ff">0</span>.000s
+
+FAILED <span style="color:#f92672">(</span>errors<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)</span></code></pre></div>
+
+<p>Awesome! More good news! :) Before we jump into writing our function, lets think about what we want the function to do.</p>
+
+<ul>
+<li>First we&rsquo;ll need to iterate through all the key/value pairs in the dictionary passed to the function.</li>
+<li>We&rsquo;ll then need to determine if the value for the key we&rsquo;ve iterated to is a dictionary or not.
+
+<ul>
+<li>If the value is a dictionary, we&rsquo;ll want to recursively call <code>flatten</code> and append our key to <code>key_string</code> so that we&rsquo;re keeping track of the key we want to eventually use.</li>
+</ul></li>
+<li>The easy (or base) case, if our value is <strong>NOT</strong> a dictionary, simply add it to the dictionary with it&rsquo;s key append to <code>key_string</code></li>
+<li>Finally, once we&rsquo;ve iterated through all the values, return the dictionary.</li>
+</ul>
+
+<p>When we put it like that, it sounds easy! (Or so I hope&hellip;)</p>
+
+<p>Lets take care of iterating through the dictionary, that sounds easy enough:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">flatten</span>(d_flat, key_string):
+    d <span style="color:#f92672">=</span> {}
+    <span style="color:#66d9ef">for</span> k,v <span style="color:#f92672">in</span> d_flat<span style="color:#f92672">.</span>items():
+        <span style="color:#66d9ef">pass</span>
+    <span style="color:#66d9ef">return</span> d</code></pre></div></p>
+
+<p>Simple enough, we&rsquo;ve declared an empty dictionary <code>d</code> and started iterating through the items in the dictionary. Lets take a look at our first case, if the value for a key is a dictionary:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">flatten</span>(d_flat, key_string):
+    d <span style="color:#f92672">=</span> {}
+    <span style="color:#66d9ef">for</span> k,v <span style="color:#f92672">in</span> d_flat<span style="color:#f92672">.</span>items():
+        <span style="color:#66d9ef">if</span>(type(v) <span style="color:#f92672">is</span> dict):
+            <span style="color:#66d9ef">pass</span>
+        <span style="color:#66d9ef">else</span>:
+            <span style="color:#66d9ef">pass</span>
+    <span style="color:#66d9ef">return</span> d</code></pre></div>
+
+<p>Okay we&rsquo;ve added our if statement, now if it&rsquo;s true, we&rsquo;ll have to recursively call our function. Before we jump to make the recursive call, we need to ensure we&rsquo;re keeping track of our <code>key_string</code> value. To do so, we&rsquo;ll pass <code>key_string</code> with the current key value, <code>k</code>. We&rsquo;ll recursively call <code>flatten</code> with the inner dictionary stored in <code>v</code>.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">flatten</span>(d_flat, key_string):
+    d <span style="color:#f92672">=</span> {}
+    <span style="color:#66d9ef">for</span> k,v <span style="color:#f92672">in</span> d_flat<span style="color:#f92672">.</span>items():
+        <span style="color:#66d9ef">if</span>(type(v) <span style="color:#f92672">is</span> dict):
+            d <span style="color:#f92672">=</span> flatten(v, key_string <span style="color:#f92672">+</span> k <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span>)
+        <span style="color:#66d9ef">else</span>:
+            <span style="color:#66d9ef">pass</span>
+    <span style="color:#66d9ef">return</span> d</code></pre></div>
+
+<p>Almost there! We now need to worry about our base case, so let&rsquo;s take care of that! Recall that we said if our value is not of type dictionary, we simple append it to our dictionary that we declared, <code>d</code>. Again, we have to keep in mind that we want to assign the correct key for our value, which would be our current <code>key_string</code> concatenated with the current key we&rsquo;re looking at, <code>k</code>. Once we create the right key, we&rsquo;ll just assign it to our value, <code>v</code> and return our dictionary, <code>d</code>.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">flatten</span>(d_flat, key_string):
+    d <span style="color:#f92672">=</span> {}
+    <span style="color:#66d9ef">for</span> k,v <span style="color:#f92672">in</span> d_flat<span style="color:#f92672">.</span>items():
+        <span style="color:#66d9ef">if</span>(type(v) <span style="color:#f92672">is</span> dict):
+            d <span style="color:#f92672">=</span> flatten(v, key_string <span style="color:#f92672">+</span> k <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span>)
+        <span style="color:#66d9ef">else</span>:
+            d[key_string <span style="color:#f92672">+</span> k] <span style="color:#f92672">=</span> v
+    <span style="color:#66d9ef">return</span> d</code></pre></div>
+
+<p>So good so far, lets run our tests!
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">caster:flatten/ $ python tests.py
+..
+----------------------------------------------------------------------
+Ran <span style="color:#ae81ff">2</span> tests in <span style="color:#ae81ff">0</span>.000s
+
+OK</code></pre></div></p>
+
+<p>Perfect&hellip;or so we think. There&rsquo;s actually a problem in our algorithm, which we can expose by making our testing data little more robust. Lets update our <code>setUp</code> and our <code>test_case_one</code> functions so they look like this:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> unittest
+<span style="color:#f92672">from</span> flatten <span style="color:#f92672">import</span> flatten
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FlattenTests</span>(unittest<span style="color:#f92672">.</span>TestCase):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">setUp</span>(self):
+        self<span style="color:#f92672">.</span>example <span style="color:#f92672">=</span> {
+                <span style="color:#e6db74">&#34;foo&#34;</span>: {
+                    <span style="color:#e6db74">&#34;bar&#34;</span>: {
+                        <span style="color:#e6db74">&#34;team&#34;</span>: True,
+                        <span style="color:#e6db74">&#34;company&#34;</span>: [<span style="color:#e6db74">&#34;Bill&#34;</span>, <span style="color:#e6db74">&#34;Ted&#34;</span>]
+                        }
+                    },
+                    <span style="color:#e6db74">&#34;fizz&#34;</span>: {
+                        <span style="color:#e6db74">&#34;blue&#34;</span>: <span style="color:#e6db74">&#34;red&#34;</span>
+                    }
+                }
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_for_dict</span>(self):
+        d <span style="color:#f92672">=</span> flatten(self<span style="color:#f92672">.</span>example, <span style="color:#e6db74">&#34;&#34;</span>)
+        self<span style="color:#f92672">.</span>assertTrue(type(d) <span style="color:#f92672">is</span> dict)
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_case_one</span>(self):
+        d <span style="color:#f92672">=</span> flatten(self<span style="color:#f92672">.</span>example, <span style="color:#e6db74">&#34;&#34;</span>)
+        self<span style="color:#f92672">.</span>assertTrue(d[<span style="color:#e6db74">&#34;foo/bar/team&#34;</span>])
+        self<span style="color:#f92672">.</span>assertTrue(d[<span style="color:#e6db74">&#34;foo/bar/company&#34;</span>] <span style="color:#f92672">==</span> [<span style="color:#e6db74">&#34;Bill&#34;</span>, <span style="color:#e6db74">&#34;Ted&#34;</span>]) 
+        self<span style="color:#f92672">.</span>assertTrue(d[<span style="color:#e6db74">&#34;foo/bar/fiz/blue&#34;</span>] <span style="color:#f92672">is</span> <span style="color:#e6db74">&#34;red&#34;</span>)
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    unittest<span style="color:#f92672">.</span>main()</code></pre></div>
+
+<p>We&rsquo;ve added another key that points to another dictionary. Nothing unusual or out of the oridinary. We&rsquo;ve also added a new assertion to ensure that the key <code>foo/bar/fiz/blue</code> contains the string <code>red</code>. Lets run our test case and see what happens.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">caster:flatten/ $ python tests.py
+E.
+<span style="color:#f92672">======================================================================</span>
+ERROR: test_case_one <span style="color:#f92672">(</span>__main__.FlattenTests<span style="color:#f92672">)</span>
+----------------------------------------------------------------------
+Traceback <span style="color:#f92672">(</span>most recent call last<span style="color:#f92672">)</span>:
+File <span style="color:#e6db74">&#34;tests.py&#34;</span>, line <span style="color:#ae81ff">21</span>, in test_case_one
+self.assertTrue<span style="color:#f92672">(</span>d<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;foo/bar/team&#34;</span><span style="color:#f92672">])</span>
+KeyError: <span style="color:#e6db74">&#39;foo/bar/team&#39;</span>
+
+----------------------------------------------------------------------
+Ran <span style="color:#ae81ff">2</span> tests in <span style="color:#ae81ff">0</span>.000s
+
+FAILED <span style="color:#f92672">(</span>errors<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)</span></code></pre></div>
+
+<p>Failed! What&rsquo;s going on here? If you take a look at our algorithm, we&rsquo;re not <strong>updating</strong> our dictionary when we return from a recursive call, we&rsquo;re actually <strong>overwriting</strong> it. Let&rsquo;s make a small change and ensure we&rsquo;re updating our dictionary and see what happens.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">flatten</span>(d_flat, key_string):
+    d <span style="color:#f92672">=</span> {}
+    <span style="color:#66d9ef">for</span> k,v <span style="color:#f92672">in</span> d_flat<span style="color:#f92672">.</span>items():
+        <span style="color:#66d9ef">if</span>(type(v) <span style="color:#f92672">is</span> dict):
+            d<span style="color:#f92672">.</span>update(flatten(v, key_string <span style="color:#f92672">+</span> k <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span>))
+        <span style="color:#66d9ef">else</span>:
+            d[key_string <span style="color:#f92672">+</span> k] <span style="color:#f92672">=</span> v
+    <span style="color:#66d9ef">return</span> d</code></pre></div></p>
+
+<p>Now lets run our tests.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">caster:flatten/ $ python tests.py
+..
+----------------------------------------------------------------------
+Ran <span style="color:#ae81ff">2</span> tests in <span style="color:#ae81ff">0</span>.000s
+
+OK</code></pre></div>
+
+<p>All is well and now our function works as expected!</p>
+
+  </section>
+</article>
+
+</main>
+
+</div>
+
+<footer>
+  <div class="container">
+    <span class="copyright">&copy; 2015 barakyo - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
+

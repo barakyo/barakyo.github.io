@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Book Review on barakyo</title>
+    <link>https://barakyo.github.io/tags/book-review/</link>
+    <description>Recent content in Book Review on barakyo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 28 Jan 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://barakyo.github.io/tags/book-review/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Book Review: Ready Player One</title>
+      <link>https://barakyo.github.io/post/2015-01-28-review-ready-player-one/</link>
+      <pubDate>Wed, 28 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://barakyo.github.io/post/2015-01-28-review-ready-player-one/</guid>
+      <description>With keeping up on my new year resolutions, the first book of 2015 that I decided to read was Ready Player One by Ernest Cline. I found the book browsing through Barnes and Nobles and realized it was surprisingly cheap on the Google Play Bookstore (sorry local Barnes and Nobles, have to justify my Nexus 7 purchase somehow).
+I have to say that I hope the rest of the books I read this year are this good.</description>
+    </item>
+    
+  </channel>
+</rss>

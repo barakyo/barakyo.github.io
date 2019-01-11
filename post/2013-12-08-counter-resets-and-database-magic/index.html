@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="generator" content="Hugo 0.53" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="barakyo">
+<title>
+  Counter Resets and Database Magic - barakyo
+</title>
+</head>
+<body>
+
+<header>
+  <div class="container clearfix">
+    <a class="path" href="https://barakyo.github.io">barakyo</a>
+    <div class="right">
+      
+        
+        <a class="path" href="/categories/">Categories</a>
+      
+        |
+        <a class="path" href="/categories/development/">Development</a>
+      
+        |
+        <a class="path" href="/categories/personal/">Personal</a>
+      
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+
+<main role="main" class="article">
+  
+<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2013-12-08">December 08, 2013</time></span>
+
+
+    <span class="key">in</span>
+    <span class="val">
+
+        <a href="/categories/Development">Development</a>
+
+    </span>
+
+
+    <br>
+    <span class="key">tags:</span>
+    <span class="val">
+
+        <a href="/tags/MySQL">MySQL</a>
+
+        <a href="/tags/Databases">Databases</a>
+
+    </span>
+
+  </div>
+  <h1 class="headline" itemprop="headline">Counter Resets and Database Magic</h1>
+  <section class="body" itemprop="articleBody">
+    <p>Recently, the need for a standard numbering convention came up for one of our projects at work. The client
+requested to be able to access protocols by a unique ID. Originally I thought it&rsquo;d be a no brainer, I&rsquo;d explain
+to them that the each protocol is already uniquely identifiable within the database, and they can just refer to
+protocols by their unique ID in the database. Unfortunately, they didn&rsquo;t seem too fond of the unique ID numbering
+scheme and proposed that the application follow a certain convention, which they created.</p>
+
+<p>The convention was simple enough to understand. It followed the format of:</p>
+
+<pre><code>YYYY-XXX
+</code></pre>
+
+<p>Where <code>YYYY</code> was the Academic Year and <code>XXX</code> was a 3 digit number signifying that it was the nth protocol
+scheduled for review of that academic year. For example, a protocol with the number</p>
+
+<pre><code>1314-016
+</code></pre>
+
+<p>Would be the 16th protocol scheduled within the 2013-2014 academic year.</p>
+
+<p>While the standard is easy enough, it brings up some concerns.</p>
+
+<ol>
+<li>Protocol numbers are generated once a protocol has been scheduled for committee review.</li>
+<li>Protocol numbers must refer to a specific protocol.</li>
+<li>The protocol number must reset after every academic year.</li>
+<li>How can I enforce this standard within the database?</li>
+</ol>
+
+<p>Regarding the first concern, I couldn&rsquo;t simply append a column to the protocol table since I would have a <code>NULL</code>
+field until the protocol was scheduled (if it was ever scheduled). While adding a column would allow me to specify
+which number belonged to which protocol, it invalidate the 3NF standard I&rsquo;m trying to achieve. Also, how
+would I have the database automatically increment or reset the value of the counter?</p>
+
+<p>I realized quickly that I needed another table (or two). Immediately, I realized that my <code>protocol_number</code>
+table would need the following columns:</p>
+
+<ul>
+<li>ID - mainly for reference</li>
+<li>Protocol ID - specifies which number this protocol refers to</li>
+<li>Academic Year - the year part of the number convention</li>
+<li>Protocol Number - the counter part of the number convention</li>
+</ul>
+
+<p>While designing the table, I also realized that I didn&rsquo;t want to have to worry about the application needing to
+worry about which protocol number to insert within the column and that lead me to the idea of a trigger. I know
+that I can easily count the number of rows within a table using the SQL command <code>count(*)</code>, but how could I use
+it for handling the protocol number field? I realized that my answer would rely in a trigger that would fire
+before each insert on the table.</p>
+
+<p>Before jumping into creating the trigger, I had to give some more thought to the the academic year field. While
+I could easily represent academic years with an <code>INT</code> field, it didn&rsquo;t seem to be sufficient, something just felt
+dirty. I made the decision that I&rsquo;d create a new table, <code>academic_year</code>, which would simply store academic years.
+This way, I could have the <code>protocol_number</code> table refer to the <code>academic_year</code> table as a foreign key.
+Specifying the field as a foreign key also provided me the added benefit of being able to lookup which protocols
+were scheduled for what year (a feature that hasn&rsquo;t been asked for, but can now be easily implemented).</p>
+
+<p>Given this analysis, we&rsquo;ve composed two tables with the following structure:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#a6e22e">academic_year</span>(
+	id <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">UNSIGNED</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">AUTO_INCREMENT</span>,
+	academic_year <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">UNSIGNED</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+	<span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span>(id)
+);
+
+<span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#a6e22e">protocol_number</span>(
+	id <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">UNSIGNED</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">AUTO_INCREMENT</span>,
+	academic_year_id <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">UNSIGNED</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+	protocol_id <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">UNSIGNED</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+	protocol_number <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">UNSIGNED</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+	<span style="color:#66d9ef">FOREIGN</span> <span style="color:#66d9ef">KEY</span> (protocol_id) <span style="color:#66d9ef">REFERENCES</span> <span style="color:#a6e22e">protocols</span>(id),
+    <span style="color:#66d9ef">KEY</span> (id)
+);</code></pre></div></p>
+
+<p>Almost complete. We still have one tiny little problem. We want to ensure that our protocol numbers are unique
+and also that they&rsquo;re unique to a single protocol. Using primary keys we can specify that our <code>protocol_number</code>
+and <code>academic_year_id</code> columns are unique. In addition, we can easily add a unique key on our <code>protocol_id</code> field
+allowing us to ensure that this field is also unique. Doing so creates the following structure:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#a6e22e">protocol_number</span>(
+	id <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">UNSIGNED</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">AUTO_INCREMENT</span>,
+	academic_year_id <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">UNSIGNED</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+	protocol_id <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">UNSIGNED</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+	protocol_number <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">UNSIGNED</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+	<span style="color:#66d9ef">FOREIGN</span> <span style="color:#66d9ef">KEY</span> (protocol_id) <span style="color:#66d9ef">REFERENCES</span> <span style="color:#a6e22e">protocols</span>(id),
+	<span style="color:#66d9ef">UNIQUE</span> <span style="color:#66d9ef">KEY</span> <span style="color:#a6e22e">unique_protocol_id</span> (protocol_id),
+	<span style="color:#66d9ef">FOREIGN</span> <span style="color:#66d9ef">KEY</span> (academic_year_id) <span style="color:#66d9ef">REFERENCES</span> <span style="color:#a6e22e">academic_year</span>(id),
+	<span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span> (protocol_number, academic_year_id),
+	<span style="color:#66d9ef">KEY</span> (id)
+);</code></pre></div>
+
+<p>Finally, we can create our trigger to handle incrementing the counter. Our trigger will be based around the query</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#66d9ef">SELECT</span> <span style="color:#a6e22e">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">as</span> num_protocols 
+<span style="color:#66d9ef">FROM</span> eirb_number 
+<span style="color:#66d9ef">WHERE</span> academic_year_id<span style="color:#f92672">=</span>[ACADEMIC_YEAR_ID]</code></pre></div>
+
+<p>The query will return the number of rows that exist with the given <code>ACADEMIC_YEAR_ID</code>. All we would have to do
+now is take the results of this query, increment it by 1, and then set it as the value for the
+<code>protocol_number</code> column for the new row being inserted into the database. Given our analysis it sounds like
+we have all we need to create our a trigger, that is, when it occurs, <code>BEFORE INSERT</code> and  what we want to
+add/change <code>protocol_number</code> with our <code>count(*)</code> value.</p>
+
+<p>Behold, our trigger:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">delimiter <span style="color:#f92672">//</span>
+<span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TRIGGER</span> insert_protocol_num_trigger 
+<span style="color:#66d9ef">BEFORE</span> <span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">on</span> eirb_number
+<span style="color:#66d9ef">for</span> <span style="color:#66d9ef">each</span> row
+BEGIN
+	<span style="color:#66d9ef">SET</span> new.protocol_number <span style="color:#f92672">=</span> (
+		<span style="color:#66d9ef">SELECT</span> <span style="color:#a6e22e">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">as</span> num_protocols 
+		<span style="color:#66d9ef">FROM</span> eirb_number 
+		<span style="color:#66d9ef">WHERE</span> academic_year_id<span style="color:#f92672">=</span>new.academic_year_id
+	) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+END; <span style="color:#f92672">//</span>
+DELIMITER ;</code></pre></div></p>
+
+<p>Now all our queries/application have to worry about is what protocol they want to create the number for and
+which academic year that protocol belongs to. The database will handle the rest. Our insert query can now look
+something like:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> <span style="color:#a6e22e">protocol_number</span>(protocol_id, academic_year_id) <span style="color:#66d9ef">VALUES</span>(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>);</code></pre></div>
+
+<p>Now we&rsquo;ve handled the case of reset counters through the use of database magic (AKA triggers).</p>
+
+<!---
+ Protocols can also have renewals and 
+revisions, which would follow a similar format, just with certain extensions. If the protocol from the previous 
+example was renewed for another year, then the renewed protocol would have the number:
+
+    1314-016-a
+
+The appended letters `a-z` would sig
+-->
+
+  </section>
+</article>
+
+</main>
+
+</div>
+
+<footer>
+  <div class="container">
+    <span class="copyright">&copy; 2015 barakyo - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
+

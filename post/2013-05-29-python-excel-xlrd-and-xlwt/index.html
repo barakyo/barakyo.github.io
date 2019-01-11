@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="generator" content="Hugo 0.53" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="barakyo">
+<title>
+  Python Excel XLRD and XLWT - barakyo
+</title>
+</head>
+<body>
+
+<header>
+  <div class="container clearfix">
+    <a class="path" href="https://barakyo.github.io">barakyo</a>
+    <div class="right">
+      
+        
+        <a class="path" href="/categories/">Categories</a>
+      
+        |
+        <a class="path" href="/categories/development/">Development</a>
+      
+        |
+        <a class="path" href="/categories/personal/">Personal</a>
+      
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+
+<main role="main" class="article">
+  
+<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2013-05-29">May 29, 2013</time></span>
+
+
+    <span class="key">in</span>
+    <span class="val">
+
+        <a href="/categories/Development">Development</a>
+
+    </span>
+
+
+    <br>
+    <span class="key">tags:</span>
+    <span class="val">
+
+        <a href="/tags/Python">Python</a>
+
+    </span>
+
+  </div>
+  <h1 class="headline" itemprop="headline">Python Excel XLRD and XLWT</h1>
+  <section class="body" itemprop="articleBody">
+    <p>The other week we received a request for a small script from a department on campus. The department needed to evaluate data from a Microsoft Excel worksheet which they wrote a macro for. Their problem, though, was to aggregate all their data into one sheet. This aggregation process was not only the most tedious but was also their longest task taking nearly 2 weeks to complete. My coworkers and I were shocked that they&rsquo;ve continued this process for so long without looking to automate it somehow, so we took on the challenge to ease the pain in their lives.</p>
+
+<p>I set out to write a Python script and immediately researched what Microsoft Excel libraries are available for Python. I quick found Python-Excel and the XLRD and XLWT libraries, which I have to say, have been nothing short but amazing to use. The libraries are intuitive and easy to use. There was not a function I could think of that this library didn&rsquo;t provide. The code can be found on <a href="https://github.com/barakyo/excel-extractor">GitHub</a>.</p>
+
+<p>Just some quick examples of how I was using the libraries:</p>
+
+<p><strong>Opening an excel file:</strong>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">try</span>:
+    <span style="color:#75715e"># Open the book</span>
+    book <span style="color:#f92672">=</span> xlrd<span style="color:#f92672">.</span>open_workbook(file_name)
+<span style="color:#66d9ef">except</span> <span style="color:#a6e22e">IOError</span>:
+    logging<span style="color:#f92672">.</span>warning(<span style="color:#e6db74">&#34;File: &#34;</span> <span style="color:#f92672">+</span> file_name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; does not exist&#34;</span>)</code></pre></div></p>
+
+<p><strong>Opening a specific sheet:</strong>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Try to open the specific sheet</span>
+<span style="color:#66d9ef">try</span>:
+    summary_sheet <span style="color:#f92672">=</span> book<span style="color:#f92672">.</span>sheet_by_name(<span style="color:#e6db74">&#39;For Summary File&#39;</span>)
+<span style="color:#66d9ef">except</span>:
+    logging<span style="color:#f92672">.</span>warning(<span style="color:#e6db74">&#39;Could not open sheet &#39;</span> <span style="color:#f92672">+</span> sheet_name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; in file &#39;</span> <span style="color:#f92672">+</span> file_name)</code></pre></div></p>
+
+<p><strong>Copying a row:</strong>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">row <span style="color:#f92672">=</span> [summary_sheet<span style="color:#f92672">.</span>cell(<span style="color:#ae81ff">1</span>, col)<span style="color:#f92672">.</span>value <span style="color:#66d9ef">for</span> col <span style="color:#f92672">in</span> range(summary_sheet<span style="color:#f92672">.</span>ncols)]</code></pre></div></p>
+
+<p><strong>Creating a new workbook and sheet:</strong>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Create a new workbook</span>
+new_workbook <span style="color:#f92672">=</span> xlwt<span style="color:#f92672">.</span>Workbook()
+<span style="color:#75715e"># Create a new sheet</span>
+new_sheet <span style="color:#f92672">=</span> new_workbook<span style="color:#f92672">.</span>add_sheet(<span style="color:#e6db74">&#39;Sheet1&#39;</span>)</code></pre></div></p>
+
+<p><strong>Writing data to the new workbook:</strong>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Write the data to the sheet</span>
+new_sheet<span style="color:#f92672">.</span>write(row, col, label<span style="color:#f92672">=</span>current_row[col])</code></pre></div></p>
+
+<p><strong>Saving a workbook:</strong>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">new_workbook<span style="color:#f92672">.</span>save(output_file)</code></pre></div></p>
+
+<p>Doesn&rsquo;t get much simpler than that! :)</p>
+
+  </section>
+</article>
+
+</main>
+
+</div>
+
+<footer>
+  <div class="container">
+    <span class="copyright">&copy; 2015 barakyo - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
+

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="generator" content="Hugo 0.53" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="barakyo">
+<title>
+  Java - barakyo
+</title>
+</head>
+<body>
+
+<header>
+  <div class="container clearfix">
+    <a class="path" href="https://barakyo.github.io">barakyo</a>
+    <div class="right">
+      
+        
+        <a class="path" href="/categories/">Categories</a>
+      
+        |
+        <a class="path" href="/categories/development/">Development</a>
+      
+        |
+        <a class="path" href="/categories/personal/">Personal</a>
+      
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+<main role="main" class="article-list">
+  <h1 class="list-title">Java</h1>
+  
+    <article class="list-item" itemscope itemtype="http://schema.org/Blog">
+  <h2 class="headline" itemprop="headline"><a href="/post/2014-04-06-play-framework-parsing-json/">Play! Framework -- Parsing JSON</a></h2>
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2014-04-06">April 06, 2014</time></span>
+
+  </div>
+  <section class="summary">
+    tl;dr I suggest using ObjectMapper found in the com.fasterxml.jackson.databind.ObjectMapper
+ObjectMapper mapper = new ObjectMapper(); try { JsonNode root = request().body().asJson(); JsonNode jsonPhoneNumbers = root.get(&#34;phoneNumbers&#34;); for(JsonNode phoneNumberString : jsonPhoneNumbers) { String phoneNumber = phoneNumberString.asText(); } catch (NullPointerException npe) { // No valid phone numbers were provided  } Using ObjectMapper For parsing arrays in JSON requests, I suggest using the ObjectMapper. Assuming you have a request that looks like:
+{ &#34;phoneNumbers&#34;: [ &#34;555-555-5555&#34;, &#34;555-555-5556&#34;, &#34;555-555-5557&#34; ] } We can easily access the phone number values by using ObjectMapper class.  <a href="/post/2014-04-06-play-framework-parsing-json/">Read More...</a>
+  </section>
+</article>
+
+  
+    <article class="list-item" itemscope itemtype="http://schema.org/Blog">
+  <h2 class="headline" itemprop="headline"><a href="/post/2014-04-06-play-framework-returning-json-response/">Play! Framework -- Returning JSON Responses</a></h2>
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2014-04-06">April 06, 2014</time></span>
+
+  </div>
+  <section class="summary">
+    I&rsquo;ve recently started a project at working using the Play Framework and while its a great framework, I was having a lot of trouble with some of the simplest tasks. I wouldn&rsquo;t blame Play for my problems, returning to Java after a long hiatus, being spoiled by dynamicly typed languages, and lack of documentation really made such tasks like returning a JSON response difficult.
+I figured that I may not be the only in this position, judging by the questions in the IRC channel and lack of responses, I figured it may be a good idea to jot down some of my notes, not only for myself, my coworkers, but for all my fellow Play framework noobs.  <a href="/post/2014-04-06-play-framework-returning-json-response/">Read More...</a>
+  </section>
+</article>
+
+  
+</main>
+</div>
+
+<footer>
+  <div class="container">
+    <span class="copyright">&copy; 2015 barakyo - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
+

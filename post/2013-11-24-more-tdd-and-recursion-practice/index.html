@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="generator" content="Hugo 0.53" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="barakyo">
+<title>
+  More TDD and Recursion Practice - barakyo
+</title>
+</head>
+<body>
+
+<header>
+  <div class="container clearfix">
+    <a class="path" href="https://barakyo.github.io">barakyo</a>
+    <div class="right">
+      
+        
+        <a class="path" href="/categories/">Categories</a>
+      
+        |
+        <a class="path" href="/categories/development/">Development</a>
+      
+        |
+        <a class="path" href="/categories/personal/">Personal</a>
+      
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+
+<main role="main" class="article">
+  
+<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2013-11-14">November 14, 2013</time></span>
+
+
+    <span class="key">in</span>
+    <span class="val">
+
+        <a href="/categories/Development">Development</a>
+
+    </span>
+
+
+    <br>
+    <span class="key">tags:</span>
+    <span class="val">
+
+        <a href="/tags/Python">Python</a>
+
+        <a href="/tags/TDD">TDD</a>
+
+    </span>
+
+  </div>
+  <h1 class="headline" itemprop="headline">More TDD and Recursion Practice</h1>
+  <section class="body" itemprop="articleBody">
+    
+
+<p>It seems that Javascript challenges are more frequent at work. Thursday afternoon when we got back from lunch, my coworker was testing himself in the <a href="http://toys.usvsth3m.com/javascript-under-pressure/">You Can&rsquo;t Javascript Under Pressure</a> challenges. As great coworkers, we (by that I mean, me) decided to help out and put more pressure on our fellow coworker, without even being asked to! One of the challenges that came up during the test was a function <code>ArraySum()</code> which accepts a list (array) of values and you must total all the integers within the array. The array could contain strings, numbers, booleans, lists of strings, numbers, booleans, etc. Regardless of the input, you must total all the integers within the array. After seeing that challenge (and helping with the correct answer), I thought it might be good practice for another blog post.</p>
+
+<h3 id="practice-makes-perfect">Practice makes Perfect</h3>
+
+<p>Before jumping into more testing and programming, I want to stop and think about my methodology. While re-reading <a href="http://chimera.labs.oreilly.com/books/1234000000754/ch03.html">Chapter 3</a> of <a href="http://chimera.labs.oreilly.com/books/1234000000754/index.html">Test-Driven Web Development with Python</a> on Friday with a coworker, I realized that almost every line of code that was written in the chapter to satisfy the test, had a test case as a reason to write that code. After seeing this and thinking about my previous blog post, I realized I didn&rsquo;t follow the TDD methodology as closely as I <del>could</del>should have. According to the author, Harry Percival, TDD is a discipline, it even says so in chapter 4.</p>
+
+<blockquote>
+<p>TDD is a discipline, and that means it&rsquo;s not something that comes naturally; because many of the payoffs aren&rsquo;t immediate but only come in the longer term, you have to force yourself to do it in the moment.</p>
+</blockquote>
+
+<p>To cut myself some slack, TDD is something you have to practice. Yes, I&rsquo;m talking about <a href="http://www.youtube.com/watch?v=eGDBR2L5kzI">practice</a>. I&rsquo;m sure there are a bunch of young grasshoper learning quotes I could state right now, but lets get on to testing.</p>
+
+<h3 id="stricter-test-cases">Stricter Test Cases</h3>
+
+<p>Last time we started by importing our function and writing a basic test case to test the return type. Let&rsquo;s do that again.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> unittest
+<span style="color:#f92672">from</span> arraysum <span style="color:#f92672">import</span> ArraySum
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ArraySumTests</span>(unittest<span style="color:#f92672">.</span>TestCase):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">setUp</span>(self):
+        <span style="color:#66d9ef">pass</span>
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_for_int</span>(self):
+        result <span style="color:#f92672">=</span> ArraySum([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>,])
+        self<span style="color:#f92672">.</span>assertTrue(type(result) <span style="color:#f92672">is</span> int, <span style="color:#e6db74">&#34;Result is not integer&#34;</span>)
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    unittest<span style="color:#f92672">.</span>main()</code></pre></div>
+
+<p>Looks good to me, lets run it!
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">Traceback (most recent call last):
+File <span style="color:#e6db74">&#34;tests.py&#34;</span>, line <span style="color:#ae81ff">2</span>, <span style="color:#f92672">in</span> <span style="color:#f92672">&lt;</span>module<span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">from</span> arraysum <span style="color:#f92672">import</span> ArraySum
+  <span style="color:#a6e22e">ImportError</span>: No module named arraysum</code></pre></div></p>
+
+<p>Our first error! Lets correct it, but remember, minimal amount of code! In fact, we won&rsquo;t right any code at all.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">caster:arraysum/ $ touch arraysum.py
+<span style="color:#f92672">{</span>% endhighlight bash %<span style="color:#f92672">}</span> 
+
+Let<span style="color:#e6db74">&#39;s re-run our test.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;Traceback (most recent call last):
+</span><span style="color:#e6db74">File &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tests.py&amp;#34;&lt;/span&gt;, line &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;module&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+</span><span style="color:#e6db74">  &lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; arraysum &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; ArraySum
+</span><span style="color:#e6db74">  &lt;span style=&#34;color:#a6e22e&#34;&gt;ImportError&lt;/span&gt;: cannot &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; name ArraySum&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Yay new error! This time it can&#39;</span>t find our <span style="color:#66d9ef">function</span>, <span style="color:#e6db74">`</span>ArraySum<span style="color:#e6db74">`</span>, lets <span style="color:#f92672">(</span>minimally<span style="color:#f92672">)</span> create that in our new <span style="color:#e6db74">`</span>arraysum.py<span style="color:#e6db74">`</span> file.
+
+&lt;div class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;highlight&#34;</span>&gt;&lt;pre style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;</span>&gt;&lt;code class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;language-python&#34;</span> data-lang<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;python&#34;</span>&gt;&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;def&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#a6e22e&#34;</span>&gt;ArraySum&lt;/span&gt;<span style="color:#f92672">(</span>int_list<span style="color:#f92672">)</span>:
+    &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;pass&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+Okay, let<span style="color:#e6db74">&#39;s see what we get now.
+</span><span style="color:#e6db74">&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;F
+</span><span style="color:#e6db74">&lt;span style=&#34;color:#f92672&#34;&gt;======================================================================&lt;/span&gt;
+</span><span style="color:#e6db74">FAIL: test_for_int (__main__&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ArraySumTests)
+</span><span style="color:#e6db74">&lt;span style=&#34;color:#f92672&#34;&gt;----------------------------------------------------------------------&lt;/span&gt;
+</span><span style="color:#e6db74">Traceback (most recent call last):
+</span><span style="color:#e6db74">  File &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tests.py&amp;#34;&lt;/span&gt;, line &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; test_for_int
+</span><span style="color:#e6db74">  self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;assertTrue(type(result) &lt;span style=&#34;color:#f92672&#34;&gt;is&lt;/span&gt; int, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Result is not integer&amp;#34;&lt;/span&gt;)
+</span><span style="color:#e6db74">  &lt;span style=&#34;color:#a6e22e&#34;&gt;AssertionError&lt;/span&gt;: Result &lt;span style=&#34;color:#f92672&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; integer
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">&lt;span style=&#34;color:#f92672&#34;&gt;----------------------------------------------------------------------&lt;/span&gt;
+</span><span style="color:#e6db74">Ran &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; test &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.000&lt;/span&gt;s
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">FAILED (failures&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">&lt;del&gt;More&lt;/del&gt;MOAR errors!! This time our test is failing because we&#39;</span>re not returning an integer. Let<span style="color:#e6db74">&#39;s fix that by modifying our return statement.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ArraySum&lt;/span&gt;(int_list):
+</span><span style="color:#e6db74">    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Alright, lets re-run our test.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;
+</span><span style="color:#e6db74">&lt;span style=&#34;color:#f92672&#34;&gt;----------------------------------------------------------------------&lt;/span&gt;
+</span><span style="color:#e6db74">Ran &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; test &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.000&lt;/span&gt;s
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">OK&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Woohoo! Our first test passed. According to TDD, we can now write some more tests. Let&#39;</span>s make this one a little more interesting.
+&lt;div class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;highlight&#34;</span>&gt;&lt;pre style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;</span>&gt;&lt;code class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;language-python&#34;</span> data-lang<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;python&#34;</span>&gt;&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;import&lt;/span&gt; unittest
+&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;from&lt;/span&gt; arraysum &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;import&lt;/span&gt; ArraySum
+
+&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;class&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#a6e22e&#34;</span>&gt;ArraySumTests&lt;/span&gt;<span style="color:#f92672">(</span>unittest&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;.&lt;/span&gt;TestCase<span style="color:#f92672">)</span>:
+    &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;def&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#a6e22e&#34;</span>&gt;setUp&lt;/span&gt;<span style="color:#f92672">(</span>self<span style="color:#f92672">)</span>:
+        &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;pass&lt;/span&gt;
+
+    &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;def&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#a6e22e&#34;</span>&gt;test_for_int&lt;/span&gt;<span style="color:#f92672">(</span>self<span style="color:#f92672">)</span>:
+        result &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;<span style="color:#f92672">=</span>&lt;/span&gt; ArraySum<span style="color:#f92672">([</span>&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;1&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;2&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;3&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;4&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;5&lt;/span&gt;,<span style="color:#f92672">])</span>
+        self&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;.&lt;/span&gt;assertTrue<span style="color:#f92672">(</span>type<span style="color:#f92672">(</span>result<span style="color:#f92672">)</span> &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;is&lt;/span&gt; int, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#e6db74&#34;</span>&gt;&amp;<span style="color:#75715e">#34;Result is not integer&amp;#34;&lt;/span&gt;)</span>
+
+    &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;def&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#a6e22e&#34;</span>&gt;test_flat_list&lt;/span&gt;<span style="color:#f92672">(</span>self<span style="color:#f92672">)</span>:
+        result &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;<span style="color:#f92672">=</span>&lt;/span&gt; ArraySum<span style="color:#f92672">([</span>&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;1&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;2&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;3&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;4&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;5&lt;/span&gt;<span style="color:#f92672">])</span>
+        self&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;.&lt;/span&gt;assertTrue<span style="color:#f92672">(</span>result &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;<span style="color:#f92672">==</span>&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;15&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#e6db74&#34;</span>&gt;&amp;<span style="color:#75715e">#34;Incorrect sum&amp;#34;&lt;/span&gt;)</span>
+
+&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;if&lt;/span&gt; __name__ &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;<span style="color:#f92672">==</span>&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#e6db74&#34;</span>&gt;&amp;<span style="color:#75715e">#39;__main__&amp;#39;&lt;/span&gt;:</span>
+    unittest&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;.&lt;/span&gt;main<span style="color:#f92672">()</span>&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+We<span style="color:#e6db74">&#39;ve now added a new test, `test_flat_list` to test a simple list of integers and ensure the sum is correct. Back to running tests...
+</span><span style="color:#e6db74">&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;F&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;
+</span><span style="color:#e6db74">&lt;span style=&#34;color:#f92672&#34;&gt;======================================================================&lt;/span&gt;
+</span><span style="color:#e6db74">FAIL: test_flat_list (__main__&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ArraySumTests)
+</span><span style="color:#e6db74">&lt;span style=&#34;color:#f92672&#34;&gt;----------------------------------------------------------------------&lt;/span&gt;
+</span><span style="color:#e6db74">Traceback (most recent call last):
+</span><span style="color:#e6db74">File &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tests.py&amp;#34;&lt;/span&gt;, line &lt;span style=&#34;color:#ae81ff&#34;&gt;14&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; test_flat_list
+</span><span style="color:#e6db74">  self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;assertTrue(result &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Incorrect sum&amp;#34;&lt;/span&gt;)
+</span><span style="color:#e6db74">  &lt;span style=&#34;color:#a6e22e&#34;&gt;AssertionError&lt;/span&gt;: Incorrect sum
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">&lt;span style=&#34;color:#f92672&#34;&gt;----------------------------------------------------------------------&lt;/span&gt;
+</span><span style="color:#e6db74">Ran &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; tests &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.000&lt;/span&gt;s
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">FAILED (failures&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">The obvious problem here is that our function is returning 0 and not doing any sort of summation. According to TDD, we want to write the minimal amount of code, Python, being the beautiful language that it is, provides us with a simple `sum` function which operates on iterables. Allowing us to very easily pass our `test_with_flat_list` test.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ArraySum&lt;/span&gt;(int_list):
+</span><span style="color:#e6db74">    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; sum(int_list)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Running our test again will show that we were able to successfully pass it.
+</span><span style="color:#e6db74">&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;
+</span><span style="color:#e6db74">&lt;span style=&#34;color:#f92672&#34;&gt;----------------------------------------------------------------------&lt;/span&gt;
+</span><span style="color:#e6db74">Ran &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; tests &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.000&lt;/span&gt;s
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">OK&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">We can continue writing more test cases, so lets make it a little more interesting. We&#39;</span>ll introduce some non-integer values into the list, which will create errors <span style="color:#66d9ef">for</span> our <span style="color:#e6db74">`</span>sum<span style="color:#e6db74">`</span> <span style="color:#66d9ef">function</span> in a test <span style="color:#66d9ef">case</span> called <span style="color:#e6db74">`</span>test_complex_list<span style="color:#e6db74">`</span>.
+&lt;div class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;highlight&#34;</span>&gt;&lt;pre style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;</span>&gt;&lt;code class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;language-python&#34;</span> data-lang<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;python&#34;</span>&gt;&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;import&lt;/span&gt; unittest
+&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;from&lt;/span&gt; arraysum &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;import&lt;/span&gt; ArraySum
+
+&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;class&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#a6e22e&#34;</span>&gt;ArraySumTests&lt;/span&gt;<span style="color:#f92672">(</span>unittest&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;.&lt;/span&gt;TestCase<span style="color:#f92672">)</span>:
+    &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;def&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#a6e22e&#34;</span>&gt;setUp&lt;/span&gt;<span style="color:#f92672">(</span>self<span style="color:#f92672">)</span>:
+        &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;pass&lt;/span&gt;
+
+    &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;def&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#a6e22e&#34;</span>&gt;test_for_int&lt;/span&gt;<span style="color:#f92672">(</span>self<span style="color:#f92672">)</span>:
+        result &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;<span style="color:#f92672">=</span>&lt;/span&gt; ArraySum<span style="color:#f92672">([</span>&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;1&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;2&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;3&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;4&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;5&lt;/span&gt;,<span style="color:#f92672">])</span>
+        self&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;.&lt;/span&gt;assertTrue<span style="color:#f92672">(</span>type<span style="color:#f92672">(</span>result<span style="color:#f92672">)</span> &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;is&lt;/span&gt; int, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#e6db74&#34;</span>&gt;&amp;<span style="color:#75715e">#34;Result is not integer&amp;#34;&lt;/span&gt;)</span>
+
+    &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;def&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#a6e22e&#34;</span>&gt;test_flat_list&lt;/span&gt;<span style="color:#f92672">(</span>self<span style="color:#f92672">)</span>:
+        result &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;<span style="color:#f92672">=</span>&lt;/span&gt; ArraySum<span style="color:#f92672">([</span>&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;1&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;2&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;3&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;4&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;5&lt;/span&gt;<span style="color:#f92672">])</span>
+        self&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;.&lt;/span&gt;assertTrue<span style="color:#f92672">(</span>result &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;<span style="color:#f92672">==</span>&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;15&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#e6db74&#34;</span>&gt;&amp;<span style="color:#75715e">#34;Incorrect sum&amp;#34;&lt;/span&gt;)</span>
+    
+    &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;def&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#a6e22e&#34;</span>&gt;test_complex_list&lt;/span&gt;<span style="color:#f92672">(</span>self<span style="color:#f92672">)</span>:
+        result &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;<span style="color:#f92672">=</span>&lt;/span&gt; ArraySum<span style="color:#f92672">([</span>&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;1&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;2&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;3&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#e6db74&#34;</span>&gt;&amp;<span style="color:#75715e">#34;hello&amp;#34;&lt;/span&gt;])</span>
+        self&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;.&lt;/span&gt;assertTrue<span style="color:#f92672">(</span>result &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;<span style="color:#f92672">==</span>&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;6&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#e6db74&#34;</span>&gt;&amp;<span style="color:#75715e">#34;Incorrect sum&amp;#34;&lt;/span&gt;)</span>
+
+
+&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;if&lt;/span&gt; __name__ &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;<span style="color:#f92672">==</span>&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#e6db74&#34;</span>&gt;&amp;<span style="color:#75715e">#39;__main__&amp;#39;&lt;/span&gt;:</span>
+    unittest&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;.&lt;/span&gt;main<span style="color:#f92672">()</span>&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+Running our tests, returns the results:
+
+&lt;div class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;highlight&#34;</span>&gt;&lt;pre style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;</span>&gt;&lt;code class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;language-python&#34;</span> data-lang<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;python&#34;</span>&gt;E&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;..&lt;/span&gt;
+&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;<span style="color:#f92672">======================================================================</span>&lt;/span&gt;
+ERROR: test_complex_list <span style="color:#f92672">(</span>__main__&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;.&lt;/span&gt;ArraySumTests<span style="color:#f92672">)</span>
+&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;----------------------------------------------------------------------&lt;/span&gt;
+Traceback <span style="color:#f92672">(</span>most recent call last<span style="color:#f92672">)</span>:
+  File &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#e6db74&#34;</span>&gt;&amp;<span style="color:#75715e">#34;tests.py&amp;#34;&lt;/span&gt;, line &lt;span style=&#34;color:#ae81ff&#34;&gt;17&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; test_complex_list</span>
+  result &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;<span style="color:#f92672">=</span>&lt;/span&gt; ArraySum<span style="color:#f92672">([</span>&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;1&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;2&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;3&lt;/span&gt;, &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#e6db74&#34;</span>&gt;&amp;<span style="color:#75715e">#34;hello&amp;#34;&lt;/span&gt;])</span>
+    File &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#e6db74&#34;</span>&gt;&amp;<span style="color:#75715e">#34;/home/caster/Development/arraysum/arraysum.py&amp;#34;&lt;/span&gt;, line &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; ArraySum</span>
+        &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;return&lt;/span&gt; sum<span style="color:#f92672">(</span>int_list<span style="color:#f92672">)</span>
+        &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#a6e22e&#34;</span>&gt;TypeError&lt;/span&gt;: unsupported operand type<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;for&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;+&lt;/span&gt;: &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#e6db74&#34;</span>&gt;&amp;<span style="color:#75715e">#39;int&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;str&amp;#39;&lt;/span&gt;</span>
+
+&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;----------------------------------------------------------------------&lt;/span&gt;
+Ran &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;3&lt;/span&gt; tests &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;in&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;0.000&lt;/span&gt;s
+
+FAILED <span style="color:#f92672">(</span>errors&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;<span style="color:#f92672">=</span>&lt;/span&gt;&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;1&lt;/span&gt;<span style="color:#f92672">)</span>&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+Just as we expected! Let<span style="color:#e6db74">&#39;s make some corrections to our `ArraySum` function.
+</span><span style="color:#e6db74">&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ArraySum&lt;/span&gt;(int_list):
+</span><span style="color:#e6db74">    sum &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+</span><span style="color:#e6db74">    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; int_list:
+</span><span style="color:#e6db74">        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; type(x) &lt;span style=&#34;color:#f92672&#34;&gt;is&lt;/span&gt; int:
+</span><span style="color:#e6db74">            sum &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; x
+</span><span style="color:#e6db74">    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; sum&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">After making our fix, we&#39;</span>ll re-run our test and...
+&lt;div class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;highlight&#34;</span>&gt;&lt;pre style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;</span>&gt;&lt;code class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;language-python&#34;</span> data-lang<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;python&#34;</span>&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;...&lt;/span&gt;
+&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;----------------------------------------------------------------------&lt;/span&gt;
+Ran &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;3&lt;/span&gt; tests &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;in&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;0.000&lt;/span&gt;s
+
+OK&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+Looks good! Once again, passed test cases means we can write more tests, so lets give it a go one last time. We<span style="color:#e6db74">&#39;ll create a new test case, `test_complex_nested_list`, where we&#39;</span>ll introduce a nested list into our previous complex list. A nested list within our <span style="color:#66d9ef">function</span> also brings in the sense of recursion! We<span style="color:#e6db74">&#39;ll want to take in account what we have, where we want to go, and if we&#39;</span>ve <span style="color:#66d9ef">done</span> something like this before <span style="color:#f92672">(</span>which we have<span style="color:#f92672">)</span>. Currently we<span style="color:#e6db74">&#39;re iterating through all the values and if they&#39;</span>re integers we<span style="color:#e6db74">&#39;ll add them to our `sum` variable. We&#39;</span>re throwing away that is anything but an <span style="color:#e6db74">`</span>int<span style="color:#e6db74">`</span>. We know this is wrong though since the <span style="color:#66d9ef">function</span> must also include the values within nested lists, hence the embarrassingly recursive algorithm.
+
+We know that we<span style="color:#e6db74">&#39;re going to have to iterate through the values in our list, so we understand that, but lets look at our cases:
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">* Value is an `int`: Add to sum
+</span><span style="color:#e6db74">* Value is a `list`: Add the total of the list to sum
+</span><span style="color:#e6db74">* Value is neither: Ignore
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Now that we have an idea of what we want to do, lets write our last test case.
+</span><span style="color:#e6db74">&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; unittest
+</span><span style="color:#e6db74">&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; arraysum &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; ArraySum
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ArraySumTests&lt;/span&gt;(unittest&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;TestCase):
+</span><span style="color:#e6db74">    &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;setUp&lt;/span&gt;(self):
+</span><span style="color:#e6db74">        &lt;span style=&#34;color:#66d9ef&#34;&gt;pass&lt;/span&gt;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;test_for_int&lt;/span&gt;(self):
+</span><span style="color:#e6db74">        result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ArraySum([&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;,])
+</span><span style="color:#e6db74">        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;assertTrue(type(result) &lt;span style=&#34;color:#f92672&#34;&gt;is&lt;/span&gt; int, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Result is not integer&amp;#34;&lt;/span&gt;)
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;test_flat_list&lt;/span&gt;(self):
+</span><span style="color:#e6db74">        result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ArraySum([&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;])
+</span><span style="color:#e6db74">        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;assertTrue(result &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Incorrect sum&amp;#34;&lt;/span&gt;)
+</span><span style="color:#e6db74">    
+</span><span style="color:#e6db74">    &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;test_complex_list&lt;/span&gt;(self):
+</span><span style="color:#e6db74">        result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ArraySum([&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hello&amp;#34;&lt;/span&gt;])
+</span><span style="color:#e6db74">        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;assertTrue(result &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Incorrect sum&amp;#34;&lt;/span&gt;)
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;test_complex_nested_list&lt;/span&gt;(self):
+</span><span style="color:#e6db74">        result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ArraySum([&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hello&amp;#34;&lt;/span&gt;, [&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;]])
+</span><span style="color:#e6db74">        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;assertTrue(result &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Incorrect sum&amp;#34;&lt;/span&gt;)
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; __name__ &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;:
+</span><span style="color:#e6db74">    unittest&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;main()&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Before we make any changes to `ArraySum`, we have to run our test.
+</span><span style="color:#e6db74">&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;F&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;
+</span><span style="color:#e6db74">&lt;span style=&#34;color:#f92672&#34;&gt;======================================================================&lt;/span&gt;
+</span><span style="color:#e6db74">FAIL: test_complex_nested_list (__main__&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ArraySumTests)
+</span><span style="color:#e6db74">&lt;span style=&#34;color:#f92672&#34;&gt;----------------------------------------------------------------------&lt;/span&gt;
+</span><span style="color:#e6db74">Traceback (most recent call last):
+</span><span style="color:#e6db74">  File &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tests.py&amp;#34;&lt;/span&gt;, line &lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; test_complex_nested_list
+</span><span style="color:#e6db74">      self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;assertTrue(result &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Incorrect sum&amp;#34;&lt;/span&gt;)
+</span><span style="color:#e6db74">      &lt;span style=&#34;color:#a6e22e&#34;&gt;AssertionError&lt;/span&gt;: Incorrect sum
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">&lt;span style=&#34;color:#f92672&#34;&gt;----------------------------------------------------------------------&lt;/span&gt;
+</span><span style="color:#e6db74">Ran &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt; tests &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.000&lt;/span&gt;s
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">FAILED (failures&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Now that we have a failed test, we are given the okay by the testing goat to modify our code. Let&#39;</span>s add our recursive call, so our <span style="color:#66d9ef">function</span> now looks like:
+&lt;div class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;highlight&#34;</span>&gt;&lt;pre style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;</span>&gt;&lt;code class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;language-python&#34;</span> data-lang<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;python&#34;</span>&gt;&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;def&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#a6e22e&#34;</span>&gt;ArraySum&lt;/span&gt;<span style="color:#f92672">(</span>int_list<span style="color:#f92672">)</span>:
+    sum &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;<span style="color:#f92672">=</span>&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;0&lt;/span&gt;
+    &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;for&lt;/span&gt; x &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;in&lt;/span&gt; int_list:
+        &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;if&lt;/span&gt; type<span style="color:#f92672">(</span>x<span style="color:#f92672">)</span> &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;is&lt;/span&gt; int:
+            sum &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;+<span style="color:#f92672">=</span>&lt;/span&gt; x
+        &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;elif&lt;/span&gt; type<span style="color:#f92672">(</span>x<span style="color:#f92672">)</span> &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;is&lt;/span&gt; list:
+            sum &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;+<span style="color:#f92672">=</span>&lt;/span&gt; ArraySum<span style="color:#f92672">(</span>x<span style="color:#f92672">)</span>
+    &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#66d9ef&#34;</span>&gt;return&lt;/span&gt; sum&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+Re-running our final test...
+&lt;div class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;highlight&#34;</span>&gt;&lt;pre style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;</span>&gt;&lt;code class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;language-python&#34;</span> data-lang<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;python&#34;</span>&gt;&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;....&lt;/span&gt;
+&lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;----------------------------------------------------------------------&lt;/span&gt;
+Ran &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;4&lt;/span&gt; tests &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#f92672&#34;</span>&gt;in&lt;/span&gt; &lt;span style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color:#ae81ff&#34;</span>&gt;0.000&lt;/span&gt;s
+
+OK&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+Ahhhhh :<span style="color:#f92672">)</span></code></pre></div>
+
+  </section>
+</article>
+
+</main>
+
+</div>
+
+<footer>
+  <div class="container">
+    <span class="copyright">&copy; 2015 barakyo - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
+

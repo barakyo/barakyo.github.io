@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="generator" content="Hugo 0.53" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="barakyo">
+<title>
+  Play! Framework -- Returning JSON Responses - barakyo
+</title>
+</head>
+<body>
+
+<header>
+  <div class="container clearfix">
+    <a class="path" href="https://barakyo.github.io">barakyo</a>
+    <div class="right">
+      
+        
+        <a class="path" href="/categories/">Categories</a>
+      
+        |
+        <a class="path" href="/categories/development/">Development</a>
+      
+        |
+        <a class="path" href="/categories/personal/">Personal</a>
+      
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+
+<main role="main" class="article">
+  
+<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2014-04-06">April 06, 2014</time></span>
+
+
+    <span class="key">in</span>
+    <span class="val">
+
+        <a href="/categories/Development">Development</a>
+
+    </span>
+
+
+    <br>
+    <span class="key">tags:</span>
+    <span class="val">
+
+        <a href="/tags/Java">Java</a>
+
+        <a href="/tags/Play!">Play!</a>
+
+    </span>
+
+  </div>
+  <h1 class="headline" itemprop="headline">Play! Framework -- Returning JSON Responses</h1>
+  <section class="body" itemprop="articleBody">
+    
+
+<p>I&rsquo;ve recently started a project at working using the <a href="http://www.playframework.com/">Play Framework</a> and while its a great framework, I was having a lot of trouble with some of the simplest tasks. I wouldn&rsquo;t blame Play for my problems, returning to Java after a long hiatus, being spoiled by dynamicly typed languages, and lack of documentation really made such tasks like returning a JSON response difficult.</p>
+
+<p>I figured that I may not be the only in this position, judging by the questions in the IRC channel and lack of responses, I figured it may be a good idea to jot down some of my notes, not only for myself, my coworkers, but for all my fellow Play framework noobs. Apologies for the introduction, I&rsquo;ll try to keep the rest of this posts and the futures, short, succinct, and to the point.</p>
+
+<h2 id="tl-dr">tl;dr</h2>
+
+<p>Use ObjectNode class found in the <code>com.fasterxml.jackson.databind.node.ObjectNode</code> package.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#f92672">import</span> com.fasterxml.jackson.databind.node.ObjectNode<span style="color:#f92672">;</span>
+
+    ObjectNode response <span style="color:#f92672">=</span> Json<span style="color:#f92672">.</span><span style="color:#a6e22e">newObject</span><span style="color:#f92672">();</span>
+    response<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;status&#34;</span><span style="color:#f92672">,</span> 200<span style="color:#f92672">);</span>
+    response<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;message&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Request was successful&#34;</span><span style="color:#f92672">);</span>
+    response<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;data&#34;</span><span style="color:#f92672">,</span> Json<span style="color:#f92672">.</span><span style="color:#a6e22e">toJson</span><span style="color:#f92672">(</span>users<span style="color:#f92672">));</span>
+    <span style="color:#66d9ef">return</span> ok<span style="color:#f92672">(</span>response<span style="color:#f92672">);</span></code></pre></div></p>
+
+<h2 id="using-objectnode">Using ObjectNode</h2>
+
+<p>To easily return mixed response types, I suggest using the <code>ObjectNode</code> class found in the <code>com.fasterxml.jackson.databind.node.ObjectNode</code> package. Using the class is simple, first instantiate an object:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    ObjectNode response <span style="color:#f92672">=</span> Json<span style="color:#f92672">.</span><span style="color:#a6e22e">newObject</span><span style="color:#f92672">();</span></code></pre></div><br />
+From there, you can treat the object similar to a map but using <code>put()</code> function.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    response<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;status&#34;</span><span style="color:#f92672">,</span> 200<span style="color:#f92672">);</span>
+    response<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;message&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Request was successful&#34;</span><span style="color:#f92672">);</span></code></pre></div>
+Often times we want to return an object or array of objects. Using the <code>Json.toJson()</code> function found in <code>play.libs.Json</code> we can easily convert objects or lists of objects to be included in our JSON response.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    response<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;data&#34;</span><span style="color:#f92672">,</span> Json<span style="color:#f92672">.</span><span style="color:#a6e22e">toJson</span><span style="color:#f92672">(</span>users<span style="color:#f92672">));</span></code></pre></div>
+Finally, you&rsquo;ll probably want to use the static return response methods to easily return our JSON response.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#66d9ef">return</span> ok<span style="color:#f92672">(</span>response<span style="color:#f92672">);</span></code></pre></div></p>
+
+  </section>
+</article>
+
+</main>
+
+</div>
+
+<footer>
+  <div class="container">
+    <span class="copyright">&copy; 2015 barakyo - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
+
