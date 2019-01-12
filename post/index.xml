@@ -6,10 +6,19 @@
     <description>Recent content in Posts on barakyo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 17 Sep 2015 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 12 Jan 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://barakyo.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>2019 New Year Resolutions</title>
+      <link>https://barakyo.github.io/post/2019-01-12-2019-new-year-resolutions/</link>
+      <pubDate>Sat, 12 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://barakyo.github.io/post/2019-01-12-2019-new-year-resolutions/</guid>
+      <description>First of all, I know I&amp;rsquo;m a little late to this, but I&amp;rsquo;ve had these resolutions for a while. I just feel like documenting them and putting them somewhere will hopefully make me more accountable. In addition to posting them somewhere to increase accountability, I need to revise some of these goals so that they&amp;rsquo;re more specific and measurable. I&amp;rsquo;d like to review myself each month to keep track of my progress.</description>
+    </item>
     
     <item>
       <title>Elisper: Lisp In Elixir</title>
