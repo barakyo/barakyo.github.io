@@ -6,10 +6,19 @@
     <description>Recent content in Tags on barakyo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 28 Jan 2015 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 16 Jan 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://barakyo.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Advent of Code</title>
+      <link>https://barakyo.github.io/tags/advent-of-code/</link>
+      <pubDate>Wed, 16 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://barakyo.github.io/tags/advent-of-code/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Book Review</title>
@@ -35,6 +44,15 @@
       <pubDate>Thu, 17 Sep 2015 00:00:00 +0000</pubDate>
       
       <guid>https://barakyo.github.io/tags/elixir/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Haskell</title>
+      <link>https://barakyo.github.io/tags/haskell/</link>
+      <pubDate>Wed, 16 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://barakyo.github.io/tags/haskell/</guid>
       <description></description>
     </item>
     
@@ -68,7 +86,7 @@
     <item>
       <title>New Year Resolutions</title>
       <link>https://barakyo.github.io/tags/new-year-resolutions/</link>
-      <pubDate>Sat, 12 Jan 2019 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 16 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://barakyo.github.io/tags/new-year-resolutions/</guid>
       <description></description>

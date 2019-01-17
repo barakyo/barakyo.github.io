@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://barakyo.github.io/post/2019-01-16-aoc-day-1/</loc>
+    <lastmod>2019-01-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://barakyo.github.io/post/2019-01-12-2019-new-year-resolutions/</loc>
     <lastmod>2019-01-12T00:00:00+00:00</lastmod>
   </url>
@@ -73,6 +78,12 @@
   </url>
   
   <url>
+    <loc>https://barakyo.github.io/tags/advent-of-code/</loc>
+    <lastmod>2019-01-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://barakyo.github.io/tags/book-review/</loc>
     <lastmod>2015-01-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -91,13 +102,19 @@
   
   <url>
     <loc>https://barakyo.github.io/categories/development/</loc>
-    <lastmod>2015-09-17T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://barakyo.github.io/tags/elixir/</loc>
     <lastmod>2015-09-17T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://barakyo.github.io/tags/haskell/</loc>
+    <lastmod>2019-01-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -121,7 +138,7 @@
   
   <url>
     <loc>https://barakyo.github.io/tags/new-year-resolutions/</loc>
-    <lastmod>2019-01-12T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -145,7 +162,7 @@
   
   <url>
     <loc>https://barakyo.github.io/post/</loc>
-    <lastmod>2019-01-12T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -157,7 +174,7 @@
   
   <url>
     <loc>https://barakyo.github.io/tags/</loc>
-    <lastmod>2015-01-28T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -169,7 +186,7 @@
   
   <url>
     <loc>https://barakyo.github.io/</loc>
-    <lastmod>2019-01-12T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
