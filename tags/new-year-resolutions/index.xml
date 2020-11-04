@@ -2,46 +2,46 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>New Year Resolutions on barakyo</title>
-    <link>https://barakyo.github.io/tags/new-year-resolutions/</link>
+    <link>https://barakyo.io/tags/new-year-resolutions/</link>
     <description>Recent content in New Year Resolutions on barakyo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 16 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://barakyo.github.io/tags/new-year-resolutions/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 16 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://barakyo.io/tags/new-year-resolutions/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Advent of Code: Day 1</title>
-      <link>https://barakyo.github.io/post/2019-01-16-aoc-day-1/</link>
+      <link>https://barakyo.io/post/2019-01-16-aoc-day-1/</link>
       <pubDate>Wed, 16 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2019-01-16-aoc-day-1/</guid>
+      <guid>https://barakyo.io/post/2019-01-16-aoc-day-1/</guid>
       <description>I&amp;rsquo;ve heard about Advent of Code before, but I never looked into it. After an urge for some programming and no real direction for a side project, I decided I&amp;rsquo;d try my hand at Advent of Code. To make a hard task even harder, I decided I&amp;rsquo;d try to solve the problems in Haskell.
 Problem Essentially, Day 1 of AoC boiled down into parsing an input file of integers and finding two things:</description>
     </item>
     
     <item>
       <title>2019 New Year Resolutions</title>
-      <link>https://barakyo.github.io/post/2019-01-12-2019-new-year-resolutions/</link>
+      <link>https://barakyo.io/post/2019-01-12-2019-new-year-resolutions/</link>
       <pubDate>Sat, 12 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2019-01-12-2019-new-year-resolutions/</guid>
+      <guid>https://barakyo.io/post/2019-01-12-2019-new-year-resolutions/</guid>
       <description>First of all, I know I&amp;rsquo;m a little late to this, but I&amp;rsquo;ve had these resolutions for a while. I just feel like documenting them and putting them somewhere will hopefully make me more accountable. In addition to posting them somewhere to increase accountability, I need to revise some of these goals so that they&amp;rsquo;re more specific and measurable. I&amp;rsquo;d like to review myself each month to keep track of my progress.</description>
     </item>
     
     <item>
       <title>2015 Resolutions - One Month Review</title>
-      <link>https://barakyo.github.io/post/2015-02-01-resolutions-one-month-review/</link>
+      <link>https://barakyo.io/post/2015-02-01-resolutions-one-month-review/</link>
       <pubDate>Sun, 01 Feb 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2015-02-01-resolutions-one-month-review/</guid>
+      <guid>https://barakyo.io/post/2015-02-01-resolutions-one-month-review/</guid>
       <description>Wow! I can&amp;rsquo;t believe it&amp;rsquo;s February already! As I stated in my New Year Resolutions post, I wrote down my resolutions so that I could be held accountable for them. Reviewing my resolutions after a year seemed like I would easily lose touch/sight of them. I decided a good idea would be to review my progress month-by-month, so here it goes:
 Read more (and not programming/technical books) I believe I&amp;rsquo;ve been doing a good job of this!</description>
     </item>
     
     <item>
       <title>2015 New Year Resolutions</title>
-      <link>https://barakyo.github.io/post/2014-12-31-new-year-resolutions/</link>
+      <link>https://barakyo.io/post/2014-12-31-new-year-resolutions/</link>
       <pubDate>Wed, 31 Dec 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2014-12-31-new-year-resolutions/</guid>
+      <guid>https://barakyo.io/post/2014-12-31-new-year-resolutions/</guid>
       <description>Well I hope I&amp;rsquo;m not too late to get my new year resolutions in. I&amp;rsquo;ve been thinking about this post for a while, but was only finally inspired after my last cup of coffee of 2014. In fact, this day included a lot of lasts. The last swim of the year, the last time I&amp;rsquo;d visit my brother in 2014, the last time I&amp;rsquo;d accidentally cut myself in 2014 (I hope), the last.</description>
     </item>
     

@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on barakyo</title>
-    <link>https://barakyo.github.io/categories/</link>
+    <link>https://barakyo.io/categories/</link>
     <description>Recent content in Categories on barakyo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 02 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://barakyo.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://barakyo.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Development</title>
-      <link>https://barakyo.github.io/categories/development/</link>
+      <link>https://barakyo.io/categories/development/</link>
       <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/categories/development/</guid>
+      <guid>https://barakyo.io/categories/development/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Personal</title>
-      <link>https://barakyo.github.io/categories/personal/</link>
+      <link>https://barakyo.io/categories/personal/</link>
       <pubDate>Sat, 12 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/categories/personal/</guid>
+      <guid>https://barakyo.io/categories/personal/</guid>
       <description></description>
     </item>
     

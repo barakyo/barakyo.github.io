@@ -2,93 +2,93 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on barakyo</title>
-    <link>https://barakyo.github.io/post/</link>
+    <link>https://barakyo.io/post/</link>
     <description>Recent content in Posts on barakyo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 02 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://barakyo.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://barakyo.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Tutorial: Awesome Presentations with CodeHike</title>
-      <link>https://barakyo.github.io/post/2020-11-02-awesome-presentations-with-codehike/</link>
+      <link>https://barakyo.io/post/2020-11-02-awesome-presentations-with-codehike/</link>
       <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2020-11-02-awesome-presentations-with-codehike/</guid>
+      <guid>https://barakyo.io/post/2020-11-02-awesome-presentations-with-codehike/</guid>
       <description>Background At work, we&amp;rsquo;ve been focusing on building components that are reusable and more flexible throughout our application. Because of this, we&amp;rsquo;ve been focusing on making components more composable. To really drive that point home, I gave a small presentation using an awesome library called Code Hike.
 If you haven&amp;rsquo;t seen Code Hike before, you should definitely stop right here and at least give Rodrigo Pombo&amp;rsquo;s (the author of Code Hike) amazing article on Build Your Own React a quick look.</description>
     </item>
     
     <item>
       <title>Advent of Code: Day 1</title>
-      <link>https://barakyo.github.io/post/2019-01-16-aoc-day-1/</link>
+      <link>https://barakyo.io/post/2019-01-16-aoc-day-1/</link>
       <pubDate>Wed, 16 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2019-01-16-aoc-day-1/</guid>
+      <guid>https://barakyo.io/post/2019-01-16-aoc-day-1/</guid>
       <description>I&amp;rsquo;ve heard about Advent of Code before, but I never looked into it. After an urge for some programming and no real direction for a side project, I decided I&amp;rsquo;d try my hand at Advent of Code. To make a hard task even harder, I decided I&amp;rsquo;d try to solve the problems in Haskell.
 Problem Essentially, Day 1 of AoC boiled down into parsing an input file of integers and finding two things:</description>
     </item>
     
     <item>
       <title>2019 New Year Resolutions</title>
-      <link>https://barakyo.github.io/post/2019-01-12-2019-new-year-resolutions/</link>
+      <link>https://barakyo.io/post/2019-01-12-2019-new-year-resolutions/</link>
       <pubDate>Sat, 12 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2019-01-12-2019-new-year-resolutions/</guid>
+      <guid>https://barakyo.io/post/2019-01-12-2019-new-year-resolutions/</guid>
       <description>First of all, I know I&amp;rsquo;m a little late to this, but I&amp;rsquo;ve had these resolutions for a while. I just feel like documenting them and putting them somewhere will hopefully make me more accountable. In addition to posting them somewhere to increase accountability, I need to revise some of these goals so that they&amp;rsquo;re more specific and measurable. I&amp;rsquo;d like to review myself each month to keep track of my progress.</description>
     </item>
     
     <item>
       <title>Elisper: Lisp In Elixir</title>
-      <link>https://barakyo.github.io/post/2015-09-17-elisper-lisp-in-elixir/</link>
+      <link>https://barakyo.io/post/2015-09-17-elisper-lisp-in-elixir/</link>
       <pubDate>Thu, 17 Sep 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2015-09-17-elisper-lisp-in-elixir/</guid>
+      <guid>https://barakyo.io/post/2015-09-17-elisper-lisp-in-elixir/</guid>
       <description>I recently read a really interesting and great blog post titled Lisp in your Language by Dan Prince. The article walked through an implementation of a subset of Lisp. After reading the post, I thought it was a great project to not only have a deeper understanding of Lisp but also of the language that the implementation is in. In fact, I was so inspired by the post, I decided that maybe I&amp;rsquo;d give it a shot to write it in Elixir.</description>
     </item>
     
     <item>
       <title>2015 Resolutions - One Month Review</title>
-      <link>https://barakyo.github.io/post/2015-02-01-resolutions-one-month-review/</link>
+      <link>https://barakyo.io/post/2015-02-01-resolutions-one-month-review/</link>
       <pubDate>Sun, 01 Feb 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2015-02-01-resolutions-one-month-review/</guid>
+      <guid>https://barakyo.io/post/2015-02-01-resolutions-one-month-review/</guid>
       <description>Wow! I can&amp;rsquo;t believe it&amp;rsquo;s February already! As I stated in my New Year Resolutions post, I wrote down my resolutions so that I could be held accountable for them. Reviewing my resolutions after a year seemed like I would easily lose touch/sight of them. I decided a good idea would be to review my progress month-by-month, so here it goes:
 Read more (and not programming/technical books) I believe I&amp;rsquo;ve been doing a good job of this!</description>
     </item>
     
     <item>
       <title>Book Review: Ready Player One</title>
-      <link>https://barakyo.github.io/post/2015-01-28-review-ready-player-one/</link>
+      <link>https://barakyo.io/post/2015-01-28-review-ready-player-one/</link>
       <pubDate>Wed, 28 Jan 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2015-01-28-review-ready-player-one/</guid>
+      <guid>https://barakyo.io/post/2015-01-28-review-ready-player-one/</guid>
       <description>With keeping up on my new year resolutions, the first book of 2015 that I decided to read was Ready Player One by Ernest Cline. I found the book browsing through Barnes and Nobles and realized it was surprisingly cheap on the Google Play Bookstore (sorry local Barnes and Nobles, have to justify my Nexus 7 purchase somehow).
 I have to say that I hope the rest of the books I read this year are this good.</description>
     </item>
     
     <item>
       <title>2015 New Year Resolutions</title>
-      <link>https://barakyo.github.io/post/2014-12-31-new-year-resolutions/</link>
+      <link>https://barakyo.io/post/2014-12-31-new-year-resolutions/</link>
       <pubDate>Wed, 31 Dec 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2014-12-31-new-year-resolutions/</guid>
+      <guid>https://barakyo.io/post/2014-12-31-new-year-resolutions/</guid>
       <description>Well I hope I&amp;rsquo;m not too late to get my new year resolutions in. I&amp;rsquo;ve been thinking about this post for a while, but was only finally inspired after my last cup of coffee of 2014. In fact, this day included a lot of lasts. The last swim of the year, the last time I&amp;rsquo;d visit my brother in 2014, the last time I&amp;rsquo;d accidentally cut myself in 2014 (I hope), the last.</description>
     </item>
     
     <item>
       <title>25 years, 5 months, and 14 days</title>
-      <link>https://barakyo.github.io/post/2014-10-02-25-years-5-months-14-days/</link>
+      <link>https://barakyo.io/post/2014-10-02-25-years-5-months-14-days/</link>
       <pubDate>Sun, 06 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2014-10-02-25-years-5-months-14-days/</guid>
+      <guid>https://barakyo.io/post/2014-10-02-25-years-5-months-14-days/</guid>
       <description>Today I am 25 years, 5 months, and 14 days old, the exact same age my brother was when he passed away. This day has been on my mind everyday for the past year. I&amp;rsquo;ve spent long car rides, sleepness nights, and countless laps swimming thinking about today, asking my self what should I do, what should I say. After wrestling with my thoughts, I thought it may be best to write out my thoughts and reflect.</description>
     </item>
     
     <item>
       <title>Play! Framework -- Parsing JSON</title>
-      <link>https://barakyo.github.io/post/2014-04-06-play-framework-parsing-json/</link>
+      <link>https://barakyo.io/post/2014-04-06-play-framework-parsing-json/</link>
       <pubDate>Sun, 06 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2014-04-06-play-framework-parsing-json/</guid>
+      <guid>https://barakyo.io/post/2014-04-06-play-framework-parsing-json/</guid>
       <description>tl;dr I suggest using ObjectMapper found in the com.fasterxml.jackson.databind.ObjectMapper
 ObjectMapper mapper = new ObjectMapper(); try { JsonNode root = request().body().asJson(); JsonNode jsonPhoneNumbers = root.get(&amp;#34;phoneNumbers&amp;#34;); for(JsonNode phoneNumberString : jsonPhoneNumbers) { String phoneNumber = phoneNumberString.asText(); } catch (NullPointerException npe) { // No valid phone numbers were provided  } Using ObjectMapper For parsing arrays in JSON requests, I suggest using the ObjectMapper. Assuming you have a request that looks like:
 { &amp;#34;phoneNumbers&amp;#34;: [ &amp;#34;555-555-5555&amp;#34;, &amp;#34;555-555-5556&amp;#34;, &amp;#34;555-555-5557&amp;#34; ] } We can easily access the phone number values by using ObjectMapper class.</description>
@@ -96,29 +96,29 @@ ObjectMapper mapper = new ObjectMapper(); try { JsonNode root = request().body()
     
     <item>
       <title>Play! Framework -- Returning JSON Responses</title>
-      <link>https://barakyo.github.io/post/2014-04-06-play-framework-returning-json-response/</link>
+      <link>https://barakyo.io/post/2014-04-06-play-framework-returning-json-response/</link>
       <pubDate>Sun, 06 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2014-04-06-play-framework-returning-json-response/</guid>
+      <guid>https://barakyo.io/post/2014-04-06-play-framework-returning-json-response/</guid>
       <description>I&amp;rsquo;ve recently started a project at working using the Play Framework and while its a great framework, I was having a lot of trouble with some of the simplest tasks. I wouldn&amp;rsquo;t blame Play for my problems, returning to Java after a long hiatus, being spoiled by dynamicly typed languages, and lack of documentation really made such tasks like returning a JSON response difficult.
 I figured that I may not be the only in this position, judging by the questions in the IRC channel and lack of responses, I figured it may be a good idea to jot down some of my notes, not only for myself, my coworkers, but for all my fellow Play framework noobs.</description>
     </item>
     
     <item>
       <title>Counter Resets and Database Magic</title>
-      <link>https://barakyo.github.io/post/2013-12-08-counter-resets-and-database-magic/</link>
+      <link>https://barakyo.io/post/2013-12-08-counter-resets-and-database-magic/</link>
       <pubDate>Sun, 08 Dec 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2013-12-08-counter-resets-and-database-magic/</guid>
+      <guid>https://barakyo.io/post/2013-12-08-counter-resets-and-database-magic/</guid>
       <description>Recently, the need for a standard numbering convention came up for one of our projects at work. The client requested to be able to access protocols by a unique ID. Originally I thought it&amp;rsquo;d be a no brainer, I&amp;rsquo;d explain to them that the each protocol is already uniquely identifiable within the database, and they can just refer to protocols by their unique ID in the database. Unfortunately, they didn&amp;rsquo;t seem too fond of the unique ID numbering scheme and proposed that the application follow a certain convention, which they created.</description>
     </item>
     
     <item>
       <title>Flatten Dictionary Challenge</title>
-      <link>https://barakyo.github.io/post/2013-11-17-flatten_dictionary_challenge/</link>
+      <link>https://barakyo.io/post/2013-11-17-flatten_dictionary_challenge/</link>
       <pubDate>Sun, 17 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2013-11-17-flatten_dictionary_challenge/</guid>
+      <guid>https://barakyo.io/post/2013-11-17-flatten_dictionary_challenge/</guid>
       <description>While browsing /r/javascript Thursday night, I came across a post regrading a mildly interesting interview question which had to do with flattening a Javascript object to a URI.
 Two things immediately jumped into my mind:
  I have to show one of my coworkers. This would make a &amp;ldquo;midly interesting&amp;rdquo; Python challenge!  Friday morning, the first thing I did when I got into work was write the challenge on our white board and my solution in Python.</description>
@@ -126,38 +126,38 @@ Two things immediately jumped into my mind:
     
     <item>
       <title>More TDD and Recursion Practice</title>
-      <link>https://barakyo.github.io/post/2013-11-24-more-tdd-and-recursion-practice/</link>
+      <link>https://barakyo.io/post/2013-11-24-more-tdd-and-recursion-practice/</link>
       <pubDate>Thu, 14 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2013-11-24-more-tdd-and-recursion-practice/</guid>
+      <guid>https://barakyo.io/post/2013-11-24-more-tdd-and-recursion-practice/</guid>
       <description>It seems that Javascript challenges are more frequent at work. Thursday afternoon when we got back from lunch, my coworker was testing himself in the You Can&amp;rsquo;t Javascript Under Pressure challenges. As great coworkers, we (by that I mean, me) decided to help out and put more pressure on our fellow coworker, without even being asked to! One of the challenges that came up during the test was a function ArraySum() which accepts a list (array) of values and you must total all the integers within the array.</description>
     </item>
     
     <item>
       <title>Why Barakyo?</title>
-      <link>https://barakyo.github.io/post/2013-11-12-why-barakyo/</link>
+      <link>https://barakyo.io/post/2013-11-12-why-barakyo/</link>
       <pubDate>Tue, 12 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2013-11-12-why-barakyo/</guid>
+      <guid>https://barakyo.io/post/2013-11-12-why-barakyo/</guid>
       <description>Over this past weekend I was asked, twice, &amp;ldquo;Why Barakyo?&amp;rdquo; While the explanation is simple enough, I sometimes get the response that my Barakyo nickname isn&amp;rsquo;t professional. I&amp;rsquo;ve even been told I should consider choosing another domain name. While I understand that my nickname isn&amp;rsquo;t professional and even though I share my blog with companies that I am interested in, I didn&amp;rsquo;t want to strip my blog of me, hence the reason for the personal category.</description>
     </item>
     
     <item>
       <title>Writing Test Cases for Laravel</title>
-      <link>https://barakyo.github.io/post/2013-11-10-writing-test-cases-for-laravel/</link>
+      <link>https://barakyo.io/post/2013-11-10-writing-test-cases-for-laravel/</link>
       <pubDate>Sun, 10 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2013-11-10-writing-test-cases-for-laravel/</guid>
+      <guid>https://barakyo.io/post/2013-11-10-writing-test-cases-for-laravel/</guid>
       <description>Besides writing test cases just because &amp;ldquo;everyone else is&amp;rdquo;, we should be writing test cases since they&amp;rsquo;ll help create a stronger trust in our code that our functions are doing what they should be doing.
 Requirements  PHP PHPUnit (you will most likely need a global install) Test Cases (DUH)  Helpers Helpers are a set of classes that we create to take care of common mundane tasks. For example, the User Helper for testing provides functions for returning a user with a specified role or easily create a new user with the specified role if one does not exist or the user requests one.</description>
     </item>
     
     <item>
       <title>Python Excel XLRD and XLWT</title>
-      <link>https://barakyo.github.io/post/2013-05-29-python-excel-xlrd-and-xlwt/</link>
+      <link>https://barakyo.io/post/2013-05-29-python-excel-xlrd-and-xlwt/</link>
       <pubDate>Wed, 29 May 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2013-05-29-python-excel-xlrd-and-xlwt/</guid>
+      <guid>https://barakyo.io/post/2013-05-29-python-excel-xlrd-and-xlwt/</guid>
       <description>The other week we received a request for a small script from a department on campus. The department needed to evaluate data from a Microsoft Excel worksheet which they wrote a macro for. Their problem, though, was to aggregate all their data into one sheet. This aggregation process was not only the most tedious but was also their longest task taking nearly 2 weeks to complete. My coworkers and I were shocked that they&amp;rsquo;ve continued this process for so long without looking to automate it somehow, so we took on the challenge to ease the pain in their lives.</description>
     </item>
     

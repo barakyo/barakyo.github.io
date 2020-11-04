@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on barakyo</title>
-    <link>https://barakyo.github.io/tags/python/</link>
+    <link>https://barakyo.io/tags/python/</link>
     <description>Recent content in Python on barakyo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 17 Nov 2013 00:00:00 +0000</lastBuildDate><atom:link href="https://barakyo.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Nov 2013 00:00:00 +0000</lastBuildDate><atom:link href="https://barakyo.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Flatten Dictionary Challenge</title>
-      <link>https://barakyo.github.io/post/2013-11-17-flatten_dictionary_challenge/</link>
+      <link>https://barakyo.io/post/2013-11-17-flatten_dictionary_challenge/</link>
       <pubDate>Sun, 17 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2013-11-17-flatten_dictionary_challenge/</guid>
+      <guid>https://barakyo.io/post/2013-11-17-flatten_dictionary_challenge/</guid>
       <description>While browsing /r/javascript Thursday night, I came across a post regrading a mildly interesting interview question which had to do with flattening a Javascript object to a URI.
 Two things immediately jumped into my mind:
  I have to show one of my coworkers. This would make a &amp;ldquo;midly interesting&amp;rdquo; Python challenge!  Friday morning, the first thing I did when I got into work was write the challenge on our white board and my solution in Python.</description>
@@ -20,19 +20,19 @@ Two things immediately jumped into my mind:
     
     <item>
       <title>More TDD and Recursion Practice</title>
-      <link>https://barakyo.github.io/post/2013-11-24-more-tdd-and-recursion-practice/</link>
+      <link>https://barakyo.io/post/2013-11-24-more-tdd-and-recursion-practice/</link>
       <pubDate>Thu, 14 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2013-11-24-more-tdd-and-recursion-practice/</guid>
+      <guid>https://barakyo.io/post/2013-11-24-more-tdd-and-recursion-practice/</guid>
       <description>It seems that Javascript challenges are more frequent at work. Thursday afternoon when we got back from lunch, my coworker was testing himself in the You Can&amp;rsquo;t Javascript Under Pressure challenges. As great coworkers, we (by that I mean, me) decided to help out and put more pressure on our fellow coworker, without even being asked to! One of the challenges that came up during the test was a function ArraySum() which accepts a list (array) of values and you must total all the integers within the array.</description>
     </item>
     
     <item>
       <title>Python Excel XLRD and XLWT</title>
-      <link>https://barakyo.github.io/post/2013-05-29-python-excel-xlrd-and-xlwt/</link>
+      <link>https://barakyo.io/post/2013-05-29-python-excel-xlrd-and-xlwt/</link>
       <pubDate>Wed, 29 May 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2013-05-29-python-excel-xlrd-and-xlwt/</guid>
+      <guid>https://barakyo.io/post/2013-05-29-python-excel-xlrd-and-xlwt/</guid>
       <description>The other week we received a request for a small script from a department on campus. The department needed to evaluate data from a Microsoft Excel worksheet which they wrote a macro for. Their problem, though, was to aggregate all their data into one sheet. This aggregation process was not only the most tedious but was also their longest task taking nearly 2 weeks to complete. My coworkers and I were shocked that they&amp;rsquo;ve continued this process for so long without looking to automate it somehow, so we took on the challenge to ease the pain in their lives.</description>
     </item>
     

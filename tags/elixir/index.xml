@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Elixir on barakyo</title>
-    <link>https://barakyo.github.io/tags/elixir/</link>
+    <link>https://barakyo.io/tags/elixir/</link>
     <description>Recent content in Elixir on barakyo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 17 Sep 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://barakyo.github.io/tags/elixir/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 17 Sep 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://barakyo.io/tags/elixir/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Elisper: Lisp In Elixir</title>
-      <link>https://barakyo.github.io/post/2015-09-17-elisper-lisp-in-elixir/</link>
+      <link>https://barakyo.io/post/2015-09-17-elisper-lisp-in-elixir/</link>
       <pubDate>Thu, 17 Sep 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/post/2015-09-17-elisper-lisp-in-elixir/</guid>
+      <guid>https://barakyo.io/post/2015-09-17-elisper-lisp-in-elixir/</guid>
       <description>I recently read a really interesting and great blog post titled Lisp in your Language by Dan Prince. The article walked through an implementation of a subset of Lisp. After reading the post, I thought it was a great project to not only have a deeper understanding of Lisp but also of the language that the implementation is in. In fact, I was so inspired by the post, I decided that maybe I&amp;rsquo;d give it a shot to write it in Elixir.</description>
     </item>
     
