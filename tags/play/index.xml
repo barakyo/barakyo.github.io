@@ -1,16 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Play on barakyo</title>
+    <title>Play! on barakyo</title>
     <link>https://barakyo.github.io/tags/play/</link>
-    <description>Recent content in Play on barakyo</description>
+    <description>Recent content in Play! on barakyo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 06 Apr 2014 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://barakyo.github.io/tags/play/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 06 Apr 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://barakyo.github.io/tags/play/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Play! Framework -- Parsing JSON</title>
       <link>https://barakyo.github.io/post/2014-04-06-play-framework-parsing-json/</link>

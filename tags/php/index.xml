@@ -1,16 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Php on barakyo</title>
+    <title>PHP on barakyo</title>
     <link>https://barakyo.github.io/tags/php/</link>
-    <description>Recent content in Php on barakyo</description>
+    <description>Recent content in PHP on barakyo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 10 Nov 2013 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://barakyo.github.io/tags/php/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 10 Nov 2013 00:00:00 +0000</lastBuildDate><atom:link href="https://barakyo.github.io/tags/php/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Writing Test Cases for Laravel</title>
       <link>https://barakyo.github.io/post/2013-11-10-writing-test-cases-for-laravel/</link>

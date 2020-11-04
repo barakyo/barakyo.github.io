@@ -1,9 +1,64 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://barakyo.github.io/</loc>
+    <lastmod>2020-11-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://barakyo.github.io/categories/</loc>
+    <lastmod>2020-11-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://barakyo.github.io/categories/development/</loc>
+    <lastmod>2020-11-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://barakyo.github.io/post/</loc>
+    <lastmod>2020-11-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://barakyo.github.io/tags/presentations/</loc>
+    <lastmod>2020-11-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://barakyo.github.io/tags/</loc>
+    <lastmod>2020-11-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://barakyo.github.io/tags/tutorial/</loc>
+    <lastmod>2020-11-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://barakyo.github.io/post/2020-11-02-awesome-presentations-with-codehike/</loc>
+    <lastmod>2020-11-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://barakyo.github.io/tags/advent-of-code/</loc>
+    <lastmod>2019-01-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://barakyo.github.io/post/2019-01-16-aoc-day-1/</loc>
+    <lastmod>2019-01-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://barakyo.github.io/tags/haskell/</loc>
+    <lastmod>2019-01-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://barakyo.github.io/tags/new-year-resolutions/</loc>
     <lastmod>2019-01-16T00:00:00+00:00</lastmod>
   </url>
   
@@ -13,13 +68,33 @@
   </url>
   
   <url>
+    <loc>https://barakyo.github.io/categories/personal/</loc>
+    <lastmod>2019-01-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://barakyo.github.io/post/2015-09-17-elisper-lisp-in-elixir/</loc>
+    <lastmod>2015-09-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://barakyo.github.io/tags/elixir/</loc>
+    <lastmod>2015-09-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://barakyo.github.io/tags/lisp/</loc>
     <lastmod>2015-09-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://barakyo.github.io/post/2015-02-01-resolutions-one-month-review/</loc>
     <lastmod>2015-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://barakyo.github.io/tags/book-review/</loc>
+    <lastmod>2015-01-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -34,6 +109,16 @@
   
   <url>
     <loc>https://barakyo.github.io/post/2014-10-02-25-years-5-months-14-days/</loc>
+    <lastmod>2014-04-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://barakyo.github.io/tags/java/</loc>
+    <lastmod>2014-04-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://barakyo.github.io/tags/play/</loc>
     <lastmod>2014-04-06T00:00:00+00:00</lastmod>
   </url>
   
@@ -53,7 +138,27 @@
   </url>
   
   <url>
+    <loc>https://barakyo.github.io/tags/databases/</loc>
+    <lastmod>2013-12-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://barakyo.github.io/tags/mysql/</loc>
+    <lastmod>2013-12-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://barakyo.github.io/post/2013-11-17-flatten_dictionary_challenge/</loc>
+    <lastmod>2013-11-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://barakyo.github.io/tags/python/</loc>
+    <lastmod>2013-11-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://barakyo.github.io/tags/tdd/</loc>
     <lastmod>2013-11-17T00:00:00+00:00</lastmod>
   </url>
   
@@ -68,6 +173,11 @@
   </url>
   
   <url>
+    <loc>https://barakyo.github.io/tags/php/</loc>
+    <lastmod>2013-11-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://barakyo.github.io/post/2013-11-10-writing-test-cases-for-laravel/</loc>
     <lastmod>2013-11-10T00:00:00+00:00</lastmod>
   </url>
@@ -75,119 +185,6 @@
   <url>
     <loc>https://barakyo.github.io/post/2013-05-29-python-excel-xlrd-and-xlwt/</loc>
     <lastmod>2013-05-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://barakyo.github.io/tags/advent-of-code/</loc>
-    <lastmod>2019-01-16T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://barakyo.github.io/tags/book-review/</loc>
-    <lastmod>2015-01-28T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://barakyo.github.io/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://barakyo.github.io/tags/databases/</loc>
-    <lastmod>2013-12-08T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://barakyo.github.io/categories/development/</loc>
-    <lastmod>2019-01-16T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://barakyo.github.io/tags/elixir/</loc>
-    <lastmod>2015-09-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://barakyo.github.io/tags/haskell/</loc>
-    <lastmod>2019-01-16T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://barakyo.github.io/tags/java/</loc>
-    <lastmod>2014-04-06T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://barakyo.github.io/tags/lisp/</loc>
-    <lastmod>2015-09-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://barakyo.github.io/tags/mysql/</loc>
-    <lastmod>2013-12-08T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://barakyo.github.io/tags/new-year-resolutions/</loc>
-    <lastmod>2019-01-16T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://barakyo.github.io/categories/personal/</loc>
-    <lastmod>2019-01-12T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://barakyo.github.io/tags/php/</loc>
-    <lastmod>2013-11-10T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://barakyo.github.io/tags/play/</loc>
-    <lastmod>2014-04-06T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://barakyo.github.io/post/</loc>
-    <lastmod>2019-01-16T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://barakyo.github.io/tags/python/</loc>
-    <lastmod>2013-11-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://barakyo.github.io/tags/</loc>
-    <lastmod>2019-01-16T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://barakyo.github.io/tags/tdd/</loc>
-    <lastmod>2013-11-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://barakyo.github.io/</loc>
-    <lastmod>2019-01-16T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
 </urlset>

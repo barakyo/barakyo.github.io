@@ -1,122 +1,139 @@
 <!DOCTYPE html>
-<html lang="en-us">
-<head>
-<meta charset="utf-8">
-<meta name="description" content="">
-<meta name="generator" content="Hugo 0.53" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/css/style.css" type="text/css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
-<link rel="alternate" href="/index.xml" type="application/rss+xml" title="barakyo">
-<title>
-  Counter Resets and Database Magic - barakyo
-</title>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Counter Resets and Database Magic - barakyo</title>
+
+<meta name="keywords" content="MySQL, Databases" />
+<meta name="description" content="Recently, the need for a standard numbering convention came up for one of our projects at work. The client requested to be able to access protocols by a unique ID. Originally I thought it&rsquo;d be a no brainer, I&rsquo;d explain to them that the each protocol is already uniquely identifiable within the database, and they can just refer to protocols by their unique ID in the database. Unfortunately, they didn&rsquo;t seem too fond of the unique ID numbering scheme and proposed that the application follow a certain convention, which they created.">
+<meta name="author" content="">
+<link rel="canonical" href="https://barakyo.github.io/post/2013-12-08-counter-resets-and-database-magic/" />
+<link href="https://barakyo.github.io/assets/css/stylesheet.min.423a3f936d3c2f8ed2a09c09b14e77af788d634dc55def0398bdf279b1cfa624.css" integrity="sha256-Qjo/k208L47SoJwJsU53r3iNY03FXe8DmL3yebHPpiQ=" rel="preload stylesheet"
+    as="style">
+<link rel="apple-touch-icon" href="https://barakyo.github.io/apple-touch-icon.png">
+<link rel="icon" href="https://barakyo.github.io/favicon.ico">
+<meta name="generator" content="Hugo 0.77.0" />
+
+
+
+
 </head>
-<body>
 
-<a href="https://barakyo.github.io/" style="text-decoration: none">
-  <h1 class="article-title">
-    <span class="base05">[</span>
-    <span class="base08">b</span>
-    <span class="base09">a</span>
-    <span class="base0a">r</span>
-    <span class="base0b">a</span>
-    <span class="base0c">k</span>
-    <span class="base0d">y</span>
-    <span class="base05">o</span>
-    <span class="base05">]</span>
-  </h1>
-</a>
+<body class="single" id="top">
+<script>
+    
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.add('dark');
+        }
+    }
 
-<div class="container">
+</script>
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
 
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://barakyo.github.io/" accesskey="h">barakyo</a>
+            <span class="logo-switches">
+                <span class="theme-toggle">
+                    <a id="theme-toggle" accesskey="t">
+                        <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </span>
+                
+            </span>
+        </div>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()"></ul>
+    </nav>
+</header>
 
-<main role="main" class="article">
-  
-<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
-  <h1 class="headline" itemprop="headline">Counter Resets and Database Magic</h1>
-  <div class="meta">
-    
-    <span class="key">published on</span>
-    <span class="val"><time itemprop="datePublished" datetime="2013-12-08">December 08, 2013</time></span>
-    
-    
-    <span class="key">in</span>
-    <span class="val">
-      
-      <a href="/categories/Development">Development</a>
-      
-    </span>
-    
-    
-    <br>
-    <span class="key">tags:</span>
-    <span class="val">
-      
-      <a href="/tags/MySQL">MySQL</a>
-      
-      <a href="/tags/Databases">Databases</a>
-      
-    </span>
-    
-  </div>
-  <section class="body" itemprop="articleBody">
-    <p>Recently, the need for a standard numbering convention came up for one of our projects at work. The client
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      Counter Resets and Database Magic
+    </h1>
+    <div class="post-meta">December 8, 2013
+
+    </div>
+  </header> 
+
+  <div class="post-content"><p>Recently, the need for a standard numbering convention came up for one of our projects at work. The client
 requested to be able to access protocols by a unique ID. Originally I thought it&rsquo;d be a no brainer, I&rsquo;d explain
 to them that the each protocol is already uniquely identifiable within the database, and they can just refer to
 protocols by their unique ID in the database. Unfortunately, they didn&rsquo;t seem too fond of the unique ID numbering
 scheme and proposed that the application follow a certain convention, which they created.</p>
-
 <p>The convention was simple enough to understand. It followed the format of:</p>
-
 <pre><code>YYYY-XXX
 </code></pre>
-
 <p>Where <code>YYYY</code> was the Academic Year and <code>XXX</code> was a 3 digit number signifying that it was the nth protocol
 scheduled for review of that academic year. For example, a protocol with the number</p>
-
 <pre><code>1314-016
 </code></pre>
-
 <p>Would be the 16th protocol scheduled within the 2013-2014 academic year.</p>
-
 <p>While the standard is easy enough, it brings up some concerns.</p>
-
 <ol>
 <li>Protocol numbers are generated once a protocol has been scheduled for committee review.</li>
 <li>Protocol numbers must refer to a specific protocol.</li>
 <li>The protocol number must reset after every academic year.</li>
 <li>How can I enforce this standard within the database?</li>
 </ol>
-
 <p>Regarding the first concern, I couldn&rsquo;t simply append a column to the protocol table since I would have a <code>NULL</code>
 field until the protocol was scheduled (if it was ever scheduled). While adding a column would allow me to specify
 which number belonged to which protocol, it invalidate the 3NF standard I&rsquo;m trying to achieve. Also, how
 would I have the database automatically increment or reset the value of the counter?</p>
-
 <p>I realized quickly that I needed another table (or two). Immediately, I realized that my <code>protocol_number</code>
 table would need the following columns:</p>
-
 <ul>
 <li>ID - mainly for reference</li>
 <li>Protocol ID - specifies which number this protocol refers to</li>
 <li>Academic Year - the year part of the number convention</li>
 <li>Protocol Number - the counter part of the number convention</li>
 </ul>
-
 <p>While designing the table, I also realized that I didn&rsquo;t want to have to worry about the application needing to
 worry about which protocol number to insert within the column and that lead me to the idea of a trigger. I know
 that I can easily count the number of rows within a table using the SQL command <code>count(*)</code>, but how could I use
 it for handling the protocol number field? I realized that my answer would rely in a trigger that would fire
 before each insert on the table.</p>
-
 <p>Before jumping into creating the trigger, I had to give some more thought to the the academic year field. While
 I could easily represent academic years with an <code>INT</code> field, it didn&rsquo;t seem to be sufficient, something just felt
 dirty. I made the decision that I&rsquo;d create a new table, <code>academic_year</code>, which would simply store academic years.
 This way, I could have the <code>protocol_number</code> table refer to the <code>academic_year</code> table as a foreign key.
 Specifying the field as a foreign key also provided me the added benefit of being able to lookup which protocols
 were scheduled for what year (a feature that hasn&rsquo;t been asked for, but can now be easily implemented).</p>
-
 <p>Given this analysis, we&rsquo;ve composed two tables with the following structure:
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#a6e22e">academic_year</span>(
 	id <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">UNSIGNED</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">AUTO_INCREMENT</span>,
@@ -132,12 +149,10 @@ were scheduled for what year (a feature that hasn&rsquo;t been asked for, but ca
 	<span style="color:#66d9ef">FOREIGN</span> <span style="color:#66d9ef">KEY</span> (protocol_id) <span style="color:#66d9ef">REFERENCES</span> <span style="color:#a6e22e">protocols</span>(id),
     <span style="color:#66d9ef">KEY</span> (id)
 );</code></pre></div></p>
-
 <p>Almost complete. We still have one tiny little problem. We want to ensure that our protocol numbers are unique
 and also that they&rsquo;re unique to a single protocol. Using primary keys we can specify that our <code>protocol_number</code>
 and <code>academic_year_id</code> columns are unique. In addition, we can easily add a unique key on our <code>protocol_id</code> field
 allowing us to ensure that this field is also unique. Doing so creates the following structure:</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#a6e22e">protocol_number</span>(
 	id <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">UNSIGNED</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">AUTO_INCREMENT</span>,
 	academic_year_id <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">UNSIGNED</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
@@ -149,19 +164,15 @@ allowing us to ensure that this field is also unique. Doing so creates the follo
 	<span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span> (protocol_number, academic_year_id),
 	<span style="color:#66d9ef">KEY</span> (id)
 );</code></pre></div>
-
 <p>Finally, we can create our trigger to handle incrementing the counter. Our trigger will be based around the query</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#66d9ef">SELECT</span> <span style="color:#a6e22e">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">as</span> num_protocols 
 <span style="color:#66d9ef">FROM</span> eirb_number 
 <span style="color:#66d9ef">WHERE</span> academic_year_id<span style="color:#f92672">=</span>[ACADEMIC_YEAR_ID]</code></pre></div>
-
 <p>The query will return the number of rows that exist with the given <code>ACADEMIC_YEAR_ID</code>. All we would have to do
 now is take the results of this query, increment it by 1, and then set it as the value for the
 <code>protocol_number</code> column for the new row being inserted into the database. Given our analysis it sounds like
 we have all we need to create our a trigger, that is, when it occurs, <code>BEFORE INSERT</code> and  what we want to
 add/change <code>protocol_number</code> with our <code>count(*)</code> value.</p>
-
 <p>Behold, our trigger:
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">delimiter <span style="color:#f92672">//</span>
 <span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TRIGGER</span> insert_protocol_num_trigger 
@@ -175,38 +186,79 @@ BEGIN
 	) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
 END; <span style="color:#f92672">//</span>
 DELIMITER ;</code></pre></div></p>
-
 <p>Now all our queries/application have to worry about is what protocol they want to create the number for and
 which academic year that protocol belongs to. The database will handle the rest. Our insert query can now look
 something like:</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> <span style="color:#a6e22e">protocol_number</span>(protocol_id, academic_year_id) <span style="color:#66d9ef">VALUES</span>(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>);</code></pre></div>
-
 <p>Now we&rsquo;ve handled the case of reset counters through the use of database magic (AKA triggers).</p>
-
-<!---
- Protocols can also have renewals and 
-revisions, which would follow a similar format, just with certain extensions. If the protocol from the previous 
-example was renewed for another year, then the renewed protocol would have the number:
-
-    1314-016-a
-
-The appended letters `a-z` would sig
--->
-
-  </section>
-</article>
-
-</main>
-
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 </div>
-
-<footer>
-  <div class="container">
-    <span class="copyright">&copy; 2019 barakyo - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
-  </div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://barakyo.github.io/tags/mysql">MySQL</a></li>
+      <li><a href="https://barakyo.github.io/tags/databases">Databases</a></li>
+    </ul>
+  </footer>
+</article>
+    </main><footer class="footer">
+    <span>&copy; 2020 <a href="https://barakyo.github.io/">barakyo</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
+    <span>&middot;</span>
+    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
 </footer>
+<a href="#top" aria-label="go to top" title="Go to Top" accesskey="g">
+    <button class="top-link" id="top-link" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+            <path d="M12 6H0l6-6z" /></svg>
+    </button>
+</a>
+
+
+<script src="https://barakyo.github.io/assets/js/highlight.min.e7afc2928c0925d65c4732dfebe147014d91299a98e819e4b42f25c4fa68e91c.js" integrity="sha256-56/CkowJJdZcRzLf6&#43;FHAU2RKZqY6BnktC8lxPpo6Rw="></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            document.querySelector(`[id='${id}']`).scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+    });
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+</script>
 
 </body>
-</html>
 
+</html>

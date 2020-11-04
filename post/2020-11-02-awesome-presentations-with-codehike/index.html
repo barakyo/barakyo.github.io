@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Tutorial: Awesome Presentations with CodeHike - barakyo</title>
+
+<meta name="keywords" content="Tutorial, Presentations" />
+<meta name="description" content="Background At work, we&rsquo;ve been focusing on building components that are reusable and more flexible throughout our application. Because of this, we&rsquo;ve been focusing on making components more composable. To really drive that point home, I gave a small presentation using an awesome library called Code Hike.
+If you haven&rsquo;t seen Code Hike before, you should definitely stop right here and at least give Rodrigo Pombo&rsquo;s (the author of Code Hike) amazing article on Build Your Own React a quick look.">
+<meta name="author" content="">
+<link rel="canonical" href="https://barakyo.github.io/post/2020-11-02-awesome-presentations-with-codehike/" />
+<link href="https://barakyo.github.io/assets/css/stylesheet.min.423a3f936d3c2f8ed2a09c09b14e77af788d634dc55def0398bdf279b1cfa624.css" integrity="sha256-Qjo/k208L47SoJwJsU53r3iNY03FXe8DmL3yebHPpiQ=" rel="preload stylesheet"
+    as="style">
+<link rel="apple-touch-icon" href="https://barakyo.github.io/apple-touch-icon.png">
+<link rel="icon" href="https://barakyo.github.io/favicon.ico">
+<meta name="generator" content="Hugo 0.77.0" />
+
+
+
+
+</head>
+
+<body class="single" id="top">
+<script>
+    
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.add('dark');
+        }
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://barakyo.github.io/" accesskey="h">barakyo</a>
+            <span class="logo-switches">
+                <span class="theme-toggle">
+                    <a id="theme-toggle" accesskey="t">
+                        <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </span>
+                
+            </span>
+        </div>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()"></ul>
+    </nav>
+</header>
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      Tutorial: Awesome Presentations with CodeHike
+    </h1>
+    <div class="post-meta">November 2, 2020
+
+    </div>
+  </header> 
+
+  <div class="post-content"><h2 id="background">Background</h2>
+<p>At work, we&rsquo;ve been focusing on building components that are reusable and more
+flexible throughout our application. Because of this, we&rsquo;ve been focusing on
+making components more composable. To really drive that point home, I gave
+a small presentation using an awesome library called <a href="https://github.com/code-hike/codehike">Code Hike</a>.</p>
+<p>If you haven&rsquo;t seen Code Hike before, you should definitely stop right here and at least
+give Rodrigo Pombo&rsquo;s (the author of Code Hike) amazing article on
+<a href="https://pomb.us/build-your-own-react/">Build Your Own React</a> a quick look.</p>
+<p>While this library is great, there is one unfortunate downside, it isn&rsquo;t well documented
+😞. To help out with that though, I figured I&rsquo;d write a tutorial on how to create
+a presentation using Code Hike!</p>
+<p>In this tutorial, we&rsquo;ll show how to setup a presentation using React and CodeHike,
+which will look something like this:</p>
+<p><img src="/images/codehike-tutorial/codehike-example.png" alt="Codehike Example"></p>
+<h2 id="setup">Setup</h2>
+<p>The first thing you&rsquo;ll want to do is start a React project. The simplest way would
+be to start with <a href="https://github.com/facebook/create-react-app">create-react-app</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ yarn create react-app codehike-tutorial</code></pre></div>
+<p>From there, you&rsquo;ll want to install the following dependencies:</p>
+<ul>
+<li><a href="https://www.npmjs.com/package/@code-hike/mini-browser">@code-hike/mini-browser</a> -
+The brower component for our presentation distributed as part of @code-hike.</li>
+<li><a href="https://www.npmjs.com/package/@code-hike/mini-editor">@code-hike/mini-editor</a> -
+The editor component for our presentation.</li>
+<li><a href="https://www.npmjs.com/package/theme-ui">theme-ui</a> - A dependency required by Code Hike.</li>
+<li><a href="https://github.com/pomber/use-spring">use-spring</a> - A minimal library built by Rodrigo Pombo for spring animations.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ yarn add @code-hike/mini-browser @code-hike/mini-editor theme-ui use-spring</code></pre></div>
+<p>Now that we&rsquo;ve got that all setup, we can start with writing our presentation!</p>
+<h2 id="the-mini-editor">The Mini Editor</h2>
+<p>The Code Hike library ships with a few components, one of those being the Mini
+Editor. The Mini Editor displays an editor-like window with the content being
+the code you want to show.</p>
+<p>To get started, lets import and render the Mini Editor. If you started with a
+create-react-app application, you can simply edit the <code>App.js</code> for this tutorial.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">MiniEditor</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;@code-hike/mini-editor&#34;</span>;
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">App</span>() {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">editorStyles</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;600px&#34;</span>, <span style="color:#a6e22e">margin</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;10px&#34;</span>, <span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;400px&#34;</span> };
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;App&#34;</span>&gt;
+      &lt;<span style="color:#f92672">MiniEditor</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">editorStyles</span>} /&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+}
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;</code></pre></div>
+<p>This renders the following Mini Editor for us:</p>
+<p><img src="/images/codehike-tutorial/mini-editor.png" alt="Mini Editor"></p>
+<p>Not terribly exciting, but hey, it&rsquo;s a start 😊</p>
+<p>So let&rsquo;s try to get this ball rolling. If you take a look at the <a href="https://github.com/code-hike/codehike/blob/ea238cc217b63b0f52d4e625c1346e3fd9efe369/packages/mini-editor/src/mini-editor.tsx#L18-L26">MiniEditor props</a>
+you&rsquo;ll see that a couple of interesting properties pop out.</p>
+<p>Let&rsquo;s walk through a few of the ones we&rsquo;re going to use and see what they&rsquo;re meant for:</p>
+<ul>
+<li><code>steps</code> - An array of <a href="https://github.com/code-hike/codehike/blob/ea238cc217b63b0f52d4e625c1346e3fd9efe369/packages/mini-editor/src/mini-editor.tsx#L9-L16">MiniEditorStep objects</a> which define the different steps the MiniEditor shows.</li>
+<li><code>progress</code> - The step index to render</li>
+<li><code>backward</code> - A boolean indicating whether we&rsquo;re retracing our steps</li>
+</ul>
+<p>Now that we have someone of an idea of what we want to show, let&rsquo;s try to render some code in our
+Editor.</p>
+<p>To do that, let&rsquo;s start by defining some steps as <a href="https://github.com/code-hike/codehike/blob/ea238cc217b63b0f52d4e625c1346e3fd9efe369/packages/mini-editor/src/mini-editor.tsx#L9-L16">MiniEditorStep objects</a>.</p>
+<p>A <code>MiniEditorStep</code> has the following properties:</p>
+<ul>
+<li><code>code</code> - The code we want to render as a string</li>
+<li><code>lang</code> - The language of the code</li>
+<li><code>file</code> - The file name to display in the tab</li>
+<li><code>tabs</code> - An array of strings to display as tabs</li>
+</ul>
+<p>Let&rsquo;s start with something simple. Let&rsquo;s create a <code>Hello</code> component which accepts a <code>name</code>
+and renders an <code>h1</code> greeting the provided <code>name</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Hello</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">name</span> }) =&gt; (&lt;<span style="color:#f92672">h1</span>&gt;<span style="color:#a6e22e">Hello</span>, {<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">h1</span>&gt;);</code></pre></div>
+<p>Let&rsquo;s have MiniEdtor display this code. To do that, we&rsquo;ll define our first step:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">MiniEditor</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;@code-hike/mini-editor&#34;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Hello</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">name</span> }) =&gt; (&lt;<span style="color:#f92672">h1</span>&gt;<span style="color:#a6e22e">Hello</span>, {<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">h1</span>&gt;);
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">App</span>() {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">editorStyles</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;600px&#34;</span>, <span style="color:#a6e22e">margin</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;10px&#34;</span>, <span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;400px&#34;</span> };
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">editorSteps</span> <span style="color:#f92672">=</span> [
+    {
+      <span style="color:#a6e22e">code</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`const Hello = ({ name }) =&gt; (&lt;h1&gt;Hello, {name}&lt;/h1&gt;);`</span>,
+      <span style="color:#a6e22e">file</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Hello.jsx&#39;</span>,
+      <span style="color:#a6e22e">lang</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;javascript&#39;</span>,
+    }
+  ]
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;App&#34;</span>&gt;
+      &lt;<span style="color:#f92672">MiniEditor</span>
+        <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">editorStyles</span>}
+        <span style="color:#a6e22e">steps</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">editorSteps</span>}
+        <span style="color:#a6e22e">progress</span><span style="color:#f92672">=</span>{<span style="color:#ae81ff">0</span>}
+      /&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+}
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;</code></pre></div>
+<p>We now get our code rendered in the editor:</p>
+<p><img src="/images/codehike-tutorial/mini-editor-hello-component.png" alt="Mini Editor"></p>
+<p>Okay this is cool and we&rsquo;re starting to move forward.</p>
+<h2 id="minibrowser">MiniBrowser</h2>
+<p>Let&rsquo;s add a <code>MiniBrowser</code> component, which we can use to render our elements side by side with our code.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#39;./App.css&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">MiniEditor</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;@code-hike/mini-editor&#34;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">MiniBrowser</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;@code-hike/mini-browser&#34;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Hello</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">name</span> }) =&gt; (&lt;<span style="color:#f92672">h1</span>&gt;<span style="color:#a6e22e">Hello</span>, {<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">h1</span>&gt;);
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">App</span>() {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">styles</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;600px&#34;</span>, <span style="color:#a6e22e">margin</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;10px&#34;</span>, <span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;400px&#34;</span> };
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">editorSteps</span> <span style="color:#f92672">=</span> [
+    {
+      <span style="color:#a6e22e">code</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`const Hello = ({ name }) =&gt; (&lt;h1&gt;Hello, {name}&lt;/h1&gt;);`</span>,
+      <span style="color:#a6e22e">file</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Hello.jsx&#39;</span>,
+      <span style="color:#a6e22e">lang</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;javascript&#39;</span>,
+    }
+  ]
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;App&#34;</span>&gt;
+      &lt;<span style="color:#f92672">MiniEditor</span>
+        <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">styles</span>}
+        <span style="color:#a6e22e">steps</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">editorSteps</span>}
+        <span style="color:#a6e22e">progress</span><span style="color:#f92672">=</span>{<span style="color:#ae81ff">0</span>}
+      /&gt;
+      &lt;<span style="color:#f92672">MiniBrowser</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">styles</span>} /&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+}
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;</code></pre></div>
+<p>Throwing in the <code>MiniBrowser</code> with the same styling. I also added some simple properties to
+render the elements of the <code>.App</code> div side by side.</p>
+<p><img src="/images/codehike-tutorial/side-by-side.png" alt="Side by Side"></p>
+<p>Our <code>MiniBrowser</code> accepts very similar <a href="https://github.com/code-hike/codehike/blob/ea238cc217b63b0f52d4e625c1346e3fd9efe369/packages/mini-browser/src/mini-browser.tsx#L17-L26">props</a> as the MiniEditor with a slight change to the its <a href="https://github.com/code-hike/codehike/blob/ea238cc217b63b0f52d4e625c1346e3fd9efe369/packages/mini-browser/src/mini-browser.tsx#L9-L15">step type</a>.</p>
+<p>Looking at the <code>MiniBrowserStep</code>, here are some of the props we&rsquo;ll be using:</p>
+<ul>
+<li><code>url</code> - The url to display in the browser</li>
+<li><code>children</code> -  A prop which accepts<code>React.Node</code> to be rendered inside the <code>MiniBrowser</code>.</li>
+</ul>
+<p>Let&rsquo;s give this a shot!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#39;./App.css&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">MiniEditor</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;@code-hike/mini-editor&#34;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">MiniBrowser</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;@code-hike/mini-browser&#34;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Hello</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">name</span> }) =&gt; (&lt;<span style="color:#f92672">h1</span>&gt;<span style="color:#a6e22e">Hello</span>, {<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">h1</span>&gt;);
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">App</span>() {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">styles</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;600px&#34;</span>, <span style="color:#a6e22e">margin</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;10px&#34;</span>, <span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;400px&#34;</span> };
+
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">editorSteps</span> <span style="color:#f92672">=</span> [
+    {
+      <span style="color:#a6e22e">code</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`const Hello = ({ name }) =&gt; (&lt;h1&gt;Hello, {name}&lt;/h1&gt;);`</span>,
+      <span style="color:#a6e22e">file</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Hello.jsx&#39;</span>,
+      <span style="color:#a6e22e">lang</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;javascript&#39;</span>,
+    }
+  ];
+
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">browserSteps</span> <span style="color:#f92672">=</span> [
+    {
+      <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;http://localhost:8000&#39;</span>,
+      <span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> (
+        &lt;<span style="color:#f92672">Hello</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;m8&#34;</span> /&gt;
+      )
+    }
+  ];
+
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;App&#34;</span>&gt;
+      &lt;<span style="color:#f92672">MiniEditor</span>
+        <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">styles</span>}
+        <span style="color:#a6e22e">steps</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">editorSteps</span>}
+        <span style="color:#a6e22e">progress</span><span style="color:#f92672">=</span>{<span style="color:#ae81ff">0</span>}
+      /&gt;
+      &lt;<span style="color:#f92672">MiniBrowser</span>
+        <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">styles</span>}
+        <span style="color:#a6e22e">steps</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">browserSteps</span>}
+        <span style="color:#a6e22e">progress</span><span style="color:#f92672">=</span>{<span style="color:#ae81ff">0</span>}
+      /&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+}
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;</code></pre></div>
+<p>In the above snippet, we&rsquo;ve made the following changes:</p>
+<ul>
+<li>Created a <code>browserSteps</code> list which has a single step.
+<ul>
+<li>The step renders uses our <code>Hello</code> component to render in the browser window.</li>
+</ul>
+</li>
+<li>Updated the JSX declaring the <code>Hello</code> component to include the <code>steps</code> and <code>progress</code> props.</li>
+</ul>
+<p>We can now render our code and the component side by side:
+<img src="/images/codehike-tutorial/hello-m8.png" alt="Hello Component using h2 element"></p>
+<h2 id="adding-more-steps">Adding More Steps</h2>
+<p>After some back and forth, we feel that the <code>h1</code> seems to be just a little too loud. We&rsquo;d
+like to tone down our greeting in certain cases. To support this use case, let&rsquo;s update our
+<code>Hello</code> component so that it accepts a component to use when rendering the greeting.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Hello</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">as</span> }) =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">as</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#39;h1&#39;</span>
+  <span style="color:#66d9ef">return</span> (&lt;<span style="color:#f92672">Component</span>&gt;<span style="color:#a6e22e">Hello</span>, {<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">Component</span>&gt;);
+};</code></pre></div>
+<p>Let&rsquo;s render a new step showing how to use the <code>as</code> prop.</p>
+<p>We&rsquo;ll start by creating a new editor step where we&rsquo;ll copy our <code>Hello</code> component into as a
+string.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">helloWithAsProp</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`
+</span><span style="color:#e6db74">  const Hello = ({ name, as }) =&gt; {
+</span><span style="color:#e6db74">    const Component = as || &#39;h1&#39;
+</span><span style="color:#e6db74">    return (&lt;Component&gt;Hello, {name}&lt;/Component&gt;);
+</span><span style="color:#e6db74">  };
+</span><span style="color:#e6db74">`</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">editorSteps</span> <span style="color:#f92672">=</span> [
+  {
+    <span style="color:#a6e22e">code</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`const Hello = ({ name }) =&gt; (&lt;h1&gt;Hello, {name}&lt;/h1&gt;);`</span>,
+    <span style="color:#a6e22e">file</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Hello.jsx&#39;</span>,
+    <span style="color:#a6e22e">lang</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;javascript&#39;</span>,
+  },
+  {
+    <span style="color:#a6e22e">code</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">helloWithAsProp</span>,
+    <span style="color:#a6e22e">file</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Hello.jsx&#39;</span>,
+    <span style="color:#a6e22e">lang</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;javascript&#39;</span>
+  }
+];</code></pre></div>
+<p>We&rsquo;ll then update our <code>browserSteps</code> to include a new step using the new prop:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">browserSteps</span> <span style="color:#f92672">=</span> [
+  {
+    <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;http://localhost:8000&#39;</span>,
+    <span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> (
+      &lt;<span style="color:#f92672">Hello</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;m8&#34;</span> /&gt;
+    )
+  },
+  {
+    <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;http://localhost:8000&#39;</span>,
+    <span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> (
+      &lt;<span style="color:#f92672">Hello</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;m8&#34;</span> <span style="color:#a6e22e">as</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;h2&#34;</span> /&gt;
+    )
+  }
+];</code></pre></div>
+<p>Let&rsquo;s test this out by setting our <code>progress</code> value to 1.
+<img src="/images/codehike-tutorial/hello-h2.png" alt="Hello Component using h2 element"></p>
+<h3 id="transitioning-between-steps">Transitioning between Steps</h3>
+<p>Looks like we&rsquo;re getting closer. Let&rsquo;s add a way to transition between steps. This is really
+up to you as the user of this presentation.</p>
+<p>The first thing that I did was sync up the steps between the MiniEditor and the MiniBrowser.
+Depending on how you&rsquo;re writing your steps, you may not have a 1:1 relationship between editor
+and browser steps. Feel free to experiment with what fits your needs best here.</p>
+<p>To start, I keep track of the <code>stepIndex</code> using the <code>useState</code> hook:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stepIndex</span>, <span style="color:#a6e22e">setIndex</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">useState</span>(<span style="color:#ae81ff">0</span>);</code></pre></div>
+<p>We can then write some pretty simple functions to go to the next and previous slides:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nextSlide</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nextIndex</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">stepIndex</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">nextIndex</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">editorSteps</span>.<span style="color:#a6e22e">length</span>) {
+    <span style="color:#a6e22e">setIndex</span>(<span style="color:#a6e22e">nextIndex</span>);
+  }
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">prevSlide</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">stepIndex</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+    <span style="color:#a6e22e">setIndex</span>(<span style="color:#a6e22e">stepIndex</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+  }
+};</code></pre></div>
+<p>Nothing terribly exciting to see here.</p>
+<p>Since I was screen sharing while giving mine, I decided I&rsquo;d want to be able to transition between steps by pressing the left and right arrow keys.  Since I was putting this together rather quickly, I settled on using
+<a href="https://www.npmjs.com/package/react-use-keypress">react-use-keypress</a>.</p>
+<p>While this library is a little obscure and I totally understand not wanting to pull in yet
+another dependency. There is a nice little guide on writing your own <a href="https://usehooks.com/useKeyPress/">useKeyPress hook</a>.</p>
+<p>Using <code>react-use-keypress</code> is fairly simple, we can just specify the <code>ArrowLeft</code> and <code>ArrowRight</code>
+keys to listen to:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#a6e22e">useKeypress</span>([<span style="color:#e6db74">&#34;ArrowLeft&#34;</span>, <span style="color:#e6db74">&#34;ArrowRight&#34;</span>], (<span style="color:#a6e22e">event</span>) =&gt; {
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">key</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#34;ArrowLeft&#34;</span>) {
+    <span style="color:#a6e22e">prevSlide</span>();
+  } <span style="color:#66d9ef">else</span> {
+    <span style="color:#a6e22e">nextSlide</span>();
+  }
+});</code></pre></div>
+<p>We can now pass our <code>stepIndex</code> to as the <code>progress</code> prop to our <code>MiniEditor</code> and <code>MiniBrowser</code>
+this should allow us to use the left and right arrow keys to go through steps.</p>
+<p>If you give this a shot, you&rsquo;ll notice that while our steps do change, we don&rsquo;t get any
+of the fancy animations (which I&rsquo;m sure woo&rsquo;d us when we saw Rodrigo&rsquo;s blog). This is because
+the animations are handled by making a progression of our steps.</p>
+<p>To help with that, Rodrigo has implemented yet another library, called <code>use-spring</code>.
+We can use the <code>useSpring</code> hook which accepts a number and a configuration object
+which we can tweak to adjust how our animations render.</p>
+<p>Given that I&rsquo;m not very clever, I simply just <a href="https://github.com/pomber/the-x-in-mdx/blob/c81e1f67fa21a4aba787dbe9da360793f347f2b0/src/cake-layout.js#L26-L31">copied the settings</a>
+from Rodrigo&rsquo;s &ldquo;The X in MDX&rdquo; presentation.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">progress</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSpring</span>(<span style="color:#a6e22e">stepIndex</span>, {
+  <span style="color:#a6e22e">decimals</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>,
+  <span style="color:#a6e22e">stiffness</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">80</span>,
+  <span style="color:#a6e22e">damping</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">48</span>,
+  <span style="color:#a6e22e">mass</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">8</span>,
+});</code></pre></div>
+<p>Passing the <code>progress</code> value to our components now gives us a nicely smooth transition between
+steps.</p>
+</div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://barakyo.github.io/tags/tutorial">Tutorial</a></li>
+      <li><a href="https://barakyo.github.io/tags/presentations">Presentations</a></li>
+    </ul>
+  </footer>
+</article>
+    </main><footer class="footer">
+    <span>&copy; 2020 <a href="https://barakyo.github.io/">barakyo</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
+    <span>&middot;</span>
+    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top" accesskey="g">
+    <button class="top-link" id="top-link" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+            <path d="M12 6H0l6-6z" /></svg>
+    </button>
+</a>
+
+
+<script src="https://barakyo.github.io/assets/js/highlight.min.e7afc2928c0925d65c4732dfebe147014d91299a98e819e4b42f25c4fa68e91c.js" integrity="sha256-56/CkowJJdZcRzLf6&#43;FHAU2RKZqY6BnktC8lxPpo6Rw="></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            document.querySelector(`[id='${id}']`).scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+    });
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+</script>
+
+</body>
+
+</html>

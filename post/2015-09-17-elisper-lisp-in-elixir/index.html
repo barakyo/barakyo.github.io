@@ -1,103 +1,119 @@
 <!DOCTYPE html>
-<html lang="en-us">
-<head>
-<meta charset="utf-8">
-<meta name="description" content="">
-<meta name="generator" content="Hugo 0.53" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/css/style.css" type="text/css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
-<link rel="alternate" href="/index.xml" type="application/rss+xml" title="barakyo">
-<title>
-  Elisper: Lisp In Elixir - barakyo
-</title>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Elisper: Lisp In Elixir - barakyo</title>
+
+<meta name="keywords" content="Elixir, Lisp" />
+<meta name="description" content="I recently read a really interesting and great blog post titled Lisp in your Language by Dan Prince. The article walked through an implementation of a subset of Lisp. After reading the post, I thought it was a great project to not only have a deeper understanding of Lisp but also of the language that the implementation is in. In fact, I was so inspired by the post, I decided that maybe I&rsquo;d give it a shot to write it in Elixir.">
+<meta name="author" content="">
+<link rel="canonical" href="https://barakyo.github.io/post/2015-09-17-elisper-lisp-in-elixir/" />
+<link href="https://barakyo.github.io/assets/css/stylesheet.min.423a3f936d3c2f8ed2a09c09b14e77af788d634dc55def0398bdf279b1cfa624.css" integrity="sha256-Qjo/k208L47SoJwJsU53r3iNY03FXe8DmL3yebHPpiQ=" rel="preload stylesheet"
+    as="style">
+<link rel="apple-touch-icon" href="https://barakyo.github.io/apple-touch-icon.png">
+<link rel="icon" href="https://barakyo.github.io/favicon.ico">
+<meta name="generator" content="Hugo 0.77.0" />
+
+
+
+
 </head>
-<body>
 
-<a href="https://barakyo.github.io/" style="text-decoration: none">
-  <h1 class="article-title">
-    <span class="base05">[</span>
-    <span class="base08">b</span>
-    <span class="base09">a</span>
-    <span class="base0a">r</span>
-    <span class="base0b">a</span>
-    <span class="base0c">k</span>
-    <span class="base0d">y</span>
-    <span class="base05">o</span>
-    <span class="base05">]</span>
-  </h1>
-</a>
+<body class="single" id="top">
+<script>
+    
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.add('dark');
+        }
+    }
 
-<div class="container">
+</script>
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
 
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://barakyo.github.io/" accesskey="h">barakyo</a>
+            <span class="logo-switches">
+                <span class="theme-toggle">
+                    <a id="theme-toggle" accesskey="t">
+                        <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </span>
+                
+            </span>
+        </div>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()"></ul>
+    </nav>
+</header>
 
-<main role="main" class="article">
-  
-<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
-  <h1 class="headline" itemprop="headline">Elisper: Lisp In Elixir</h1>
-  <div class="meta">
-    
-    <span class="key">published on</span>
-    <span class="val"><time itemprop="datePublished" datetime="2015-09-17">September 17, 2015</time></span>
-    
-    
-    <span class="key">in</span>
-    <span class="val">
-      
-      <a href="/categories/Development">Development</a>
-      
-    </span>
-    
-    
-    <br>
-    <span class="key">tags:</span>
-    <span class="val">
-      
-      <a href="/tags/Elixir">Elixir</a>
-      
-      <a href="/tags/Lisp">Lisp</a>
-      
-    </span>
-    
-  </div>
-  <section class="body" itemprop="articleBody">
-    
+    <main class="main">
 
-<p>I recently read a really interesting and great blog post titled <a href="http://danthedev.com/2015/09/09/lisp-in-your-language/">Lisp in your Language</a> by Dan Prince. The article walked through an implementation of a subset of Lisp. After reading the post, I thought it was a great project to not only have a deeper understanding of Lisp but also of the language that the implementation is in. In fact, I was so inspired by the post, I decided that maybe I&rsquo;d give it a shot to write it in <a href="https://elixir-lang.org">Elixir</a>.</p>
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      Elisper: Lisp In Elixir
+    </h1>
+    <div class="post-meta">September 17, 2015
 
+    </div>
+  </header> 
+
+  <div class="post-content"><p>I recently read a really interesting and great blog post titled <a href="http://danthedev.com/2015/09/09/lisp-in-your-language/">Lisp in your Language</a> by Dan Prince. The article walked through an implementation of a subset of Lisp. After reading the post, I thought it was a great project to not only have a deeper understanding of Lisp but also of the language that the implementation is in. In fact, I was so inspired by the post, I decided that maybe I&rsquo;d give it a shot to write it in <a href="https://elixir-lang.org">Elixir</a>.</p>
 <p>I&rsquo;ve been reading and messing around with Elixir for the past month or so. Elixir is a dynamically typed functional programming language built on top of the Erlang VM BEAM. The language is showing a lot of promise and even more interesting it&rsquo;s built on top of a very scalable platform.</p>
-
 <p>Funny enough, besides syntax, I find Elixir very similar to Clojure (a Lisp dialect implemented on the JVM). If you&rsquo;re not familiar with Lisps by now, they have a very simple syntax that follows the convention</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(fn-name arg1 arg2 ... argn )</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(<span style="color:#a6e22e">fn-name</span> arg1 arg2 ... argn )</code></pre></div>
 <p>With introductions out of the way, I&rsquo;ll try to write this as incrementally as possible. Unfortunately, I didn&rsquo;t make initial git commits when I was starting out, so some of the initial code is from memory.</p>
-
 <h4 id="starting-out">Starting Out</h4>
-
 <p>In the blog post, Prince originally starts out by evaluating a predefined function using Javascript&rsquo;s <code>fn.apply</code> method. I thought this was a good way to start so I began by doing the same.</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">Elisper</span> do
-  def eval([expr <span style="color:#f92672">|</span> args]) do
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#66d9ef">defmodule</span> <span style="color:#a6e22e">Elisper</span> <span style="color:#66d9ef">do</span>
+  <span style="color:#66d9ef">def</span> eval([expr <span style="color:#f92672">|</span> args]) <span style="color:#66d9ef">do</span>
     apply(expr, args)
-  end
-end</code></pre></div>
-
+  <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">end</span></code></pre></div>
 <p>Similarly to Javascipt, Elixir has an <code>apply/2</code> function which allows you to provide a function name and a list of arguments to pass to that function. The nice thing about function parameters in Elixir is that we can pattern match in them immediately, allowing us to easily pull apart the values in a list and alias them. For the parameter <code>[expr | args]</code>, we&rsquo;re saying bind the first value (or head) of the list to the name <code>expr</code> and the rest of the list (or tail) to the name <code>args</code> (note that <code>args</code> is also a list).</p>
-
 <p>We can test this out through unit tests:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#66d9ef">defmodule</span> <span style="color:#a6e22e">ElisperTest</span> <span style="color:#66d9ef">do</span>
+  <span style="color:#f92672">use</span> <span style="color:#a6e22e">ExUnit.Case</span>, <span style="color:#e6db74">async</span>: <span style="color:#66d9ef">true</span>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">ElisperTest</span> do
-  use <span style="color:#a6e22e">ExUnit.Case</span>, <span style="color:#e6db74">async</span>: true
-
-  test <span style="color:#e6db74">&#34;sum function&#34;</span> do
-    sum <span style="color:#f92672">=</span> fn (a, b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b end
+  test <span style="color:#e6db74">&#34;sum function&#34;</span> <span style="color:#66d9ef">do</span>
+    sum <span style="color:#f92672">=</span> <span style="color:#66d9ef">fn</span> (a, b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b <span style="color:#66d9ef">end</span>
     assert (<span style="color:#a6e22e">Elisper</span><span style="color:#f92672">.</span>eval([sum, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>])) <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>
-  end
-end</code></pre></div>
-
+  <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">end</span></code></pre></div>
 <p>In our first unit test, we&rsquo;re creating an anonymous function <code>sum</code> which we&rsquo;re passing to our <code>eval</code> function with the arguments 1 and 2. Note that for pattern matching our <code>expr</code> value would be the function <code>sum</code> and the <code>args</code> parameter would take the value <code>[1,2]</code>. Let&rsquo;s run our test and see what we get&hellip;</p>
-
 <pre><code>mix test test/elisper_test.exs:8                                             0|10:47:19
 Compiled lib/elisper.ex
 Generated elisper app
@@ -109,50 +125,42 @@ Excluding tags: [:test]
 Finished in 0.07 seconds (0.07s on load, 0.00s on tests)
 1 tests, 0 failures
 </code></pre>
-
 <h4 id="mathematical-and-native-operations">Mathematical and Native Operations</h4>
-
 <p>The next step in Dan&rsquo;s article is the ability to pass arithmetic functions such as plus, minus, division, subtraction, etc. Dan accomplishes this by creating a Javascript object which he uses the passed in string as a key in the object&rsquo;s properties. We can follow a similar example in Elixir using Maps and atoms for cleaner syntax. Originally I was hoping to be able to pass in the already defined arithmetic functions in Elixir such as <code>Kernal.+/2</code> but I was unsuccessful in passing the function without it being evaluated. Our syntax for evaluating our &ldquo;native&rdquo; functions will be using atoms. Let&rsquo;s start by writing a test to show how this would look.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#66d9ef">defmodule</span> <span style="color:#a6e22e">ElisperTest</span> <span style="color:#66d9ef">do</span>
+  <span style="color:#f92672">use</span> <span style="color:#a6e22e">ExUnit.Case</span>, <span style="color:#e6db74">async</span>: <span style="color:#66d9ef">true</span>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">ElisperTest</span> do
-  use <span style="color:#a6e22e">ExUnit.Case</span>, <span style="color:#e6db74">async</span>: true
-
-  test <span style="color:#e6db74">&#34;sum function&#34;</span> do
-    sum <span style="color:#f92672">=</span> fn (a, b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b end
+  test <span style="color:#e6db74">&#34;sum function&#34;</span> <span style="color:#66d9ef">do</span>
+    sum <span style="color:#f92672">=</span> <span style="color:#66d9ef">fn</span> (a, b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b <span style="color:#66d9ef">end</span>
     assert (<span style="color:#a6e22e">Elisper</span><span style="color:#f92672">.</span>eval([sum, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>])) <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>
-  end
+  <span style="color:#66d9ef">end</span>
 
-  test <span style="color:#e6db74">&#34;native addition function&#34;</span> do
+  test <span style="color:#e6db74">&#34;native addition function&#34;</span> <span style="color:#66d9ef">do</span>
     assert (<span style="color:#a6e22e">Elisper</span><span style="color:#f92672">.</span>eval([<span style="color:#e6db74">:+</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>])) <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>
-  end
-end</code></pre></div>
-
+  <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">end</span></code></pre></div>
 <p>You can see that from the new test the arguments to our eval function is now a list containing an atom <code>:+</code> to represent our native addition function with the same arguments 1 and 2. Let&rsquo;s update our implementation to support these native functions.</p>
-
 <p>We&rsquo;ll start by defining a new eval function using a guard statement. A guard statement allows us to define a function that will only be called when a set of conditions are true. In this case, we want to create an <code>eval</code> that will be called when we pass an <code>atom</code> as the head of the list. In this function we&rsquo;ll define our <code>native_ops</code> map which will be a map containing a list of our native arithmetic functions.</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">Elisper</span> do
-  def eval([expr <span style="color:#f92672">|</span> args] <span style="color:#f92672">=</span> expression) when is_atom(expr) do
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#66d9ef">defmodule</span> <span style="color:#a6e22e">Elisper</span> <span style="color:#66d9ef">do</span>
+  <span style="color:#66d9ef">def</span> eval([expr <span style="color:#f92672">|</span> args] <span style="color:#f92672">=</span> expression) <span style="color:#f92672">when</span> is_atom(expr) <span style="color:#66d9ef">do</span>
     native_ops <span style="color:#f92672">=</span> %{
-      <span style="color:#e6db74">+</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b end,
-      <span style="color:#e6db74">-</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-</span> b end,
-      <span style="color:#e6db74">*</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">*</span> b end,
-      <span style="color:#e6db74">/</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">/</span> b end,
-      <span style="color:#e6db74">=</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">==</span> b end
+      <span style="color:#e6db74">+</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">-</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">*</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">*</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">/</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">/</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">=</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">==</span> b <span style="color:#66d9ef">end</span>
     }
-    case <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>get(native_ops, expr) do
-      nil <span style="color:#f92672">-&gt;</span> eval(expression)
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>get(native_ops, expr) <span style="color:#66d9ef">do</span>
+      <span style="color:#66d9ef">nil</span> <span style="color:#f92672">-&gt;</span> eval(expression)
       func <span style="color:#f92672">-&gt;</span> eval([func] <span style="color:#f92672">++</span> args)
-    end
-  end
+    <span style="color:#66d9ef">end</span>
+  <span style="color:#66d9ef">end</span>
 
-  def eval([expr <span style="color:#f92672">|</span> args]) do
+  <span style="color:#66d9ef">def</span> eval([expr <span style="color:#f92672">|</span> args]) <span style="color:#66d9ef">do</span>
     apply(expr, args)
-  end
-end</code></pre></div>
-
+  <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">end</span></code></pre></div>
 <p>Let&rsquo;s run our tests to verify that what we&rsquo;ve done works correctly:</p>
-
 <pre><code>$ mix test test/elisper_test.exs                                              0|13:54:00
 ..
 
@@ -161,139 +169,118 @@ Finished in 0.03 seconds (0.03s on load, 0.00s on tests)
 
 Randomized with seed 398982
 </code></pre>
-
 <h4 id="handling-nested-expressions">Handling Nested Expressions</h4>
-
 <p>The next thing we want to do is handle nested arguments. Lisps can evaluate nested expressions in the form:</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(+ (+ <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>) (+ <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>))</code></pre></div>
-
 <p>We want to be able to handle the same expressions. Since we already have an idea of what we want to test, let&rsquo;s start by again writing our tests first.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#66d9ef">defmodule</span> <span style="color:#a6e22e">ElisperTest</span> <span style="color:#66d9ef">do</span>
+  <span style="color:#f92672">use</span> <span style="color:#a6e22e">ExUnit.Case</span>, <span style="color:#e6db74">async</span>: <span style="color:#66d9ef">true</span>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">ElisperTest</span> do
-  use <span style="color:#a6e22e">ExUnit.Case</span>, <span style="color:#e6db74">async</span>: true
-
-  test <span style="color:#e6db74">&#34;sum function&#34;</span> do
-    sum <span style="color:#f92672">=</span> fn (a, b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b end
+  test <span style="color:#e6db74">&#34;sum function&#34;</span> <span style="color:#66d9ef">do</span>
+    sum <span style="color:#f92672">=</span> <span style="color:#66d9ef">fn</span> (a, b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b <span style="color:#66d9ef">end</span>
     assert (<span style="color:#a6e22e">Elisper</span><span style="color:#f92672">.</span>eval([sum, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>])) <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>
-  end
+  <span style="color:#66d9ef">end</span>
 
-  test <span style="color:#e6db74">&#34;native addition function&#34;</span> do
+  test <span style="color:#e6db74">&#34;native addition function&#34;</span> <span style="color:#66d9ef">do</span>
     assert (<span style="color:#a6e22e">Elisper</span><span style="color:#f92672">.</span>eval([<span style="color:#e6db74">:+</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>])) <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>
-  end
+  <span style="color:#66d9ef">end</span>
 
-  test <span style="color:#e6db74">&#34;two recursive arguments&#34;</span> do
+  test <span style="color:#e6db74">&#34;two recursive arguments&#34;</span> <span style="color:#66d9ef">do</span>
     assert (<span style="color:#a6e22e">Elisper</span><span style="color:#f92672">.</span>eval([<span style="color:#e6db74">:+</span>, [<span style="color:#e6db74">:+</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>], [<span style="color:#e6db74">:+</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>]])) <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span>
- end
+ <span style="color:#66d9ef">end</span>
 
-end</code></pre></div>
-
+<span style="color:#66d9ef">end</span></code></pre></div>
 <p>Before attempting the implementation for evaluating nested arguments. I&rsquo;d like to explain the solution that I took. Before evaluating the function and its arguments in our <code>eval</code> function that calls <code>apply/2</code>, we could iterate through the list of values and determine if a list exists. If one of the values is a list, we can recursively call eval, which will format and evaluate the nested expression. Let&rsquo;s see what that looks like:</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">Elisper</span> do
-  def eval([expr <span style="color:#f92672">|</span> args] <span style="color:#f92672">=</span> expression) when is_atom(expr) do
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#66d9ef">defmodule</span> <span style="color:#a6e22e">Elisper</span> <span style="color:#66d9ef">do</span>
+  <span style="color:#66d9ef">def</span> eval([expr <span style="color:#f92672">|</span> args] <span style="color:#f92672">=</span> expression) <span style="color:#f92672">when</span> is_atom(expr) <span style="color:#66d9ef">do</span>
     native_ops <span style="color:#f92672">=</span> %{
-      <span style="color:#e6db74">+</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b end,
-      <span style="color:#e6db74">-</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-</span> b end,
-      <span style="color:#e6db74">*</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">*</span> b end,
-      <span style="color:#e6db74">/</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">/</span> b end,
-      <span style="color:#e6db74">=</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">==</span> b end
+      <span style="color:#e6db74">+</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">-</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">*</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">*</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">/</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">/</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">=</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">==</span> b <span style="color:#66d9ef">end</span>
     }
-    case <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>get(native_ops, expr) do
-      nil <span style="color:#f92672">-&gt;</span> eval(expression)
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>get(native_ops, expr) <span style="color:#66d9ef">do</span>
+      <span style="color:#66d9ef">nil</span> <span style="color:#f92672">-&gt;</span> eval(expression)
       func <span style="color:#f92672">-&gt;</span> eval([func] <span style="color:#f92672">++</span> args)
-    end
-  end
+    <span style="color:#66d9ef">end</span>
+  <span style="color:#66d9ef">end</span>
 
-  def eval([expr <span style="color:#f92672">|</span> args]) do
-    sub_exprs <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>map(args, fn
+  <span style="color:#66d9ef">def</span> eval([expr <span style="color:#f92672">|</span> args]) <span style="color:#66d9ef">do</span>
+    sub_exprs <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>map(args, <span style="color:#66d9ef">fn</span>
       ([_h <span style="color:#f92672">|</span> _t] <span style="color:#f92672">=</span> arg) <span style="color:#f92672">-&gt;</span> eval(arg)
       arg <span style="color:#f92672">-&gt;</span> arg
-    end)
+    <span style="color:#66d9ef">end</span>)
     apply(expr, sub_exprs)
-  end
-end</code></pre></div>
-
+  <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">end</span></code></pre></div>
 <p>Lets break this down piece by piece. First we start out by enumerating over all of our arguments using <code>Enum.map</code>. As people are familiar with <code>map</code> functions in other languages, they accept a collection to iterate through and a function to apply to each argument. In this case we&rsquo;ve created an anonymous function that has two bodies. An awesome feature about Elixir is that anonymous functions can pattern match and have multiple bodies allowing us to handle different input. In this case, we want to specifically handle two inputs, one where the value is a list and when the supplied argument is just a single value. By pattern matching on an item with a head and tail, we can match against lists and as we&rsquo;ve stated before, recursively call eval on our list. If the supplied argument is just a value, we simply want to return it. Once we&rsquo;ve completed enumerating through and evaluating all of the arguments, we can finally call <code>apply/2</code> with our original <code>expr</code> and the newly evaluated <code>sub_exprs</code>.</p>
-
 <h4 id="conditionals">Conditionals</h4>
-
 <p>One of the many features we use while programming is conditionals. To make some interesting expressions, let&rsquo;s add support for conditionals into our implementation. Conditionals in the Lisps take the form:
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(<span style="color:#66d9ef">if </span>(conditional)
-  (true)
-  (false)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(<span style="color:#66d9ef">if </span>(<span style="color:#a6e22e">conditional</span>)
+  (<span style="color:#a6e22e">true</span>)
+  (<span style="color:#a6e22e">false</span>)
 )</code></pre></div></p>
-
 <p>We can define a simple conditional using the test:</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">test <span style="color:#e6db74">&#34;if clause&#34;</span> do
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">test <span style="color:#e6db74">&#34;if clause&#34;</span> <span style="color:#66d9ef">do</span>
   assert (<span style="color:#a6e22e">Elisper</span><span style="color:#f92672">.</span>eval([<span style="color:#e6db74">:if</span>, [<span style="color:#e6db74">:=</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>], [<span style="color:#e6db74">:+</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>], [<span style="color:#e6db74">:+</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>]])) <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>
-end</code></pre></div>
-
+<span style="color:#66d9ef">end</span></code></pre></div>
 <p>We can handle the case for <code>if</code> within our <code>native_ops</code> map. Within <code>native_ops</code>  we can simply define a function for the if key that accepts 3 arguements, a <code>conditional</code>, the <code>first</code> (or true) clause, and the <code>second</code> (or false) clause. From there we can simply evaluate our <code>conditional</code> that is passed to our function. As you may have guessed, if <code>conditional</code> evaluates to true, we simply return <code>first</code>, else we return <code>second</code>.</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">Elisper</span> do
-  def eval([expr <span style="color:#f92672">|</span> args] <span style="color:#f92672">=</span> expression) when is_atom(expr) do
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#66d9ef">defmodule</span> <span style="color:#a6e22e">Elisper</span> <span style="color:#66d9ef">do</span>
+  <span style="color:#66d9ef">def</span> eval([expr <span style="color:#f92672">|</span> args] <span style="color:#f92672">=</span> expression) <span style="color:#f92672">when</span> is_atom(expr) <span style="color:#66d9ef">do</span>
     native_ops <span style="color:#f92672">=</span> %{
-      <span style="color:#e6db74">+</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b end,
-      <span style="color:#e6db74">-</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-</span> b end,
-      <span style="color:#e6db74">*</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">*</span> b end,
-      <span style="color:#e6db74">/</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">/</span> b end,
-      <span style="color:#e6db74">=</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">==</span> b end,
-      <span style="color:#e6db74">if</span>: fn(conditional, first, second) <span style="color:#f92672">-&gt;</span> if(conditional) do first else second end end
+      <span style="color:#e6db74">+</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">-</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">*</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">*</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">/</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">/</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">=</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">==</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">if</span>: <span style="color:#66d9ef">fn</span>(conditional, first, second) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">if</span>(conditional) <span style="color:#66d9ef">do</span> first <span style="color:#66d9ef">else</span> second <span style="color:#66d9ef">end</span> <span style="color:#66d9ef">end</span>
     }
-    case <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>get(native_ops, expr) do
-      nil <span style="color:#f92672">-&gt;</span> eval(expression)
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>get(native_ops, expr) <span style="color:#66d9ef">do</span>
+      <span style="color:#66d9ef">nil</span> <span style="color:#f92672">-&gt;</span> eval(expression)
       func <span style="color:#f92672">-&gt;</span> eval([func] <span style="color:#f92672">++</span> args)
-    end
-  end
+    <span style="color:#66d9ef">end</span>
+  <span style="color:#66d9ef">end</span>
 
-  def eval([expr <span style="color:#f92672">|</span> args]) do
-    sub_exprs <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>map(args, fn
+  <span style="color:#66d9ef">def</span> eval([expr <span style="color:#f92672">|</span> args]) <span style="color:#66d9ef">do</span>
+    sub_exprs <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>map(args, <span style="color:#66d9ef">fn</span>
       ([_h <span style="color:#f92672">|</span> _t] <span style="color:#f92672">=</span> arg) <span style="color:#f92672">-&gt;</span> eval(arg)
       arg <span style="color:#f92672">-&gt;</span> arg
-    end)
+    <span style="color:#66d9ef">end</span>)
     apply(expr, sub_exprs)
-  end
-end</code></pre></div>
-
+  <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">end</span></code></pre></div>
 <h4 id="binding-values">Binding Values</h4>
-
 <p>One of the harder things that I came across was the ability to define values. Values in Lisps are bound using the <code>def</code> expression. These bound values are immutable and cannot be changed. Let&rsquo;s take a look at what an expression would look like:</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(<span style="color:#66d9ef">def </span>a <span style="color:#ae81ff">5</span>)</code></pre></div>
-
 <p>Doing so allows us to use these values in other contexts like:
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(do
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(<span style="color:#a6e22e">do</span>
   (<span style="color:#66d9ef">def </span>a <span style="color:#ae81ff">5</span>)
   (+ a a)
 )</code></pre></div></p>
-
 <p>At this point, we have an idea for our next test and we also know what we want to implement, <code>do</code> and <code>def</code> expressions.
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">ElisperTest</span> do
-  use <span style="color:#a6e22e">ExUnit.Case</span>, <span style="color:#e6db74">async</span>: true
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#66d9ef">defmodule</span> <span style="color:#a6e22e">ElisperTest</span> <span style="color:#66d9ef">do</span>
+  <span style="color:#f92672">use</span> <span style="color:#a6e22e">ExUnit.Case</span>, <span style="color:#e6db74">async</span>: <span style="color:#66d9ef">true</span>
 
-  test <span style="color:#e6db74">&#34;sum function&#34;</span> do
-    sum <span style="color:#f92672">=</span> fn (a, b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b end
+  test <span style="color:#e6db74">&#34;sum function&#34;</span> <span style="color:#66d9ef">do</span>
+    sum <span style="color:#f92672">=</span> <span style="color:#66d9ef">fn</span> (a, b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b <span style="color:#66d9ef">end</span>
     assert (<span style="color:#a6e22e">Elisper</span><span style="color:#f92672">.</span>eval([sum, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>])) <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>
-  end
+  <span style="color:#66d9ef">end</span>
 
-  test <span style="color:#e6db74">&#34;native addition function&#34;</span> do
+  test <span style="color:#e6db74">&#34;native addition function&#34;</span> <span style="color:#66d9ef">do</span>
     assert (<span style="color:#a6e22e">Elisper</span><span style="color:#f92672">.</span>eval([<span style="color:#e6db74">:+</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>])) <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>
-  end
+  <span style="color:#66d9ef">end</span>
 
-  test <span style="color:#e6db74">&#34;two recursive arguments&#34;</span> do
+  test <span style="color:#e6db74">&#34;two recursive arguments&#34;</span> <span style="color:#66d9ef">do</span>
     assert (<span style="color:#a6e22e">Elisper</span><span style="color:#f92672">.</span>eval([<span style="color:#e6db74">:+</span>, [<span style="color:#e6db74">:+</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>], [<span style="color:#e6db74">:+</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>]])) <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span>
- end
+ <span style="color:#66d9ef">end</span>
 
- test <span style="color:#e6db74">&#34;def&#34;</span> do
+ test <span style="color:#e6db74">&#34;def&#34;</span> <span style="color:#66d9ef">do</span>
    assert (<span style="color:#a6e22e">Elisper</span><span style="color:#f92672">.</span>eval([<span style="color:#e6db74">:do</span>, [<span style="color:#e6db74">:def</span>, <span style="color:#e6db74">:a</span>, <span style="color:#ae81ff">5</span>], [<span style="color:#e6db74">:+</span>, <span style="color:#e6db74">:a</span>, <span style="color:#e6db74">:a</span>]])) <span style="color:#f92672">==</span> <span style="color:#ae81ff">10</span>
- end
+ <span style="color:#66d9ef">end</span>
 
-end</code></pre></div></p>
-
+<span style="color:#66d9ef">end</span></code></pre></div></p>
 <p>Now that we have our tests defined, we need to review what our implementation may look like. After trying out a number of options, I decided the best way to handle <code>def</code> clauses was to treat them separately before evaluating any expressions. I would iterate through the passed in arguments and define a <code>scope</code> which could be carried through evaluation that would hold all of the bounded values from the <code>def</code> clauses. Some of our steps:</p>
-
 <ul>
 <li>Update existing <code>eval</code> functions to accept a second <code>scope</code> parameter.</li>
 <li>Implement a new <code>eval</code> function that accepts only one parameter (the expression to evaluate) where the default scope is an empty scope.</li>
@@ -301,165 +288,154 @@ end</code></pre></div></p>
 <li>Handle our <code>def</code> and <code>do</code> functions.</li>
 <li>Replace any instances of our variables with their bounded values.</li>
 </ul>
-
 <p><strong>Step 1:</strong> Update existing functions and define new <code>eval/1</code> function.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#66d9ef">defmodule</span> <span style="color:#a6e22e">Elisper</span> <span style="color:#66d9ef">do</span>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">Elisper</span> do
-
-  def eval([expr <span style="color:#f92672">|</span> args] <span style="color:#f92672">=</span> expression, scope) when is_atom(expr) do
+  <span style="color:#66d9ef">def</span> eval([expr <span style="color:#f92672">|</span> args] <span style="color:#f92672">=</span> expression, scope) <span style="color:#f92672">when</span> is_atom(expr) <span style="color:#66d9ef">do</span>
     native_ops <span style="color:#f92672">=</span> %{
-      <span style="color:#e6db74">+</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b end,
-      <span style="color:#e6db74">-</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-</span> b end,
-      <span style="color:#e6db74">*</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">*</span> b end,
-      <span style="color:#e6db74">/</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">/</span> b end,
-      <span style="color:#e6db74">=</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">==</span> b end,
-      <span style="color:#e6db74">if</span>: fn(conditional, first, second) <span style="color:#f92672">-&gt;</span> if(conditional) do first else second end end
+      <span style="color:#e6db74">+</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">-</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">*</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">*</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">/</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">/</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">=</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">==</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">if</span>: <span style="color:#66d9ef">fn</span>(conditional, first, second) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">if</span>(conditional) <span style="color:#66d9ef">do</span> first <span style="color:#66d9ef">else</span> second <span style="color:#66d9ef">end</span> <span style="color:#66d9ef">end</span>
     }
-    case <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>get(native_ops, expr) do
-      nil <span style="color:#f92672">-&gt;</span> eval(expression, scope)
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>get(native_ops, expr) <span style="color:#66d9ef">do</span>
+      <span style="color:#66d9ef">nil</span> <span style="color:#f92672">-&gt;</span> eval(expression, scope)
       func <span style="color:#f92672">-&gt;</span> eval([func] <span style="color:#f92672">++</span> args, scope)
-    end
-  end
+    <span style="color:#66d9ef">end</span>
+  <span style="color:#66d9ef">end</span>
 
-  def eval([expr <span style="color:#f92672">|</span> args], scope) do
-    sub_exprs <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>map(args, fn
+  <span style="color:#66d9ef">def</span> eval([expr <span style="color:#f92672">|</span> args], scope) <span style="color:#66d9ef">do</span>
+    sub_exprs <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>map(args, <span style="color:#66d9ef">fn</span>
       ([_h <span style="color:#f92672">|</span> _t] <span style="color:#f92672">=</span> arg) <span style="color:#f92672">-&gt;</span> eval(arg, scope)
       arg <span style="color:#f92672">-&gt;</span> arg
-    end)
+    <span style="color:#66d9ef">end</span>)
     apply(expr, sub_exprs)
-  end
+  <span style="color:#66d9ef">end</span>
 
-end</code></pre></div>
-
+<span style="color:#66d9ef">end</span></code></pre></div>
 <p><strong>Step 2:</strong> Define new <code>eval/1</code> function.
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">Elisper</span> do
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#66d9ef">defmodule</span> <span style="color:#a6e22e">Elisper</span> <span style="color:#66d9ef">do</span>
 
-  def eval(expr) do
+  <span style="color:#66d9ef">def</span> eval(expr) <span style="color:#66d9ef">do</span>
     eval(expr, %{})
-  end
+  <span style="color:#66d9ef">end</span>
 
-  def eval([expr <span style="color:#f92672">|</span> args] <span style="color:#f92672">=</span> expression, scope) when is_atom(expr) do
+  <span style="color:#66d9ef">def</span> eval([expr <span style="color:#f92672">|</span> args] <span style="color:#f92672">=</span> expression, scope) <span style="color:#f92672">when</span> is_atom(expr) <span style="color:#66d9ef">do</span>
     native_ops <span style="color:#f92672">=</span> %{
-      <span style="color:#e6db74">+</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b end,
-      <span style="color:#e6db74">-</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-</span> b end,
-      <span style="color:#e6db74">*</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">*</span> b end,
-      <span style="color:#e6db74">/</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">/</span> b end,
-      <span style="color:#e6db74">=</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">==</span> b end,
-      <span style="color:#e6db74">if</span>: fn(conditional, first, second) <span style="color:#f92672">-&gt;</span> if(conditional) do first else second end end
+      <span style="color:#e6db74">+</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">-</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">*</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">*</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">/</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">/</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">=</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">==</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">if</span>: <span style="color:#66d9ef">fn</span>(conditional, first, second) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">if</span>(conditional) <span style="color:#66d9ef">do</span> first <span style="color:#66d9ef">else</span> second <span style="color:#66d9ef">end</span> <span style="color:#66d9ef">end</span>
     }
-    case <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>get(native_ops, expr) do
-      nil <span style="color:#f92672">-&gt;</span> eval(expression, scope)
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>get(native_ops, expr) <span style="color:#66d9ef">do</span>
+      <span style="color:#66d9ef">nil</span> <span style="color:#f92672">-&gt;</span> eval(expression, scope)
       func <span style="color:#f92672">-&gt;</span> eval([func] <span style="color:#f92672">++</span> args, scope)
-    end
-  end
+    <span style="color:#66d9ef">end</span>
+  <span style="color:#66d9ef">end</span>
 
-  def eval([expr <span style="color:#f92672">|</span> args], scope) do
-    sub_exprs <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>map(args, fn
+  <span style="color:#66d9ef">def</span> eval([expr <span style="color:#f92672">|</span> args], scope) <span style="color:#66d9ef">do</span>
+    sub_exprs <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>map(args, <span style="color:#66d9ef">fn</span>
       ([_h <span style="color:#f92672">|</span> _t] <span style="color:#f92672">=</span> arg) <span style="color:#f92672">-&gt;</span> eval(arg, scope)
       arg <span style="color:#f92672">-&gt;</span> arg
-    end)
+    <span style="color:#66d9ef">end</span>)
     apply(expr, sub_exprs)
-  end</code></pre></div></p>
-
+  <span style="color:#66d9ef">end</span></code></pre></div></p>
 <p><strong>Step 3:</strong> In step 3, we iterate through <code>expr</code> but this time we use the <code>reduce</code> function to output a map which contains the values bounded by the <code>def</code> expressions. We can once again use pattern matching to make our anonymous function more concise. Our first case, where we match the head of the list to <code>:def</code> we know to return a new map with our new value. In the case that we don&rsquo;t find a match, simply return the existing map.</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">Elisper</span> do
-  def eval(expr) do
-    scope <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>reduce(expr, %{}, fn
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#66d9ef">defmodule</span> <span style="color:#a6e22e">Elisper</span> <span style="color:#66d9ef">do</span>
+  <span style="color:#66d9ef">def</span> eval(expr) <span style="color:#66d9ef">do</span>
+    scope <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>reduce(expr, %{}, <span style="color:#66d9ef">fn</span>
       ([<span style="color:#e6db74">:def</span> <span style="color:#f92672">|</span> arg], acc) <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>put(acc, <span style="color:#a6e22e">List</span><span style="color:#f92672">.</span>first(arg), <span style="color:#a6e22e">List</span><span style="color:#f92672">.</span>last(arg))
       (arg, acc) <span style="color:#f92672">-&gt;</span> acc
-    end)
+    <span style="color:#66d9ef">end</span>)
     eval(expr, scope)
-  end
+  <span style="color:#66d9ef">end</span>
 
-  def eval([expr <span style="color:#f92672">|</span> args] <span style="color:#f92672">=</span> expression, scope) when is_atom(expr) do
+  <span style="color:#66d9ef">def</span> eval([expr <span style="color:#f92672">|</span> args] <span style="color:#f92672">=</span> expression, scope) <span style="color:#f92672">when</span> is_atom(expr) <span style="color:#66d9ef">do</span>
     native_ops <span style="color:#f92672">=</span> %{
-      <span style="color:#e6db74">+</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b end,
-      <span style="color:#e6db74">-</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-</span> b end,
-      <span style="color:#e6db74">*</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">*</span> b end,
-      <span style="color:#e6db74">/</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">/</span> b end,
-      <span style="color:#e6db74">=</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">==</span> b end,
-      <span style="color:#e6db74">if</span>: fn(conditional, first, second) <span style="color:#f92672">-&gt;</span> if(conditional) do first else second end end
+      <span style="color:#e6db74">+</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">-</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">*</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">*</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">/</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">/</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">=</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">==</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">if</span>: <span style="color:#66d9ef">fn</span>(conditional, first, second) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">if</span>(conditional) <span style="color:#66d9ef">do</span> first <span style="color:#66d9ef">else</span> second <span style="color:#66d9ef">end</span> <span style="color:#66d9ef">end</span>
     }
-    case <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>get(native_ops, expr) do
-      nil <span style="color:#f92672">-&gt;</span> eval(expression, scope)
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>get(native_ops, expr) <span style="color:#66d9ef">do</span>
+      <span style="color:#66d9ef">nil</span> <span style="color:#f92672">-&gt;</span> eval(expression, scope)
       func <span style="color:#f92672">-&gt;</span> eval([func] <span style="color:#f92672">++</span> args, scope)
-    end
-  end
+    <span style="color:#66d9ef">end</span>
+  <span style="color:#66d9ef">end</span>
 
-  def eval([expr <span style="color:#f92672">|</span> args], scope) do
-    sub_exprs <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>map(args, fn
+  <span style="color:#66d9ef">def</span> eval([expr <span style="color:#f92672">|</span> args], scope) <span style="color:#66d9ef">do</span>
+    sub_exprs <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>map(args, <span style="color:#66d9ef">fn</span>
       ([_h <span style="color:#f92672">|</span> _t] <span style="color:#f92672">=</span> arg) <span style="color:#f92672">-&gt;</span> eval(arg, scope)
       arg <span style="color:#f92672">-&gt;</span> arg
-    end)
+    <span style="color:#66d9ef">end</span>)
     apply(expr, sub_exprs)
-  end
+  <span style="color:#66d9ef">end</span>
 
-end</code></pre></div>
-
+<span style="color:#66d9ef">end</span></code></pre></div>
 <p><strong>Step 4:</strong> Handling the <code>def</code> and <code>do</code> expressions during evaluation.
-Our <code>def</code> and <code>do</code> functions are a little weird and we&rsquo;ll have to handle them both a little differently than our arithmetic functions. In the case of <code>do</code>, we need to take a step back and think about what the function actually does. According to the <a href="https://clojuredocs.org/clojure.core/do">Clojure Docs</a> on <code>do</code>:
-&gt; Evaluates the expressions in order and returns the value of the last. If no
+Our <code>def</code> and <code>do</code> functions are a little weird and we&rsquo;ll have to handle them both a little differently than our arithmetic functions. In the case of <code>do</code>, we need to take a step back and think about what the function actually does. According to the <a href="https://clojuredocs.org/clojure.core/do">Clojure Docs</a> on <code>do</code>:</p>
+<blockquote>
+<p>Evaluates the expressions in order and returns the value of the last. If no
 expressions are supplied, returns nil.</p>
-
+</blockquote>
 <p>Following the documentation, we can simply define a function for <code>do</code> which returns the last argument that has been passed to it, that&rsquo;s simple enough. In the case of <code>def</code>, since we&rsquo;ve already handled it&rsquo;s purpose by binding the value to its alias within the scope, we can simply ignore it during evaluation.</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">Elisper</span> do
-  def eval(expr) do
-    scope <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>reduce(expr, %{}, fn
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#66d9ef">defmodule</span> <span style="color:#a6e22e">Elisper</span> <span style="color:#66d9ef">do</span>
+  <span style="color:#66d9ef">def</span> eval(expr) <span style="color:#66d9ef">do</span>
+    scope <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>reduce(expr, %{}, <span style="color:#66d9ef">fn</span>
       ([<span style="color:#e6db74">:def</span> <span style="color:#f92672">|</span> arg], acc) <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>put(acc, <span style="color:#a6e22e">List</span><span style="color:#f92672">.</span>first(arg), <span style="color:#a6e22e">List</span><span style="color:#f92672">.</span>last(arg))
       (arg, acc) <span style="color:#f92672">-&gt;</span> acc
-    end)
+    <span style="color:#66d9ef">end</span>)
     eval(expr, scope)
-  end
+  <span style="color:#66d9ef">end</span>
 
-  def eval([expr <span style="color:#f92672">|</span> args] <span style="color:#f92672">=</span> expression, scope) when is_atom(expr) do
+  <span style="color:#66d9ef">def</span> eval([expr <span style="color:#f92672">|</span> args] <span style="color:#f92672">=</span> expression, scope) <span style="color:#f92672">when</span> is_atom(expr) <span style="color:#66d9ef">do</span>
     native_ops <span style="color:#f92672">=</span> %{
-      <span style="color:#e6db74">+</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b end,
-      <span style="color:#e6db74">-</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-</span> b end,
-      <span style="color:#e6db74">*</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">*</span> b end,
-      <span style="color:#e6db74">/</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">/</span> b end,
-      <span style="color:#e6db74">=</span>: fn (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">==</span> b end,
-      <span style="color:#e6db74">if</span>: fn(conditional, first, second) <span style="color:#f92672">-&gt;</span> if(conditional) do first else second end end,
-      <span style="color:#e6db74">do</span>: fn(_a, b) <span style="color:#f92672">-&gt;</span> b end
+      <span style="color:#e6db74">+</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">-</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">*</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">*</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">/</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">/</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">=</span>: <span style="color:#66d9ef">fn</span> (a,b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">==</span> b <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">if</span>: <span style="color:#66d9ef">fn</span>(conditional, first, second) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">if</span>(conditional) <span style="color:#66d9ef">do</span> first <span style="color:#66d9ef">else</span> second <span style="color:#66d9ef">end</span> <span style="color:#66d9ef">end</span>,
+      <span style="color:#e6db74">do</span>: <span style="color:#66d9ef">fn</span>(_a, b) <span style="color:#f92672">-&gt;</span> b <span style="color:#66d9ef">end</span>
     }
-    case <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>get(native_ops, expr) do
-      nil <span style="color:#f92672">-&gt;</span> (
-        if expr <span style="color:#f92672">==</span> <span style="color:#e6db74">:def</span> do
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>get(native_ops, expr) <span style="color:#66d9ef">do</span>
+      <span style="color:#66d9ef">nil</span> <span style="color:#f92672">-&gt;</span> (
+        <span style="color:#66d9ef">if</span> expr <span style="color:#f92672">==</span> <span style="color:#e6db74">:def</span> <span style="color:#66d9ef">do</span>
           <span style="color:#e6db74">:ok</span>
-        else
+        <span style="color:#66d9ef">else</span>
           eval(expression, scope)
-        end
+        <span style="color:#66d9ef">end</span>
       )
       func <span style="color:#f92672">-&gt;</span> eval([func] <span style="color:#f92672">++</span> args, scope)
-    end
-  end
+    <span style="color:#66d9ef">end</span>
+  <span style="color:#66d9ef">end</span>
 
-  def eval([expr <span style="color:#f92672">|</span> args], scope) do
-    sub_exprs <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>map(args, fn
+  <span style="color:#66d9ef">def</span> eval([expr <span style="color:#f92672">|</span> args], scope) <span style="color:#66d9ef">do</span>
+    sub_exprs <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>map(args, <span style="color:#66d9ef">fn</span>
       ([_h <span style="color:#f92672">|</span> _t] <span style="color:#f92672">=</span> arg) <span style="color:#f92672">-&gt;</span> eval(arg, scope)
       arg <span style="color:#f92672">-&gt;</span> (
-        case <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>get(scope, arg) do
-          nil <span style="color:#f92672">-&gt;</span> arg
+        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>get(scope, arg) <span style="color:#66d9ef">do</span>
+          <span style="color:#66d9ef">nil</span> <span style="color:#f92672">-&gt;</span> arg
           x <span style="color:#f92672">-&gt;</span> x
-        end
+        <span style="color:#66d9ef">end</span>
       )
-    end)
+    <span style="color:#66d9ef">end</span>)
     apply(expr, sub_exprs)
-  end
-end</code></pre></div>
-
+  <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">end</span></code></pre></div>
 <h4 id="defining-functions">Defining Functions</h4>
-
 <p>For our last section, we&rsquo;ll cover how to define functions. We&rsquo;ll use the following syntax provided by Dan&rsquo;s article for defining a function:</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(<span style="color:#66d9ef">def </span>fn-name
-  (<span style="color:#66d9ef">fn </span>[args] (body))
+  (<span style="color:#66d9ef">fn </span>[args] (<span style="color:#a6e22e">body</span>))
 )</code></pre></div>
-
 <p>Using this syntax, functions must be defined with <code>def</code>, this may give you a hint as to where we&rsquo;ll need to add it in the implementation. Similar to other <code>def</code> expressions, we&rsquo;ll want to be able to add our function information to the scope, so that it can be used throughout the evaluation of the rest of the expressions. Functions are a slightly different case of the <code>def</code> expression that we have, so we&rsquo;ll need to take that into account. Before jumping into the implementation, let&rsquo;s write another test.</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">test <span style="color:#e6db74">&#34;def fn&#34;</span> do
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">test <span style="color:#e6db74">&#34;def fn&#34;</span> <span style="color:#66d9ef">do</span>
  assert (<span style="color:#a6e22e">Elisper</span><span style="color:#f92672">.</span>eval(
     [<span style="color:#e6db74">:do</span>,
      [<span style="color:#e6db74">:def</span>, <span style="color:#e6db74">:multi</span>,
@@ -470,56 +446,45 @@ end</code></pre></div>
      [<span style="color:#e6db74">:multi</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>]
     ]
   )) <span style="color:#f92672">==</span> <span style="color:#ae81ff">12</span>
-end</code></pre></div>
-
+<span style="color:#66d9ef">end</span></code></pre></div>
 <p>One more thing to think about before we begin the implementation is how we want to add function information to our scope. I chose to create a map containing a <code>params</code> key and a <code>body</code> key to store the params and body of the function, respectively. After updating our scope should look similar to:</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">%{
   <span style="color:#e6db74">params</span>: [<span style="color:#e6db74">:x</span>, <span style="color:#e6db74">:y</span>],
   <span style="color:#e6db74">body</span>:   [<span style="color:#e6db74">:*</span>, <span style="color:#e6db74">:x</span>, <span style="color:#e6db74">:y</span>]
 }</code></pre></div>
-
 <p>Now that we have an idea of what we want to implement, let&rsquo;s go back to our <code>Enum.reduce</code> function.</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">scope <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>reduce(expr, %{}, fn
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">scope <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>reduce(expr, %{}, <span style="color:#66d9ef">fn</span>
   ([<span style="color:#e6db74">:def</span> <span style="color:#f92672">|</span> arg], acc) <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>put(acc, <span style="color:#a6e22e">List</span><span style="color:#f92672">.</span>first(arg), <span style="color:#a6e22e">List</span><span style="color:#f92672">.</span>last(arg))
   (arg, acc) <span style="color:#f92672">-&gt;</span> acc
-end)</code></pre></div>
-
+<span style="color:#66d9ef">end</span>)</code></pre></div>
 <p>As we stated before, we&rsquo;ll want to add a case to match, we know that we still want to match for on <code>def</code> as the head of the list, but what about the tail? The tail of our list has the format <code>[fn-name, [:fn, [params], [body]]]</code>. The great thing is that we can pattern match to exactly that format. Since we&rsquo;ve extracted the values from the list, we can easily add a new map to the scope.</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">scope <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>reduce(expr, %{}, fn
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">scope <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>reduce(expr, %{}, <span style="color:#66d9ef">fn</span>
   ([<span style="color:#e6db74">:def</span> <span style="color:#f92672">|</span> [func_name, [<span style="color:#e6db74">:fn</span>, params, body]]], acc) <span style="color:#f92672">-&gt;</span> (
     <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>put(acc, func_name, %{<span style="color:#e6db74">params</span>: params, <span style="color:#e6db74">body</span>: body})
   )
   ([<span style="color:#e6db74">:def</span> <span style="color:#f92672">|</span> arg], acc) <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>put(acc, <span style="color:#a6e22e">List</span><span style="color:#f92672">.</span>first(arg), <span style="color:#a6e22e">List</span><span style="color:#f92672">.</span>last(arg))
   (arg, acc) <span style="color:#f92672">-&gt;</span> acc
-end)</code></pre></div>
-
+<span style="color:#66d9ef">end</span>)</code></pre></div>
 <p>The next thing we&rsquo;ll want to do, is handle what to do when we come across <code>:fn</code> and our user created functions during evaluation. This hapens in the <code>nil</code> case when we lookup function replacements from our <code>native_ops</code> map. We&rsquo;ll have to modify the <code>nil</code> case a bit to get our desired behavior. First, we&rsquo;ll want to update our conditional to also return <code>:ok</code> when we come across a <code>:fn</code> value in our list of expressions. The next thing we&rsquo;ll want to do, is see if the <code>expr</code> is defined in our scope and if it is, evaluate the function with the correct parameters. Let&rsquo;s see what this looks like:</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">case <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>get(native_ops, expr) do
-  nil <span style="color:#f92672">-&gt;</span> (
-    if expr <span style="color:#f92672">==</span> <span style="color:#e6db74">:def</span> <span style="color:#f92672">||</span> expr <span style="color:#f92672">==</span> <span style="color:#e6db74">:fn</span> do
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#66d9ef">case</span> <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>get(native_ops, expr) <span style="color:#66d9ef">do</span>
+  <span style="color:#66d9ef">nil</span> <span style="color:#f92672">-&gt;</span> (
+    <span style="color:#66d9ef">if</span> expr <span style="color:#f92672">==</span> <span style="color:#e6db74">:def</span> <span style="color:#f92672">||</span> expr <span style="color:#f92672">==</span> <span style="color:#e6db74">:fn</span> <span style="color:#66d9ef">do</span>
       <span style="color:#e6db74">:ok</span>
-    else
-      case <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>get(scope, expr) do
+    <span style="color:#66d9ef">else</span>
+      <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>get(scope, expr) <span style="color:#66d9ef">do</span>
         %{<span style="color:#e6db74">body</span>: body, <span style="color:#e6db74">params</span>: params} <span style="color:#f92672">-&gt;</span> (
           new_scope <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>zip(params, args)
-            <span style="color:#f92672">|&gt;</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>reduce(scope, fn({key, val}, acc) <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>put(acc, key, val) end)
+            <span style="color:#f92672">|&gt;</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>reduce(scope, <span style="color:#66d9ef">fn</span>({key, val}, acc) <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">Map</span><span style="color:#f92672">.</span>put(acc, key, val) <span style="color:#66d9ef">end</span>)
           eval(body, new_scope)
         )
-        nil <span style="color:#f92672">-&gt;</span> eval(expression, scope)
-      end
-    end
+        <span style="color:#66d9ef">nil</span> <span style="color:#f92672">-&gt;</span> eval(expression, scope)
+      <span style="color:#66d9ef">end</span>
+    <span style="color:#66d9ef">end</span>
   )
   func <span style="color:#f92672">-&gt;</span> eval([func] <span style="color:#f92672">++</span> args, scope)
-end</code></pre></div>
-
+<span style="color:#66d9ef">end</span></code></pre></div>
 <p>Using the <code>Map.get</code> function we&rsquo;ll lookup the <code>expr</code> in our <code>scope</code>. If a case matches the pattern, <code>%{body: body, params: params}</code>, that we defined for our function entries, we need to evaluate the user defined function. Before simply passing the <code>body</code> to our <code>eval</code> function, we&rsquo;ll need to update our <code>scope</code> with the new values. To do so, we&rsquo;ll first use <code>Enum.zip</code> to create a list of tuples containing the parameter name and the value associated with it. In the case of our test, our zipped list would look something like: <code>[{:x, 3}, {:y, 4}]</code>. Using this list we can once again use <code>Enum.reduce</code> to create a new scope that adds the key/value pair of the tuple to our existing scope. Using our new scope, so cleverly titled <code>new_scope</code>, and our <code>body</code> to finally evaluate the expression.</p>
-
 <p>We can now re-run all of our tests:</p>
-
 <pre><code>mix test test/elisper_test.exs                                              0|10:06:43
 ......
 
@@ -528,24 +493,74 @@ Finished in 0.04 seconds (0.04s on load, 0.00s on tests)
 
 Randomized with seed 969698
 </code></pre>
-
 <h4 id="conclusion">Conclusion</h4>
-
 <p>I hope that you enjoyed this blog post and maybe I&rsquo;ve peaked your interest to take a look into Elixir. I&rsquo;ve put the code on <a href="https://github.com/barakyo/elisper">Github</a> to mess around with. Pull requests are welcomed if you want to mess around and add features or clean up the code for me to learn from. :)</p>
-
-  </section>
-</article>
-
-</main>
-
 </div>
-
-<footer>
-  <div class="container">
-    <span class="copyright">&copy; 2019 barakyo - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
-  </div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://barakyo.github.io/tags/elixir">Elixir</a></li>
+      <li><a href="https://barakyo.github.io/tags/lisp">Lisp</a></li>
+    </ul>
+  </footer>
+</article>
+    </main><footer class="footer">
+    <span>&copy; 2020 <a href="https://barakyo.github.io/">barakyo</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
+    <span>&middot;</span>
+    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
 </footer>
+<a href="#top" aria-label="go to top" title="Go to Top" accesskey="g">
+    <button class="top-link" id="top-link" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+            <path d="M12 6H0l6-6z" /></svg>
+    </button>
+</a>
+
+
+<script src="https://barakyo.github.io/assets/js/highlight.min.e7afc2928c0925d65c4732dfebe147014d91299a98e819e4b42f25c4fa68e91c.js" integrity="sha256-56/CkowJJdZcRzLf6&#43;FHAU2RKZqY6BnktC8lxPpo6Rw="></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            document.querySelector(`[id='${id}']`).scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+    });
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+</script>
 
 </body>
-</html>
 
+</html>

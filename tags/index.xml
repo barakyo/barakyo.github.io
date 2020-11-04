@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on barakyo</title>
@@ -6,10 +6,24 @@
     <description>Recent content in Tags on barakyo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 16 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 02 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://barakyo.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Presentations</title>
+      <link>https://barakyo.github.io/tags/presentations/</link>
+      <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://barakyo.github.io/tags/presentations/</guid>
+      <description></description>
+    </item>
     
-	<atom:link href="https://barakyo.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    
+    <item>
+      <title>Tutorial</title>
+      <link>https://barakyo.github.io/tags/tutorial/</link>
+      <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://barakyo.github.io/tags/tutorial/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Advent of Code</title>
@@ -17,33 +31,6 @@
       <pubDate>Wed, 16 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://barakyo.github.io/tags/advent-of-code/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Book Review</title>
-      <link>https://barakyo.github.io/tags/book-review/</link>
-      <pubDate>Wed, 28 Jan 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://barakyo.github.io/tags/book-review/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Databases</title>
-      <link>https://barakyo.github.io/tags/databases/</link>
-      <pubDate>Sun, 08 Dec 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://barakyo.github.io/tags/databases/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Elixir</title>
-      <link>https://barakyo.github.io/tags/elixir/</link>
-      <pubDate>Thu, 17 Sep 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://barakyo.github.io/tags/elixir/</guid>
       <description></description>
     </item>
     
@@ -57,11 +44,20 @@
     </item>
     
     <item>
-      <title>Java</title>
-      <link>https://barakyo.github.io/tags/java/</link>
-      <pubDate>Sun, 06 Apr 2014 00:00:00 +0000</pubDate>
+      <title>New Year Resolutions</title>
+      <link>https://barakyo.github.io/tags/new-year-resolutions/</link>
+      <pubDate>Wed, 16 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/tags/java/</guid>
+      <guid>https://barakyo.github.io/tags/new-year-resolutions/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Elixir</title>
+      <link>https://barakyo.github.io/tags/elixir/</link>
+      <pubDate>Thu, 17 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://barakyo.github.io/tags/elixir/</guid>
       <description></description>
     </item>
     
@@ -75,38 +71,47 @@
     </item>
     
     <item>
-      <title>Mysql</title>
-      <link>https://barakyo.github.io/tags/mysql/</link>
-      <pubDate>Sun, 08 Dec 2013 00:00:00 +0000</pubDate>
+      <title>Book Review</title>
+      <link>https://barakyo.github.io/tags/book-review/</link>
+      <pubDate>Wed, 28 Jan 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/tags/mysql/</guid>
+      <guid>https://barakyo.github.io/tags/book-review/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>New Year Resolutions</title>
-      <link>https://barakyo.github.io/tags/new-year-resolutions/</link>
-      <pubDate>Wed, 16 Jan 2019 00:00:00 +0000</pubDate>
+      <title>Java</title>
+      <link>https://barakyo.github.io/tags/java/</link>
+      <pubDate>Sun, 06 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://barakyo.github.io/tags/new-year-resolutions/</guid>
+      <guid>https://barakyo.github.io/tags/java/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Php</title>
-      <link>https://barakyo.github.io/tags/php/</link>
-      <pubDate>Sun, 10 Nov 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://barakyo.github.io/tags/php/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Play</title>
+      <title>Play!</title>
       <link>https://barakyo.github.io/tags/play/</link>
       <pubDate>Sun, 06 Apr 2014 00:00:00 +0000</pubDate>
       
       <guid>https://barakyo.github.io/tags/play/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Databases</title>
+      <link>https://barakyo.github.io/tags/databases/</link>
+      <pubDate>Sun, 08 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://barakyo.github.io/tags/databases/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MySQL</title>
+      <link>https://barakyo.github.io/tags/mysql/</link>
+      <pubDate>Sun, 08 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://barakyo.github.io/tags/mysql/</guid>
       <description></description>
     </item>
     
@@ -120,11 +125,20 @@
     </item>
     
     <item>
-      <title>Tdd</title>
+      <title>TDD</title>
       <link>https://barakyo.github.io/tags/tdd/</link>
       <pubDate>Sun, 17 Nov 2013 00:00:00 +0000</pubDate>
       
       <guid>https://barakyo.github.io/tags/tdd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PHP</title>
+      <link>https://barakyo.github.io/tags/php/</link>
+      <pubDate>Sun, 10 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://barakyo.github.io/tags/php/</guid>
       <description></description>
     </item>
     

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Development on barakyo</title>
@@ -6,10 +6,16 @@
     <description>Recent content in Development on barakyo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 16 Jan 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://barakyo.github.io/categories/development/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Mon, 02 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://barakyo.github.io/categories/development/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tutorial: Awesome Presentations with CodeHike</title>
+      <link>https://barakyo.github.io/post/2020-11-02-awesome-presentations-with-codehike/</link>
+      <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://barakyo.github.io/post/2020-11-02-awesome-presentations-with-codehike/</guid>
+      <description>Background At work, we&amp;rsquo;ve been focusing on building components that are reusable and more flexible throughout our application. Because of this, we&amp;rsquo;ve been focusing on making components more composable. To really drive that point home, I gave a small presentation using an awesome library called Code Hike.
+If you haven&amp;rsquo;t seen Code Hike before, you should definitely stop right here and at least give Rodrigo Pombo&amp;rsquo;s (the author of Code Hike) amazing article on Build Your Own React a quick look.</description>
+    </item>
     
     <item>
       <title>Advent of Code: Day 1</title>
