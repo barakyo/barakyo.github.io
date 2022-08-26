@@ -12,11 +12,11 @@
 Problem Essentially, Day 1 of AoC boiled down into parsing an input file of integers and finding two things:">
 <meta name="author" content="">
 <link rel="canonical" href="https://barakyo.io/post/2019-01-16-aoc-day-1/" />
-<link href="https://barakyo.io/assets/css/stylesheet.min.423a3f936d3c2f8ed2a09c09b14e77af788d634dc55def0398bdf279b1cfa624.css" integrity="sha256-Qjo/k208L47SoJwJsU53r3iNY03FXe8DmL3yebHPpiQ=" rel="preload stylesheet"
+<link href="https://barakyo.io/assets/css/stylesheet.min.ae0add9f94afd14194ff1e1dc2d301683b44ac009d56a89c4f818ee4d398f3e7.css" integrity="sha256-rgrdn5Sv0UGU/x4dwtMBaDtErACdVqicT4GO5NOY8&#43;c=" rel="preload stylesheet"
     as="style">
 <link rel="apple-touch-icon" href="https://barakyo.io/apple-touch-icon.png">
 <link rel="icon" href="https://barakyo.io/favicon.ico">
-<meta name="generator" content="Hugo 0.77.0" />
+<meta name="generator" content="Hugo 0.101.0" />
 
 
 
@@ -104,7 +104,7 @@ finding two things:</p>
 <li>The first duplicate sum value in the list. (I&rsquo;ll explain more on this later)</li>
 </ol>
 <p>The only gotcha was that the list looked something like:</p>
-<pre><code>+13
+<pre tabindex="0"><code>+13
 -7
 -17
 +12
@@ -114,50 +114,50 @@ finding two things:</p>
 Since I&rsquo;m not familiar with Haskell, I wasn&rsquo;t sure how it was going to handle
 trying to parse an input like <code>&quot;+1&quot;</code>, so I pulled up a REPL and decided to test
 this out:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">Prelude</span><span style="color:#f92672">&gt;</span> read <span style="color:#e6db74">&#34;+1&#34;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span>
-<span style="color:#f92672">***</span> <span style="color:#66d9ef">Exception:</span> <span style="color:#66d9ef">Prelude</span><span style="color:#f92672">.</span>read<span style="color:#66d9ef">:</span> no parse</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-haskell" data-lang="haskell"><span style="display:flex;"><span><span style="color:#66d9ef">Prelude</span><span style="color:#f92672">&gt;</span> read <span style="color:#e6db74">&#34;+1&#34;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">***</span> <span style="color:#66d9ef">Exception:</span> <span style="color:#66d9ef">Prelude</span><span style="color:#f92672">.</span>read<span style="color:#66d9ef">:</span> no parse</span></span></code></pre></div>
 <p>Hmm no luck. What about negative numbers though?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">Prelude</span><span style="color:#f92672">&gt;</span> read <span style="color:#e6db74">&#34;-1&#34;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span>
-<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-haskell" data-lang="haskell"><span style="display:flex;"><span><span style="color:#66d9ef">Prelude</span><span style="color:#f92672">&gt;</span> read <span style="color:#e6db74">&#34;-1&#34;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span></span></span></code></pre></div>
 <p>Okay easy enough, I can just parse negative numbers as I read them and for
 positive values, just strip the <code>+</code> sign.</p>
 <p>Since I come from the Elixir world, I know in Elixir I can do something like:
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">iex(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">&gt;</span> &lt;&lt;<span style="color:#e6db74">&#34;+&#34;</span>, val<span style="color:#f92672">::</span>binary&gt;&gt; <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;+1&#34;</span>
-<span style="color:#e6db74">&#34;+1&#34;</span>
-iex(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">&gt;</span> val
-<span style="color:#e6db74">&#34;1&#34;</span></code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-elixir" data-lang="elixir"><span style="display:flex;"><span>iex(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">&gt;</span> &lt;&lt;<span style="color:#e6db74">&#34;+&#34;</span>, val<span style="color:#f92672">::</span>binary&gt;&gt; <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;+1&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;+1&#34;</span>
+</span></span><span style="display:flex;"><span>iex(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">&gt;</span> val
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;1&#34;</span></span></span></code></pre></div></p>
 <p>Turns out, Haskell has some similar pattern matching. To get an idea for this,
 I continued to test it out in the REPL</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">Prelude</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">let</span> <span style="color:#e6db74">&#39;+&#39;</span><span style="color:#66d9ef">:</span>val <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;+1&#34;</span>
-<span style="color:#66d9ef">Prelude</span><span style="color:#f92672">&gt;</span> val
-<span style="color:#e6db74">&#34;1&#34;</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-haskell" data-lang="haskell"><span style="display:flex;"><span><span style="color:#66d9ef">Prelude</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">let</span> <span style="color:#e6db74">&#39;+&#39;</span><span style="color:#66d9ef">:</span>val <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;+1&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Prelude</span><span style="color:#f92672">&gt;</span> val
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;1&#34;</span></span></span></code></pre></div>
 <p>Knowing this, I wrote my first function. The function <code>parseIntPrefix</code> would
 accept a <code>String</code> and return an <code>Integer</code>. Using pattern matching, I could make
 this function pretty simple.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">parseIntPrefix</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Integer</span>
-<span style="color:#a6e22e">parseIntPrefix</span> (<span style="color:#e6db74">&#39;+&#39;</span> <span style="color:#66d9ef">:</span> num) <span style="color:#f92672">=</span> read num <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span>
-<span style="color:#a6e22e">parseIntPrefix</span> num <span style="color:#f92672">=</span> read num <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-haskell" data-lang="haskell"><span style="display:flex;"><span><span style="color:#a6e22e">parseIntPrefix</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Integer</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">parseIntPrefix</span> (<span style="color:#e6db74">&#39;+&#39;</span> <span style="color:#66d9ef">:</span> num) <span style="color:#f92672">=</span> read num <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">parseIntPrefix</span> num <span style="color:#f92672">=</span> read num <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span></span></span></code></pre></div>
 <p>Now I&rsquo;ll just have to read lines from the file and sum them up. To do that, I
 used the <code>readFile</code> function and <code>lines</code> to split that input into a list of
 lines. We can then simply map over this list to convert our frequencies
 from <code>String</code>s to <code>Integer</code>s. Finally, we can the use the <code>sum</code> function to
 add them all up.</p>
 <p>Doing that, gives us</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">module</span> Main <span style="color:#66d9ef">where</span>
-
-<span style="color:#a6e22e">parseIntPrefix</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Integer</span>
-<span style="color:#a6e22e">parseIntPrefix</span> (<span style="color:#e6db74">&#39;+&#39;</span> <span style="color:#66d9ef">:</span> num) <span style="color:#f92672">=</span> read num <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span>
-<span style="color:#a6e22e">parseIntPrefix</span> num <span style="color:#f92672">=</span> read num <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span>
-
-<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
-  content <span style="color:#f92672">&lt;-</span> readFile <span style="color:#e6db74">&#34;day1_input.txt&#34;</span>
-  <span style="color:#66d9ef">let</span> sumFreq <span style="color:#f92672">=</span> sum <span style="color:#f92672">$</span> map parseIntPrefix (lines content)</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-haskell" data-lang="haskell"><span style="display:flex;"><span><span style="color:#66d9ef">module</span> Main <span style="color:#66d9ef">where</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">parseIntPrefix</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Integer</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">parseIntPrefix</span> (<span style="color:#e6db74">&#39;+&#39;</span> <span style="color:#66d9ef">:</span> num) <span style="color:#f92672">=</span> read num <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">parseIntPrefix</span> num <span style="color:#f92672">=</span> read num <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>  content <span style="color:#f92672">&lt;-</span> readFile <span style="color:#e6db74">&#34;day1_input.txt&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> sumFreq <span style="color:#f92672">=</span> sum <span style="color:#f92672">$</span> map parseIntPrefix (lines content)</span></span></code></pre></div>
 <h3 id="part-2">Part 2</h3>
 <p>I didn&rsquo;t have a great summarization of Part 2 of Day 1 in the above section, so
 I&rsquo;ll try to explain it more detail here. Essentially, we need to keep the
 accumlated value while we add up all the values in the list. We then need to
 find the first duplicate accumlated value. If you consider a list like</p>
-<pre><code>+2
+<pre tabindex="0"><code>+2
 +2
 -4
 +1
@@ -180,18 +180,18 @@ iteration through the list</li>
 <li>A set of all the accumlated frequencies we&rsquo;ve seen so far</li>
 </ul>
 <p>Our type signature then looks like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">findDuplicateFrequency</span> <span style="color:#f92672">::</span> [<span style="color:#66d9ef">Integer</span>] <span style="color:#f92672">-&gt;</span> [<span style="color:#66d9ef">Integer</span>] <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Integer</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Set</span> <span style="color:#66d9ef">Integer</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Integer</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-haskell" data-lang="haskell"><span style="display:flex;"><span><span style="color:#a6e22e">findDuplicateFrequency</span> <span style="color:#f92672">::</span> [<span style="color:#66d9ef">Integer</span>] <span style="color:#f92672">-&gt;</span> [<span style="color:#66d9ef">Integer</span>] <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Integer</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Set</span> <span style="color:#66d9ef">Integer</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Integer</span></span></span></code></pre></div>
 <p>Usually with recursive functions, we define our base case first. Typically,
 the case is when we&rsquo;ve gotten to the end of a list, but for this function that
 isn&rsquo;t, ermm, the case. The base case would be if the next calculated frequency
 is in the set of previous frequencies, if not then we need to continue
 searching. Keeping that in mind, our base case looks like:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">findDuplicateFrequency</span> (freq<span style="color:#66d9ef">:</span>frequencies) freqs lastFreq freqSet <span style="color:#f92672">=</span>
-  <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">Set</span><span style="color:#f92672">.</span>member nextFreq freqSet <span style="color:#75715e">-- 3</span>
-    <span style="color:#66d9ef">then</span> nextFreq <span style="color:#75715e">-- 4</span>
-    <span style="color:#66d9ef">else</span> findDuplicateFrequency frequencies freqs nextFreq updatedSet <span style="color:#75715e">-- 5</span>
-  <span style="color:#66d9ef">where</span> nextFreq <span style="color:#f92672">=</span> lastFreq <span style="color:#f92672">+</span> freq <span style="color:#75715e">-- 1</span>
-        updatedSet <span style="color:#f92672">=</span> <span style="color:#66d9ef">Set</span><span style="color:#f92672">.</span>insert nextFreq freqSet <span style="color:#75715e">-- 2</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-haskell" data-lang="haskell"><span style="display:flex;"><span><span style="color:#a6e22e">findDuplicateFrequency</span> (freq<span style="color:#66d9ef">:</span>frequencies) freqs lastFreq freqSet <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">Set</span><span style="color:#f92672">.</span>member nextFreq freqSet <span style="color:#75715e">-- 3</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">then</span> nextFreq <span style="color:#75715e">-- 4</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> findDuplicateFrequency frequencies freqs nextFreq updatedSet <span style="color:#75715e">-- 5</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">where</span> nextFreq <span style="color:#f92672">=</span> lastFreq <span style="color:#f92672">+</span> freq <span style="color:#75715e">-- 1</span>
+</span></span><span style="display:flex;"><span>        updatedSet <span style="color:#f92672">=</span> <span style="color:#66d9ef">Set</span><span style="color:#f92672">.</span>insert nextFreq freqSet <span style="color:#75715e">-- 2</span></span></span></code></pre></div>
 <p>Let&rsquo;s break down what&rsquo;s going on here:</p>
 <ol>
 <li>We calculate our next frequency <code>nextFreq</code> by adding the previous frequency
@@ -213,32 +213,32 @@ found while in the middle of processing the list.</p>
 <p>To handle this case then we need to handle the case of when we&rsquo;ve gone through
 the entire list of frequencies. At this point, we simply need to recursively
 call our function with our original list of frequencies, which looks like:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">findDuplicateFrequency</span> <span style="color:#66d9ef">[]</span> freqs lastFreq frequencySet <span style="color:#f92672">=</span>
-  findDuplicateFrequency freqs freqs lastFreq frequencySet</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-haskell" data-lang="haskell"><span style="display:flex;"><span><span style="color:#a6e22e">findDuplicateFrequency</span> <span style="color:#66d9ef">[]</span> freqs lastFreq frequencySet <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  findDuplicateFrequency freqs freqs lastFreq frequencySet</span></span></code></pre></div>
 <p>Putting it all together, it looks like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">module</span> Main <span style="color:#66d9ef">where</span>
-
-<span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> Data.Set <span style="color:#66d9ef">as</span> Set
-
-<span style="color:#a6e22e">parseIntPrefix</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Integer</span>
-<span style="color:#a6e22e">parseIntPrefix</span> (<span style="color:#e6db74">&#39;+&#39;</span> <span style="color:#66d9ef">:</span> num) <span style="color:#f92672">=</span> read num <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span>
-<span style="color:#a6e22e">parseIntPrefix</span> num <span style="color:#f92672">=</span> read num <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span>
-
-<span style="color:#a6e22e">findDuplicateFrequency</span> <span style="color:#f92672">::</span> [<span style="color:#66d9ef">Integer</span>] <span style="color:#f92672">-&gt;</span> [<span style="color:#66d9ef">Integer</span>] <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Integer</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Set</span> <span style="color:#66d9ef">Integer</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Integer</span>
-<span style="color:#a6e22e">findDuplicateFrequency</span> <span style="color:#66d9ef">[]</span> freqs lastFreq frequencySet <span style="color:#f92672">=</span>
-  findDuplicateFrequency freqs freqs lastFreq frequencySet
-<span style="color:#a6e22e">findDuplicateFrequency</span> (freq<span style="color:#66d9ef">:</span>frequencies) freqs lastFreq freqSet <span style="color:#f92672">=</span>
-  <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">Set</span><span style="color:#f92672">.</span>member nextFreq freqSet
-    <span style="color:#66d9ef">then</span> nextFreq
-    <span style="color:#66d9ef">else</span> findDuplicateFrequency frequencies freqs nextFreq updatedSet
-  <span style="color:#66d9ef">where</span> nextFreq <span style="color:#f92672">=</span> lastFreq <span style="color:#f92672">+</span> freq
-        updatedSet <span style="color:#f92672">=</span> <span style="color:#66d9ef">Set</span><span style="color:#f92672">.</span>insert nextFreq freqSet
-
-<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
-  content <span style="color:#f92672">&lt;-</span> readFile <span style="color:#e6db74">&#34;day1_input.txt&#34;</span>
-  <span style="color:#66d9ef">let</span> frequencies <span style="color:#f92672">=</span> map parseIntPrefix (lines content)
-  <span style="color:#66d9ef">let</span> dupFreq <span style="color:#f92672">=</span> findDuplicateFrequency frequencies frequencies <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">Set</span><span style="color:#f92672">.</span>empty
-  print dupFreq</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-haskell" data-lang="haskell"><span style="display:flex;"><span><span style="color:#66d9ef">module</span> Main <span style="color:#66d9ef">where</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> Data.Set <span style="color:#66d9ef">as</span> Set
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">parseIntPrefix</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Integer</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">parseIntPrefix</span> (<span style="color:#e6db74">&#39;+&#39;</span> <span style="color:#66d9ef">:</span> num) <span style="color:#f92672">=</span> read num <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">parseIntPrefix</span> num <span style="color:#f92672">=</span> read num <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">findDuplicateFrequency</span> <span style="color:#f92672">::</span> [<span style="color:#66d9ef">Integer</span>] <span style="color:#f92672">-&gt;</span> [<span style="color:#66d9ef">Integer</span>] <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Integer</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Set</span> <span style="color:#66d9ef">Integer</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Integer</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">findDuplicateFrequency</span> <span style="color:#66d9ef">[]</span> freqs lastFreq frequencySet <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  findDuplicateFrequency freqs freqs lastFreq frequencySet
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">findDuplicateFrequency</span> (freq<span style="color:#66d9ef">:</span>frequencies) freqs lastFreq freqSet <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">Set</span><span style="color:#f92672">.</span>member nextFreq freqSet
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">then</span> nextFreq
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> findDuplicateFrequency frequencies freqs nextFreq updatedSet
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">where</span> nextFreq <span style="color:#f92672">=</span> lastFreq <span style="color:#f92672">+</span> freq
+</span></span><span style="display:flex;"><span>        updatedSet <span style="color:#f92672">=</span> <span style="color:#66d9ef">Set</span><span style="color:#f92672">.</span>insert nextFreq freqSet
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>  content <span style="color:#f92672">&lt;-</span> readFile <span style="color:#e6db74">&#34;day1_input.txt&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> frequencies <span style="color:#f92672">=</span> map parseIntPrefix (lines content)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> dupFreq <span style="color:#f92672">=</span> findDuplicateFrequency frequencies frequencies <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">Set</span><span style="color:#f92672">.</span>empty
+</span></span><span style="display:flex;"><span>  print dupFreq</span></span></code></pre></div>
 </div>
   <footer class="post-footer">
     <ul class="post-tags">
@@ -249,7 +249,7 @@ call our function with our original list of frequencies, which looks like:</p>
   </footer>
 </article>
     </main><footer class="footer">
-    <span>&copy; 2020 <a href="https://barakyo.io/">barakyo</a></span>
+    <span>&copy; 2022 <a href="https://barakyo.io/">barakyo</a></span>
     <span>&middot;</span>
     <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
     <span>&middot;</span>
@@ -263,7 +263,7 @@ call our function with our original list of frequencies, which looks like:</p>
 </a>
 
 
-<script src="https://barakyo.io/assets/js/highlight.min.e7afc2928c0925d65c4732dfebe147014d91299a98e819e4b42f25c4fa68e91c.js" integrity="sha256-56/CkowJJdZcRzLf6&#43;FHAU2RKZqY6BnktC8lxPpo6Rw="></script>
+<script src="https://barakyo.io/assets/js/highlight.min.08c77330f7475789ca606dceabf303ddf796b2f8bb9b3aa8010930d11892396a.js" integrity="sha256-CMdzMPdHV4nKYG3Oq/MD3feWsvi7mzqoAQkw0RiSOWo="></script>
 <script>hljs.initHighlightingOnLoad();</script>
 <script>
     window.onload = function () {

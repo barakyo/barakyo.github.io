@@ -12,11 +12,11 @@
 I figured that I may not be the only in this position, judging by the questions in the IRC channel and lack of responses, I figured it may be a good idea to jot down some of my notes, not only for myself, my coworkers, but for all my fellow Play framework noobs.">
 <meta name="author" content="">
 <link rel="canonical" href="https://barakyo.io/post/2014-04-06-play-framework-returning-json-response/" />
-<link href="https://barakyo.io/assets/css/stylesheet.min.423a3f936d3c2f8ed2a09c09b14e77af788d634dc55def0398bdf279b1cfa624.css" integrity="sha256-Qjo/k208L47SoJwJsU53r3iNY03FXe8DmL3yebHPpiQ=" rel="preload stylesheet"
+<link href="https://barakyo.io/assets/css/stylesheet.min.ae0add9f94afd14194ff1e1dc2d301683b44ac009d56a89c4f818ee4d398f3e7.css" integrity="sha256-rgrdn5Sv0UGU/x4dwtMBaDtErACdVqicT4GO5NOY8&#43;c=" rel="preload stylesheet"
     as="style">
 <link rel="apple-touch-icon" href="https://barakyo.io/apple-touch-icon.png">
 <link rel="icon" href="https://barakyo.io/favicon.ico">
-<meta name="generator" content="Hugo 0.77.0" />
+<meta name="generator" content="Hugo 0.101.0" />
 
 
 
@@ -96,23 +96,23 @@ I figured that I may not be the only in this position, judging by the questions 
 <p>I figured that I may not be the only in this position, judging by the questions in the IRC channel and lack of responses, I figured it may be a good idea to jot down some of my notes, not only for myself, my coworkers, but for all my fellow Play framework noobs. Apologies for the introduction, I&rsquo;ll try to keep the rest of this posts and the futures, short, succinct, and to the point.</p>
 <h2 id="tldr">tl;dr</h2>
 <p>Use ObjectNode class found in the <code>com.fasterxml.jackson.databind.node.ObjectNode</code> package.
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#f92672">import</span> com.fasterxml.jackson.databind.node.ObjectNode<span style="color:#f92672">;</span>
-
-    ObjectNode response <span style="color:#f92672">=</span> Json<span style="color:#f92672">.</span><span style="color:#a6e22e">newObject</span><span style="color:#f92672">();</span>
-    response<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;status&#34;</span><span style="color:#f92672">,</span> 200<span style="color:#f92672">);</span>
-    response<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;message&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Request was successful&#34;</span><span style="color:#f92672">);</span>
-    response<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;data&#34;</span><span style="color:#f92672">,</span> Json<span style="color:#f92672">.</span><span style="color:#a6e22e">toJson</span><span style="color:#f92672">(</span>users<span style="color:#f92672">));</span>
-    <span style="color:#66d9ef">return</span> ok<span style="color:#f92672">(</span>response<span style="color:#f92672">);</span></code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>    <span style="color:#f92672">import</span> com.fasterxml.jackson.databind.node.ObjectNode<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ObjectNode response <span style="color:#f92672">=</span> Json<span style="color:#f92672">.</span><span style="color:#a6e22e">newObject</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    response<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;status&#34;</span><span style="color:#f92672">,</span> 200<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    response<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;message&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Request was successful&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    response<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;data&#34;</span><span style="color:#f92672">,</span> Json<span style="color:#f92672">.</span><span style="color:#a6e22e">toJson</span><span style="color:#f92672">(</span>users<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> ok<span style="color:#f92672">(</span>response<span style="color:#f92672">);</span></span></span></code></pre></div></p>
 <h2 id="using-objectnode">Using ObjectNode</h2>
 <p>To easily return mixed response types, I suggest using the <code>ObjectNode</code> class found in the <code>com.fasterxml.jackson.databind.node.ObjectNode</code> package. Using the class is simple, first instantiate an object:
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    ObjectNode response <span style="color:#f92672">=</span> Json<span style="color:#f92672">.</span><span style="color:#a6e22e">newObject</span><span style="color:#f92672">();</span></code></pre></div> <br>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>    ObjectNode response <span style="color:#f92672">=</span> Json<span style="color:#f92672">.</span><span style="color:#a6e22e">newObject</span><span style="color:#f92672">();</span></span></span></code></pre></div> <br>
 From there, you can treat the object similar to a map but using <code>put()</code> function.
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    response<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;status&#34;</span><span style="color:#f92672">,</span> 200<span style="color:#f92672">);</span>
-    response<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;message&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Request was successful&#34;</span><span style="color:#f92672">);</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>    response<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;status&#34;</span><span style="color:#f92672">,</span> 200<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    response<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;message&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Request was successful&#34;</span><span style="color:#f92672">);</span></span></span></code></pre></div>
 Often times we want to return an object or array of objects. Using the <code>Json.toJson()</code> function found in <code>play.libs.Json</code> we can easily convert objects or lists of objects to be included in our JSON response.
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    response<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;data&#34;</span><span style="color:#f92672">,</span> Json<span style="color:#f92672">.</span><span style="color:#a6e22e">toJson</span><span style="color:#f92672">(</span>users<span style="color:#f92672">));</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>    response<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;data&#34;</span><span style="color:#f92672">,</span> Json<span style="color:#f92672">.</span><span style="color:#a6e22e">toJson</span><span style="color:#f92672">(</span>users<span style="color:#f92672">));</span></span></span></code></pre></div>
 Finally, you&rsquo;ll probably want to use the static return response methods to easily return our JSON response.
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#66d9ef">return</span> ok<span style="color:#f92672">(</span>response<span style="color:#f92672">);</span></code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> ok<span style="color:#f92672">(</span>response<span style="color:#f92672">);</span></span></span></code></pre></div></p>
 </div>
   <footer class="post-footer">
     <ul class="post-tags">
@@ -122,7 +122,7 @@ Finally, you&rsquo;ll probably want to use the static return response methods to
   </footer>
 </article>
     </main><footer class="footer">
-    <span>&copy; 2020 <a href="https://barakyo.io/">barakyo</a></span>
+    <span>&copy; 2022 <a href="https://barakyo.io/">barakyo</a></span>
     <span>&middot;</span>
     <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
     <span>&middot;</span>
@@ -136,7 +136,7 @@ Finally, you&rsquo;ll probably want to use the static return response methods to
 </a>
 
 
-<script src="https://barakyo.io/assets/js/highlight.min.e7afc2928c0925d65c4732dfebe147014d91299a98e819e4b42f25c4fa68e91c.js" integrity="sha256-56/CkowJJdZcRzLf6&#43;FHAU2RKZqY6BnktC8lxPpo6Rw="></script>
+<script src="https://barakyo.io/assets/js/highlight.min.08c77330f7475789ca606dceabf303ddf796b2f8bb9b3aa8010930d11892396a.js" integrity="sha256-CMdzMPdHV4nKYG3Oq/MD3feWsvi7mzqoAQkw0RiSOWo="></script>
 <script>hljs.initHighlightingOnLoad();</script>
 <script>
     window.onload = function () {

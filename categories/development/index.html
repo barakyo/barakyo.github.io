@@ -11,11 +11,11 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="canonical" href="https://barakyo.io/categories/development/" />
-<link href="https://barakyo.io/assets/css/stylesheet.min.423a3f936d3c2f8ed2a09c09b14e77af788d634dc55def0398bdf279b1cfa624.css" integrity="sha256-Qjo/k208L47SoJwJsU53r3iNY03FXe8DmL3yebHPpiQ=" rel="preload stylesheet"
+<link href="https://barakyo.io/assets/css/stylesheet.min.ae0add9f94afd14194ff1e1dc2d301683b44ac009d56a89c4f818ee4d398f3e7.css" integrity="sha256-rgrdn5Sv0UGU/x4dwtMBaDtErACdVqicT4GO5NOY8&#43;c=" rel="preload stylesheet"
     as="style">
 <link rel="apple-touch-icon" href="https://barakyo.io/apple-touch-icon.png">
 <link rel="icon" href="https://barakyo.io/favicon.ico">
-<meta name="generator" content="Hugo 0.77.0" />
+<meta name="generator" content="Hugo 0.101.0" />
 <link rel="alternate" type="application/rss&#43;xml" href="https://barakyo.io/categories/development/index.xml">
 
 
@@ -140,7 +140,7 @@ Problem Essentially, Day 1 of AoC boiled down into parsing an input file of inte
   </header>
   <section class="entry-content">
     <p>tl;dr I suggest using ObjectMapper found in the com.fasterxml.jackson.databind.ObjectMapper
-ObjectMapper mapper = new ObjectMapper(); try { JsonNode root = request().body().asJson(); JsonNode jsonPhoneNumbers = root.get(&#34;phoneNumbers&#34;); for(JsonNode phoneNumberString : jsonPhoneNumbers) { String phoneNumber = phoneNumberString.asText(); } catch (NullPointerException npe) { // No valid phone numbers were provided  } Using ObjectMapper For parsing arrays in JSON requests, I suggest using the ObjectMapper. Assuming you have a request that looks like:
+ObjectMapper mapper = new ObjectMapper(); try { JsonNode root = request().body().asJson(); JsonNode jsonPhoneNumbers = root.get(&#34;phoneNumbers&#34;); for(JsonNode phoneNumberString : jsonPhoneNumbers) { String phoneNumber = phoneNumberString.asText(); } catch (NullPointerException npe) { // No valid phone numbers were provided } Using ObjectMapper For parsing arrays in JSON requests, I suggest using the ObjectMapper. Assuming you have a request that looks like:
 { &#34;phoneNumbers&#34;: [ &#34;555-555-5555&#34;, &#34;555-555-5556&#34;, &#34;555-555-5557&#34; ] } We can easily access the phone number values by using ObjectMapper class....</p>
   </section>
   <footer class="entry-footer">April 6, 2014
@@ -186,7 +186,7 @@ I figured that I may not be the only in this position, judging by the questions 
   <section class="entry-content">
     <p>While browsing /r/javascript Thursday night, I came across a post regrading a mildly interesting interview question which had to do with flattening a Javascript object to a URI.
 Two things immediately jumped into my mind:
- I have to show one of my coworkers. This would make a “midly interesting” Python challenge!  Friday morning, the first thing I did when I got into work was write the challenge on our white board and my solution in Python....</p>
+I have to show one of my coworkers. This would make a “midly interesting” Python challenge! Friday morning, the first thing I did when I got into work was write the challenge on our white board and my solution in Python....</p>
   </section>
   <footer class="entry-footer">November 17, 2013
 </footer>
@@ -215,7 +215,7 @@ Two things immediately jumped into my mind:
   </header>
   <section class="entry-content">
     <p>Besides writing test cases just because “everyone else is”, we should be writing test cases since they’ll help create a stronger trust in our code that our functions are doing what they should be doing.
-Requirements  PHP PHPUnit (you will most likely need a global install) Test Cases (DUH)  Helpers Helpers are a set of classes that we create to take care of common mundane tasks. For example, the User Helper for testing provides functions for returning a user with a specified role or easily create a new user with the specified role if one does not exist or the user requests one....</p>
+Requirements PHP PHPUnit (you will most likely need a global install) Test Cases (DUH) Helpers Helpers are a set of classes that we create to take care of common mundane tasks. For example, the User Helper for testing provides functions for returning a user with a specified role or easily create a new user with the specified role if one does not exist or the user requests one....</p>
   </section>
   <footer class="entry-footer">November 10, 2013
 </footer>
@@ -237,7 +237,7 @@ Requirements  PHP PHPUnit (you will most likely need a global install) Test Case
 </article>
 
     </main><footer class="footer">
-    <span>&copy; 2020 <a href="https://barakyo.io/">barakyo</a></span>
+    <span>&copy; 2022 <a href="https://barakyo.io/">barakyo</a></span>
     <span>&middot;</span>
     <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
     <span>&middot;</span>

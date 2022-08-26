@@ -14,7 +14,7 @@
       
       <guid>https://barakyo.io/post/2014-04-06-play-framework-parsing-json/</guid>
       <description>tl;dr I suggest using ObjectMapper found in the com.fasterxml.jackson.databind.ObjectMapper
-ObjectMapper mapper = new ObjectMapper(); try { JsonNode root = request().body().asJson(); JsonNode jsonPhoneNumbers = root.get(&amp;#34;phoneNumbers&amp;#34;); for(JsonNode phoneNumberString : jsonPhoneNumbers) { String phoneNumber = phoneNumberString.asText(); } catch (NullPointerException npe) { // No valid phone numbers were provided  } Using ObjectMapper For parsing arrays in JSON requests, I suggest using the ObjectMapper. Assuming you have a request that looks like:
+ObjectMapper mapper = new ObjectMapper(); try { JsonNode root = request().body().asJson(); JsonNode jsonPhoneNumbers = root.get(&amp;#34;phoneNumbers&amp;#34;); for(JsonNode phoneNumberString : jsonPhoneNumbers) { String phoneNumber = phoneNumberString.asText(); } catch (NullPointerException npe) { // No valid phone numbers were provided } Using ObjectMapper For parsing arrays in JSON requests, I suggest using the ObjectMapper. Assuming you have a request that looks like:
 { &amp;#34;phoneNumbers&amp;#34;: [ &amp;#34;555-555-5555&amp;#34;, &amp;#34;555-555-5556&amp;#34;, &amp;#34;555-555-5557&amp;#34; ] } We can easily access the phone number values by using ObjectMapper class.</description>
     </item>
     

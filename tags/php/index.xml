@@ -14,7 +14,7 @@
       
       <guid>https://barakyo.io/post/2013-11-10-writing-test-cases-for-laravel/</guid>
       <description>Besides writing test cases just because &amp;ldquo;everyone else is&amp;rdquo;, we should be writing test cases since they&amp;rsquo;ll help create a stronger trust in our code that our functions are doing what they should be doing.
-Requirements  PHP PHPUnit (you will most likely need a global install) Test Cases (DUH)  Helpers Helpers are a set of classes that we create to take care of common mundane tasks. For example, the User Helper for testing provides functions for returning a user with a specified role or easily create a new user with the specified role if one does not exist or the user requests one.</description>
+Requirements PHP PHPUnit (you will most likely need a global install) Test Cases (DUH) Helpers Helpers are a set of classes that we create to take care of common mundane tasks. For example, the User Helper for testing provides functions for returning a user with a specified role or easily create a new user with the specified role if one does not exist or the user requests one.</description>
     </item>
     
   </channel>
